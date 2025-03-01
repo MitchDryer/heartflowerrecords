@@ -91,6 +91,13 @@ audio {
 
 }
 
+.profile_img {
+	display: block;
+	width: 50%;
+	height:50%;
+	margin: auto;
+}
+
 .release_img {
 	display: block;
 	width: 50%;
