@@ -53,6 +53,13 @@ audio {
 	background-color: #e56a70ff;
 }
 
+.WITGEPK {
+	background-color: #191d1a;
+	color: white;
+	
+}
+
+
 .main_contact {
 	background-color: #eec51bff;
 }
@@ -77,6 +84,12 @@ audio {
 	padding: 5px;
 	background-color: #162c11;
 	color: white;
+}
+
+.WITG_box {
+	padding: 5px;
+	background-color: #dedfdf;
+	color: black;
 }
 
 
