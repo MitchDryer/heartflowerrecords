@@ -1,40 +1,80 @@
 <!DOCTYPE html>
-<html lang=“en”>
-	<head>
-		<meta charset=“UTF-8”>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="./styles.css">
-		<style>
-			body {
-				background-image: url("./media/flower_bg_4.png");
-		}
-		</style>
-		<title>Heartflower Records - About</title>
-		<link rel="icon" href="./media/favicon.png">
-	</head>
-	<body>
-		<header>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    body {
+      background-image: url("./media/flower_bg_4.png");
+    }
+  </style>
+  <title>Heartflower Records - About</title>
+  <link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+  <header>
+    <!--
+    <img class="title_img" src="./media/buttons/about.svg" alt="heartflower logo">
+    -->
+    <a class="menu" href="index.html">
+      <img
+        class="title_img"
+        src="./media/buttons/about.svg"
+        alt="about button"
+        onmouseover="this.src='./media/buttons/aboutB.svg'"
+        onmouseout="this.src='./media/buttons/about.svg'"
+        onmousedown="this.src='./media/buttons/about.svg'"
+      >
+    </a>
+  </header>
 
-		<!--
-			<img class="title_img" src="./media/buttons/about.svg" alt="heartflower logo" alt="about title">
-		-->
+  <main class="main_about">
+    <p>Heartflower Records is a budding home for DIY, self made, and heart opening music.</p>
+    <p>If you think your music would fit here, get in touch!</p>
+  </main>
 
-		<a class="menu" href="index.html"><img class="title_img" src="./media/buttons/about.svg" alt="about button" onmouseover="this.src='./media/buttons/aboutB.svg'" onmouseout="this.src='./media/buttons/about.svg'" onmousedown="this.src='./media/buttons/about.svg'"></a>
+  <div class="aboutgame">
+    <div>
+      <span class="emoji-option" onclick="play('🌸')">🌸</span>
+      <span class="emoji-option" onclick="play('🍃')">🍃</span>
+      <span class="emoji-option" onclick="play('💧')">💧</span>
+    </div>
 
-		</header>
-		<main class="main_about">
-			<p>Heartflower Records is an independent record label based in Melbourne, Australia.  </p>
-			<p>Here creativity is understood as the natural flow of unrestricted life, and the products of creativity are simply symbols within the heart of this creative force.</p>
-			<p>Perfect creations are never the goal because although flowers can be admired as beautiful expressions of nature, true creative freedom is found within the abundant totality of the entire garden.</p>
+    <div id="result">tend to the garden</div>
+    <div id="wins">0</div> 
 
-		</main>
-	
-	</body>
+    <script>
+      let winCount = 0;
 
+      function play(player) {
+        const options = ['🌸', '🍃', '💧'];
+        const cpu = options[Math.floor(Math.random() * options.length)];
+        const result = document.getElementById('result');
 
+        const win =
+          (player === '🌸' && cpu === '🍃') ||
+          (player === '🍃' && cpu === '💧') ||
+          (player === '💧' && cpu === '🌸');
+
+        if (win) {
+          winCount++;
+          result.textContent = `You chose ${player}, and the garden has ${cpu}. Good job!`;
+        } else if (player === cpu) {
+          winCount = 0;
+          result.textContent = `You bring ${player}, but the garden has plenty.`;
+        } else {
+          winCount = 0;
+          result.textContent = `You chose ${player}, but the garden needs ${cpu}. Sorry.`;
+        }
+
+        document.getElementById('wins').textContent = `${winCount}`;
+
+        if (winCount >= 2) {
+          window.location.href = "flowergrower.html";
+        }
+      }
+    </script>
+  </div>
+</body>
 </html>
-
-
-
-
-

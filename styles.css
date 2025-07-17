@@ -1,165 +1,204 @@
+a {
+  text-decoration: none; /* removes underline */
+  color: inherit;        /* makes link use same color as surrounding text */
+}
+
 body {
-	
-	color: #000000;
-	background-size: cover;
-	background-position: center top;
-	background-repeat: repeat;
-	font-family: marion;
+  color: #000000;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: repeat;
+  font-family: marion;
 }
 
 h1, h2, h3, p {
-	text-align: center;
+  text-align: center;
 }
 
 header {
-	justify-content: center;
-	width: 80%;
-	padding: 10px 10px 100px 10px;
-	margin: auto;
-	border-top: 80px;
+  justify-content: center;
+  width: 80%;
+  padding: 10px 10px 100px 10px;
+  margin: auto;
+  border-top: 80px;
 }
 
 main {
-	justify-content: center;
-	width: 60%;
-	max-width: 600px;
-	min-width: 200px;
-	padding: 10px 10px;
-	margin: auto;
-/*
-	font-size: 40pt;
-	color: #efc61c;
-*/
+  justify-content: center;
+  width: 60%;
+  max-width: 600px;
+  min-width: 200px;
+  padding: 10px 10px;
+  margin: auto;
+  /*
+  font-size: 40pt;
+  color: #efc61c;
+  */
 }
 
 footer {
-	margin-top: 40pt;
-	color: #f7f4e1;
-	line-height: 0.5;
+  margin-top: 40pt;
+  color: #f7f4e1;
+  line-height: 0.5;
 }
 
 audio {
-	display: block;
-	min-width: 200px;
-	width: 80%;
-	max-width 600px;
-	margin-right: auto;
-	margin-left: auto;
+  display: block;
+  min-width: 200px;
+  width: 80%;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-
-
 .main_about {
-	background-color: #e56a70ff;
+  background-color: #e56a70ff;
+}
+
+main.main_releases a {
+  display: block;   /* makes the <a> fill horizontal space and margin works */
+  margin-bottom: 20px; /* space between release links */
+  text-decoration: none; /* optional: remove underline on links */
+}
+
+.release_box {
+  margin-bottom: 10px; /* optional extra spacing inside the link */
 }
 
 .WITGEPK {
-	background-color: #191d1a;
-	color: white;
-	
+  background-color: #191d1a;
+  color: white;
 }
 
-
 .main_contact {
-	background-color: #eec51bff;
+  background-color: #eec51bff;
 }
 
 .main_media {
-	background-color: #e76726ff;
+  background-color: #e76726ff;
 }
 
-
-
 .SHP_box {
-	padding: 5px;
-	background-color: #4baee2;
+  padding: 5px;
+  background-color: #4baee2;
 }
 
 .FOBS_box {
-	padding: 5px;
-	background-color: #aa7db6;
+  padding: 5px;
+  background-color: #aa7db6;
 }
 
 .LLLSSSBBB_box {
-	padding: 5px;
-	background-color: #162c11;
-	color: white;
+  padding: 5px;
+  background-color: #46825A;
+  color: black;
 }
 
 .WITG_box {
-	padding: 5px;
-	background-color: #dedfdf;
-	color: black;
+  padding: 5px;
+  background-color: #012A0F;
+  color: white;
 }
 
-
-
-
 .title_img {
-	width: 100%;
-	min-width: 400px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
+  width: 100%;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile_img {
-	display: block;
-	width: 50%;
-	height:50%;
-	margin: auto;
+  display: block;
+  width: 50%;
+  height: 50%;
+  margin: auto;
 }
 
 .release_img {
-	display: block;
-	width: 50%;
-	height:50%;
-	margin: auto;
-
+  display: block;
+  width: 50%;
+  height: 50%;
+  margin: auto;
 }
 
 .media_iframe {
-	display: block;
-	margin: auto;
+  display: block;
+  margin: auto;
 }
 
 .menu {
-/*
-	width: 30%;
-	height: 80%;
-	max-width: 600px;
-	margin: auto;
-*/
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 60px;
-	
-
+  /*
+  width: 30%;
+  height: 80%;
+  max-width: 600px;
+  margin: auto;
+  */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
 }
 
 .menu_but {
-	width: 60%;
-	min-width: 300px;
-	cursor: grab;
-	
-
+  width: 60%;
+  min-width: 300px;
+  cursor: grab;
 }
 
 .menu_link {
-	display: flex;
-	align-items: center;
-	
+  display: flex;
+  align-items: center;
 }
 
 .home_link {
-	background-color: black;
-	height: 30px;
-	width: 50px;
-	display: block;
-	margin: auto;
+  background-color: black;
+  height: 30px;
+  width: 50px;
+  display: block;
+  margin: auto;
 }
-	
-	
+
+.release_box {
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.release_box:hover {
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  opacity: 1;
+}
+
+.release_box:hover h3,
+.release_box:hover p,
+.release_box:hover em,
+.release_box:hover a {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.aboutgame {
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  max-width: 350px;
+  min-width: 200px;
+  padding: 10px 10px;
+  margin: 500px auto;
+}
+
+.emoji-option {
+  font-size: 40px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#garden-listener {
+  cursor: pointer;
+  user-select: none;
+}
+
+#wins {
+  display: none;
+}

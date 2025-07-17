@@ -1,0 +1,119 @@
+body {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  font-family: marion;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #555;
+}
+
+h1, h2, h3, p {
+  text-align: center;
+}
+
+main {
+  justify-content: center;
+  width: 50%;
+  max-width: 600px;
+  padding: 10px 10px;
+  margin: auto;
+}
+
+audio {
+  display: block;
+  min-width: 200px;
+  width: 80%;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#smallPlayerremoved {
+  width: 75%;         /* make it narrow */
+  height: 30px;        /* make it short */
+  border-radius: 20px; /* rounded edges */
+  background: #222;    /* dark background */
+  padding: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  outline: none;
+  border: none;
+  display: block;
+  margin: 10px auto;   /* center it */
+}
+
+/* New styles for track list */
+
+#trackList {
+  text-align: center;   /* center all track text */
+}
+
+.clickable-track {
+  cursor: pointer;      /* pointer cursor on hover */
+  font-weight: normal;
+  display: inline;
+  text-decoration: none; /* no underline normally */
+}
+
+.clickable-track.active {
+  font-weight: bold;    /* but bold */
+}
+
+.clickable-track:hover {
+  text-decoration: none; /* no underline */
+}
+
+footer {
+  text-align: center;
+  padding: 0px 0px;
+}
+
+
+.artist-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.artist-link {
+  color: inherit;          /* same as surrounding text */
+  text-decoration: none;   /* no underline */
+  cursor: help;            /* question mark cursor */
+}
+
+.artist-link:hover,
+.artist-link:focus {
+  color: inherit;          /* no color change on hover/focus */
+  text-decoration: none;   /* no underline */
+  outline: none;           /* no outline on focus */
+}
+
+.artist-info-box {
+  visibility: hidden;
+  position: absolute;
+  top: 120%;  /* just below the link */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  padding: 8px;
+  border-radius: 0;
+  border: none;
+  width: 220px;
+  font-size: 13px;
+  line-height: 1.4;
+  pointer-events: none;
+  z-index: 10;
+  text-align: centre;
+  font-weight: normal;
+}
+
+.artist-hover:hover .artist-info-box {
+  visibility: visible;
+}

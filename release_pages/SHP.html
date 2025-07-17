@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>SHEEP! HIDE! POWER!</title>
+  <link rel="icon" href="./media/SHPart.jpg" />
+  <style>
+    body {
+      background-image: url("./media/SHPgrass.jpg");
+      color: black;
+    }
+
+    /* Removed main background-color from here to inline */
+
+    /* Player container and buttons */
+    #playerContainer {
+      text-align: center;
+      margin-top: 10px;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    #trackName {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #smallPlayer {
+      width: 75%;
+      height: 35px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Track list container */
+    #trackList {
+      text-align: center;
+      color: black;
+      font-family: marion, sans-serif;
+    }
+
+    /* Clickable track styles */
+    .clickable-track {
+      cursor: pointer;
+      color: black;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
+
+    .clickable-track.active {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .clickable-track:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SHEEP! HIDE! POWER!</h1>
+    <h2>
+  <span class="artist-hover">
+    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+      Mitch Zachry
+    </a>
+    <div class="artist-info-box">
+      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+    </div>
+  </span>
+</h2>
+  </header>
+  <main style="background-color: #4baee2;">
+    <div style="display: flex; justify-content: space-between;">
+      <a href="./WIG.html">&lt;&lt;&lt;</a>
+      <a href="../releases.html">----</a>
+      <a href="./FOBS.html">&gt;&gt;&gt;</a>
+    </div>
+
+    <br />
+
+    <div id="trackList">
+      1. Don't Be Scared It's Just Strange<br /><br />
+      2. Dancing Sheep Bossa Nova<br /><br />
+      3. Nobody Can Touch Ur Love<br /><br />
+      4. A Discussion Among Sheep<br /><br />
+      5. Lover Come Undone<br /><br />
+      <i>- Bonus Tracks -</i><br /><br />
+      1. Hiding (don't lay it on lightly)<br /><br />
+      2. A Change of Heart<br /><br />
+      3. Setting Sun<br /><br />
+    </div>
+
+    <div id="playerContainer">
+      <!-- <div id="trackName">Loading...</div> -->
+      <audio id="smallPlayer" controls></audio>
+      <div>
+        <button class="player-button" id="prevButton">&lt;</button>
+        <button class="player-button" id="nextButton">&gt;</button>
+      </div>
+    </div>
+
+    <script>
+const tracks = [
+  { name: "Don't Be Scared It's Just Strange", url: "https://media.heartflowerrecords.com/SHP/01-just-strange.mp3" },
+  { name: "Dancing Sheep Bossa Nova", url: "https://media.heartflowerrecords.com/SHP/02-sheep-bossa.mp3" },
+  { name: "Nobody Can Touch Ur Love", url: "https://media.heartflowerrecords.com/SHP/03-nobody-touch.mp3" },
+  { name: "A Discussion Among Sheep", url: "https://media.heartflowerrecords.com/SHP/04-discussion-sheep.mp3" },
+  { name: "Lover Come Undone", url: "https://media.heartflowerrecords.com/SHP/05-lover-undone.mp3" },
+  { name: "Hiding", url: "https://media.heartflowerrecords.com/SHP/06-devil-hiding.mp3" },
+  { name: "Change of Heart", url: "https://media.heartflowerrecords.com/SHP/07-change-heart.mp3" },
+  { name: "Setting Sun", url: "https://media.heartflowerrecords.com/SHP/08-setting-sun.mp3" },
+];
+
+
+      let current = 0;
+      const player = document.getElementById("smallPlayer");
+      // const trackName = document.getElementById("trackName");
+      const nextButton = document.getElementById("nextButton");
+      const prevButton = document.getElementById("prevButton");
+      const trackListDiv = document.getElementById("trackList");
+
+      const clickableLines = [
+        { line: 0, trackIndex: 0 },
+        { line: 1, trackIndex: 1 },
+        { line: 2, trackIndex: 2 },
+        { line: 3, trackIndex: 3 },
+        { line: 4, trackIndex: 4 },
+        { line: 6, trackIndex: 5 },
+        { line: 7, trackIndex: 6 },
+        { line: 8, trackIndex: 7 }
+      ];
+
+      let lines = trackListDiv.innerHTML.split("<br><br>");
+
+      clickableLines.forEach(({ line, trackIndex }) => {
+        if (lines[line]) {
+          lines[line] = `<span class="clickable-track" data-index="${trackIndex}">${lines[line]}</span>`;
+        }
+      });
+
+      trackListDiv.innerHTML = lines.join("<br><br>");
+
+      document.querySelectorAll(".clickable-track").forEach(el => {
+        el.addEventListener("click", e => {
+          const idx = parseInt(e.target.getAttribute("data-index"));
+          if (!isNaN(idx)) loadTrack(idx);
+        });
+      });
+
+      function loadTrack(index) {
+        current = index;
+        player.src = tracks[current].url;
+        // trackName.textContent = tracks[current].name;
+        player.play();
+        updateActiveTrack();
+      }
+
+      function updateActiveTrack() {
+        document.querySelectorAll(".clickable-track").forEach(el => {
+          const idx = parseInt(el.getAttribute("data-index"));
+          if (idx === current) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+      }
+
+      nextButton.addEventListener("click", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        if (current - 1 >= 0) {
+          loadTrack(current - 1);
+        }
+      });
+
+      player.addEventListener("ended", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      loadTrack(0);
+    </script>
+
+    <p><i>
+      Heartflower Records is completely independent, and all its products are self-funded.<br />
+      If you appreciate the work, donations are gratefully accepted and can be made <br />
+      <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
+    </i></p>
+  </main>
+</body>
+<footer>
+</footer>
+</html>

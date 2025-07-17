@@ -1,41 +1,99 @@
 <!DOCTYPE html>
-<html lang=“en”>
-	<head>
-		<meta charset=“UTF-8”>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="./styles.css">
-		<style>
-			body {
-				background-image: url("./media/flower_bg_2.png");
-		}
-		</style>
-		<title>Heartflower Records - Contact</title>
-		<link rel="icon" href="./media/favicon.png">
-	</head>
-	<body>
-		<header>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    body {
+      background-image: url("./media/flower_bg_2.png");
+    }
+    a {
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #555;
+    }
+  </style>
+  <title>Heartflower Records - Contact</title>
+  <link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+  <header>
+    <!--
+    <img class="title_img" src="./media/buttons/contact.svg" alt="heartflower logo">
+    -->
+    <a class="menu" href="index.html">
+      <img
+        class="title_img"
+        src="./media/buttons/contact.svg"
+        alt="about button"
+        onmouseover="this.src='./media/buttons/contactB.svg'"
+        onmouseout="this.src='./media/buttons/contact.svg'"
+        onmousedown="this.src='./media/buttons/contact.svg'"
+      >
+    </a>
+  </header>
 
-		<!--
-			<img class="title_img" src="./media/buttons/contact.svg" alt="heartflower logo" alt="about title">
-		-->
+  <main class="main_contact">
+    <h3>Email</h3>
+    <p>heartflowerrecords@gmail.com</p>
+    <h3>Socials</h3>
+    <p><a target="_blank" href="https://www.instagram.com/hrtflr/">Instagram</a></p>
+    <p><a target="_blank" href="https://www.facebook.com/people/Heartflower-Records/61551952794033/">Facebook</a></p>
+  </main>
 
-		<a class="menu" href="index.html"><img class="title_img" src="./media/buttons/contact.svg" alt="about button" onmouseover="this.src='./media/buttons/contactB.svg'" onmouseout="this.src='./media/buttons/contact.svg'" onmousedown="this.src='./media/buttons/contact.svg'"></a>
+  <div class="aboutgame">
+    <div id="garden-listener" onclick="showPhrase()">
+      <h2>wisdom from the garden</h2>
+      <p id="phrase">&nbsp;</p>
+    </div>
 
-		</header>
-		<main class="main_contact">
-			<h3>Email</h3>
-			<p>heartflowerrecords@gmail.com</p>
-			<h3>Socials</h3>
-		<p><a target="_blank" href="https://www.instagram.com/hrtflr/">Instagram</a></p>
-		<p><a target="_blank" href="https://www.facebook.com/people/Heartflower-Records/61551952794033/">Facebook</a></p>
-			
-	</body>
+    <script>
+      const phrasesOriginal = [
+        "you need only tend what needs tending",
+        "bloom and decay and bloom and decay",
+        "this flower is every flower",
+        "does a leaf wish to bloom?",
+        "growth is natural. effortless",
+        "the garden is loud",
+        "rain: a conversation between ground and sky",
+        "the dying flower masters change",
+        "beauty is mysterious to the garden",
+        "the heart of the garden is shared"
+      ];
 
+      const gardenEmojis = ['🌸', '🍃', '💧', '🌿', '🌻', '🍀', '🌼', '🌷'];
 
+      let phrases = [];
+      let index = 0;
 
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function randomEmoji() {
+        return gardenEmojis[Math.floor(Math.random() * gardenEmojis.length)];
+      }
+
+      function showPhrase() {
+        if (phrases.length === 0 || index >= phrases.length) {
+          phrases = [...phrasesOriginal];
+          shuffle(phrases);
+          index = 0;
+        }
+
+        const phraseEl = document.getElementById("phrase");
+        const emojiStart = randomEmoji();
+        const emojiEnd = randomEmoji();
+
+        phraseEl.textContent = `${emojiStart}  ${phrases[index]}  ${emojiEnd}`;
+        index++;
+      }
+    </script>
+  </div>
+</body>
 </html>
-
-
-
-
-

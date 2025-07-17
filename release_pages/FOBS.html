@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Flower Ocean Burning Sun</title>
+  <link rel="icon" href="./media/FOBSart.jpg" />
+  <style>
+    a {
+      color: black;
+    }
+
+    body {
+      background-image: url("./media/FOBSart.jpg");
+      color: black;
+    }
+
+    main {
+      background-color: #aa7db6;
+    }
+
+    /* Player container and buttons */
+    #playerContainer {
+      text-align: center;
+      margin-top: 10px;
+      font-family: sans-serif;
+      color: black;
+    }
+
+    #trackName {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #smallPlayer {
+      width: 75%;
+      height: 35px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Track list container */
+    #trackList {
+      text-align: center;
+      color: black;
+      font-family: marion, sans-serif;
+    }
+
+    /* Clickable track styles */
+    .clickable-track {
+      cursor: pointer;
+      color: black;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
+
+    .clickable-track.active {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .clickable-track:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Flower Ocean Burning Sun</h1>
+    <h2>
+  <span class="artist-hover">
+    <a href="https://www.instagram.com/space_foe/" target="_blank" rel="noopener noreferrer" class="artist-link">
+      SPACE FOE
+    </a>
+    <div class="artist-info-box">
+      SPACE FOE combines cosmic jazz, immersive soundscapes, and transmissions for humankind. 
+    </div>
+  </span>
+</h2>
+  </header>
+  <main>
+    <div style="display: flex; justify-content: space-between;">
+      <a href="./SHP.html">&lt;&lt;&lt;</a>
+      <a href="../releases.html">----</a>
+      <a href="./LSB.html">&gt;&gt;&gt;</a>
+    </div>
+
+    <br />
+
+    <div id="trackList">
+      1. Introduction<br /><br />
+      2. Morning Like an Infinite Clarity<br /><br />
+      3. Flower Ocean<br /><br />
+      4. The Unbearable Physicality of Nature<br /><br />
+      5. From Where Everything Arises<br /><br />
+      6. Rainbow on the Wind<br /><br />
+      7. Petals of the Evening<br /><br />
+      8. Burning Sun<br /><br />
+      <i>- Bonus Track -</i><br /><br />
+      9. Spaceship Lobby Music #1<br /><br />
+    </div>
+
+    <div id="playerContainer">
+      <!-- <div id="trackName">Loading...</div> -->
+      <audio id="smallPlayer" controls></audio>
+      <div>
+        <button class="player-button" id="prevButton">&lt;</button>
+        <button class="player-button" id="nextButton">&gt;</button>
+      </div>
+    </div>
+
+    <script>
+const tracks = [
+  { name: "Introduction", url: "https://media.heartflowerrecords.com/FOBS/01-intro.mp3" },
+  { name: "Morning Like an Infinite Clarity", url: "https://media.heartflowerrecords.com/FOBS/02-infinite-clarity.mp3" },
+  { name: "Flower Ocean", url: "https://media.heartflowerrecords.com/FOBS/03-flower-ocean.mp3" },
+  { name: "The Unbearable Physicality", url: "https://media.heartflowerrecords.com/FOBS/04-unbearable-physicality.mp3" },
+  { name: "From Where Everything Arises", url: "https://media.heartflowerrecords.com/FOBS/05-everything-arises.mp3" },
+  { name: "Rainbow on the Wind", url: "https://media.heartflowerrecords.com/FOBS/06-rainbow-wind.mp3" },
+  { name: "Petals of the Evening", url: "https://media.heartflowerrecords.com/FOBS/07-petals-evening.mp3" },
+  { name: "Burning Sun", url: "https://media.heartflowerrecords.com/FOBS/08-burning-sun.mp3" },
+  { name: "Spaceship Lobby Music #1", url: "https://media.heartflowerrecords.com/FOBS/09-bonus-track.mp3" },
+];
+
+      let current = 0;
+      const player = document.getElementById("smallPlayer");
+      // const trackName = document.getElementById("trackName");
+      const nextButton = document.getElementById("nextButton");
+      const prevButton = document.getElementById("prevButton");
+      const trackListDiv = document.getElementById("trackList");
+
+      const clickableLines = [
+        { line: 0, trackIndex: 0 },
+        { line: 1, trackIndex: 1 },
+        { line: 2, trackIndex: 2 },
+        { line: 3, trackIndex: 3 },
+        { line: 4, trackIndex: 4 },
+        { line: 5, trackIndex: 5 },
+        { line: 6, trackIndex: 6 },
+        { line: 7, trackIndex: 7 },
+        { line: 9, trackIndex: 8 }
+      ];
+
+      let lines = trackListDiv.innerHTML.split("<br><br>");
+
+      clickableLines.forEach(({ line, trackIndex }) => {
+        if (lines[line]) {
+          lines[line] = `<span class="clickable-track" data-index="${trackIndex}">${lines[line]}</span>`;
+        }
+      });
+
+      trackListDiv.innerHTML = lines.join("<br><br>");
+
+      document.querySelectorAll(".clickable-track").forEach(el => {
+        el.addEventListener("click", e => {
+          const idx = parseInt(e.target.getAttribute("data-index"));
+          if (!isNaN(idx)) loadTrack(idx);
+        });
+      });
+
+      function loadTrack(index) {
+        current = index;
+        player.src = tracks[current].url;
+        // trackName.textContent = tracks[current].name;
+        player.play();
+        updateActiveTrack();
+      }
+
+      function updateActiveTrack() {
+        document.querySelectorAll(".clickable-track").forEach(el => {
+          const idx = parseInt(el.getAttribute("data-index"));
+          if (idx === current) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+      }
+
+      nextButton.addEventListener("click", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        if (current - 1 >= 0) {
+          loadTrack(current - 1);
+        }
+      });
+
+      player.addEventListener("ended", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      loadTrack(0);
+    </script>
+
+    <p><i>
+      Heartflower Records is completely independent, and all its products are self-funded.<br />
+      If you appreciate the work, donations are gratefully accepted and can be made <br />
+      <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
+    </i></p>
+  </main>
+</body>
+<footer>
+</footer>
+</html>

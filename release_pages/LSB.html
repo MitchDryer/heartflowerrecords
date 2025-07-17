@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>love love love swim swim swim be be be</title>
+  <link rel="icon" href="./media/LSBart.jpg" />
+  <style>
+    a {
+      color: black;
+    }
+
+    body {
+      background-image: url("./media/LSBwater.jpg");
+      color: black;
+    }
+
+    /* Removed main { background-color } from here to inline */
+
+    /* Player container and buttons */
+    #playerContainer {
+      text-align: center;
+      margin-top: 10px;
+      font-family: sans-serif;
+      color: black;
+    }
+
+    #trackName {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #smallPlayer {
+      width: 75%;
+      height: 35px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Track list container */
+    #trackList {
+      text-align: center;
+      color: black;
+      font-family: marion, sans-serif;
+    }
+
+    /* Clickable track styles */
+    .clickable-track {
+      cursor: pointer;
+      color: black;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
+
+    .clickable-track.active {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .clickable-track:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>love love love swim swim swim be be be</h1>
+    <h2>
+  <span class="artist-hover">
+    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+      Mitch Zachry
+    </a>
+    <div class="artist-info-box">
+      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+    </div>
+  </span>
+</h2>
+
+  </header>
+  <main style="background-color: #46825A;">
+    <div style="display: flex; justify-content: space-between;">
+      <a href="./FOBS.html">&lt;&lt;&lt;</a>
+      <a href="../releases.html">----</a>
+      <a href="./WIG.html">&gt;&gt;&gt;</a>
+    </div>
+
+    <br />
+
+    <div id="trackList">
+      1. love swim be<br><br>
+      2. there's a river right by my home<br><br>
+      3. nature of a loneliness<br><br>
+      4. julia you're home<br><br>
+      5. it's right here<br><br>
+      6. don't listen to peter<br><br>
+      7. immersion<br><br>
+      8. summer sun<br><br>
+    </div>
+
+    <div id="playerContainer">
+      <!-- <div id="trackName">Loading...</div> -->
+      <audio id="smallPlayer" controls></audio>
+      <div>
+        <button class="player-button" id="prevButton">&lt;</button>
+        <button class="player-button" id="nextButton">&gt;</button>
+      </div>
+    </div>
+
+    <script>
+const tracks = [
+  { name: "love swim be", url: "https://media.heartflowerrecords.com/LSB/01-love-swim.mp3" },
+  { name: "there's a river right by my home", url: "https://media.heartflowerrecords.com/LSB/02-river-home.mp3" },
+  { name: "nature of a loneliness", url: "https://media.heartflowerrecords.com/LSB/03-nature-loneliness.mp3" },
+  { name: "julia you're home", url: "https://media.heartflowerrecords.com/LSB/04-julia-home.mp3" },
+  { name: "it's right here", url: "https://media.heartflowerrecords.com/LSB/05-right-here.mp3" },
+  { name: "don't listen to peter", url: "https://media.heartflowerrecords.com/LSB/06-peter.mp3" },
+  { name: "immersion", url: "https://media.heartflowerrecords.com/LSB/07-immersion.mp3" },
+  { name: "summer sun", url: "https://media.heartflowerrecords.com/LSB/08-summer-sun.mp3" },
+];
+
+
+      let current = 0;
+      const player = document.getElementById("smallPlayer");
+      // const trackName = document.getElementById("trackName");
+      const nextButton = document.getElementById("nextButton");
+      const prevButton = document.getElementById("prevButton");
+      const trackListDiv = document.getElementById("trackList");
+
+      const clickableLines = [
+        { line: 0, trackIndex: 0 },
+        { line: 1, trackIndex: 1 },
+        { line: 2, trackIndex: 2 },
+        { line: 3, trackIndex: 3 },
+        { line: 4, trackIndex: 4 },
+        { line: 5, trackIndex: 5 },
+        { line: 6, trackIndex: 6 },
+        { line: 7, trackIndex: 7 }
+      ];
+
+      let lines = trackListDiv.innerHTML.split("<br><br>");
+
+      clickableLines.forEach(({ line, trackIndex }) => {
+        if (lines[line]) {
+          lines[line] = `<span class="clickable-track" data-index="${trackIndex}">${lines[line]}</span>`;
+        }
+      });
+
+      trackListDiv.innerHTML = lines.join("<br><br>");
+
+      document.querySelectorAll(".clickable-track").forEach(el => {
+        el.addEventListener("click", e => {
+          const idx = parseInt(e.target.getAttribute("data-index"));
+          if (!isNaN(idx)) loadTrack(idx);
+        });
+      });
+
+      function loadTrack(index) {
+        current = index;
+        player.src = tracks[current].url;
+        // trackName.textContent = tracks[current].name;
+        player.play();
+        updateActiveTrack();
+      }
+
+      function updateActiveTrack() {
+        document.querySelectorAll(".clickable-track").forEach(el => {
+          const idx = parseInt(el.getAttribute("data-index"));
+          if (idx === current) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+      }
+
+      nextButton.addEventListener("click", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        if (current - 1 >= 0) {
+          loadTrack(current - 1);
+        }
+      });
+
+      player.addEventListener("ended", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      loadTrack(0);
+    </script>
+
+    <p><i>
+      Heartflower Records is completely independent, and all its products are self-funded.<br />
+      If you appreciate the work, donations are gratefully accepted and can be made <br />
+      <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
+    </i></p>
+  </main>
+</body>
+<footer>
+</footer>
+</html>

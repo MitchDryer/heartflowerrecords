@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>War In The Garden</title>
+  <link rel="icon" href="./media/WIGart.jpg" />
+  <style>
+    a {
+      color: white;
+    }
+
+    body {
+      background-image: url("./media/WIGbg.jpg");
+      background-position: 50% 20%;
+      color: white;
+    }
+
+    /* removed main background-color from here, applied inline */
+
+    /* Player container and buttons */
+    #playerContainer {
+      text-align: center;
+      margin-top: 10px;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    #trackName {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #smallPlayer {
+      width: 75%;
+      height: 35px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Track list container */
+    #trackList {
+      text-align: center;
+      color: white;
+      font-family: marion, sans-serif;
+    }
+
+    /* Clickable track styles */
+    .clickable-track {
+      cursor: pointer;
+      color: white;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
+
+    .clickable-track.active {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .clickable-track:hover {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>War In The Garden</h1>
+    <h2>
+  <span class="artist-hover">
+    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+      Mitch Zachry
+    </a>
+    <div class="artist-info-box">
+      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+    </div>
+  </span>
+</h2>
+  </header>
+  <main style="background-color: #012A0F; background-position: 100% 65%;">
+    <div style="display: flex; justify-content: space-between;">
+      <a href="./LSB.html">&lt;&lt;&lt;</a>
+      <a href="../releases.html">----</a>
+      <a href="./SHP.html">&gt;&gt;&gt;</a>
+    </div>
+
+    <br />
+
+    <div id="trackList">
+      1. From The Garden<br /><br />
+      2. A Love Hard Fought<br /><br />
+      3. Teach Me Loving<br /><br />
+      4. Holy Water in a Wishing Well<br /><br />
+      5. River Love Song<br /><br />
+      6. War in the Garden<br /><br />
+      7. Textures of an Evening Garden<br /><br />
+      8. The Bloom of Spring<br /><br />
+      9. If I Don't Go Home Again<br /><br />
+      10. Everything Goes Away<br /><br />
+    </div>
+
+    <div id="playerContainer">
+      <!-- <div id="trackName">Loading...</div> -->
+      <audio id="smallPlayer" controls></audio>
+      <div>
+        <button class="player-button" id="prevButton">&lt;</button>
+        <button class="player-button" id="nextButton">&gt;</button>
+      </div>
+    </div>
+
+    <script>
+const tracks = [
+  { name: "From The Garden", url: "https://media.heartflowerrecords.com/WIG/01-from-garden.mp3" },
+  { name: "A Love Hard Fought", url: "https://media.heartflowerrecords.com/WIG/02-hard-fought.mp3" },
+  { name: "Teach Me Loving", url: "https://media.heartflowerrecords.com/WIG/03-teach-loving.mp3" },
+  { name: "Holy Water in a Wishing Well", url: "https://media.heartflowerrecords.com/WIG/04-holy-water.mp3" },
+  { name: "River Love Song", url: "https://media.heartflowerrecords.com/WIG/05-river-love.mp3" },
+  { name: "War in the Garden", url: "https://media.heartflowerrecords.com/WIG/06-war-garden.mp3" },
+  { name: "Textures of an Evening Garden", url: "https://media.heartflowerrecords.com/WIG/07-textures-eveing.mp3" },
+  { name: "The Bloom of Spring", url: "https://media.heartflowerrecords.com/WIG/08-bloom-spring.mp3" },
+  { name: "If I Don't Go Home", url: "https://media.heartflowerrecords.com/WIG/09-home-again.mp3" },
+  { name: "Everything Goes Away", url: "https://media.heartflowerrecords.com/WIG/10-everything-goes.mp3" },
+];
+
+      let current = 0;
+      const player = document.getElementById("smallPlayer");
+      // const trackName = document.getElementById("trackName");
+      const nextButton = document.getElementById("nextButton");
+      const prevButton = document.getElementById("prevButton");
+      const trackListDiv = document.getElementById("trackList");
+
+      const clickableLines = [
+        { line: 0, trackIndex: 0 },
+        { line: 1, trackIndex: 1 },
+        { line: 2, trackIndex: 2 },
+        { line: 3, trackIndex: 3 },
+        { line: 4, trackIndex: 4 },
+        { line: 5, trackIndex: 5 },
+        { line: 6, trackIndex: 6 },
+        { line: 7, trackIndex: 7 },
+        { line: 8, trackIndex: 8 },
+        { line: 9, trackIndex: 9 }
+      ];
+
+      let lines = trackListDiv.innerHTML.split("<br><br>");
+
+      clickableLines.forEach(({ line, trackIndex }) => {
+        if (lines[line]) {
+          lines[line] = `<span class="clickable-track" data-index="${trackIndex}">${lines[line]}</span>`;
+        }
+      });
+
+      trackListDiv.innerHTML = lines.join("<br><br>");
+
+      document.querySelectorAll(".clickable-track").forEach(el => {
+        el.addEventListener("click", e => {
+          const idx = parseInt(e.target.getAttribute("data-index"));
+          if (!isNaN(idx)) loadTrack(idx);
+        });
+      });
+
+      function loadTrack(index) {
+        current = index;
+        player.src = tracks[current].url;
+        // trackName.textContent = tracks[current].name;
+        player.play();
+        updateActiveTrack();
+      }
+
+      function updateActiveTrack() {
+        document.querySelectorAll(".clickable-track").forEach(el => {
+          const idx = parseInt(el.getAttribute("data-index"));
+          if (idx === current) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+      }
+
+      nextButton.addEventListener("click", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        if (current - 1 >= 0) {
+          loadTrack(current - 1);
+        }
+      });
+
+      player.addEventListener("ended", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+        }
+      });
+
+      loadTrack(0);
+    </script>
+
+    <p><i>
+      Heartflower Records is completely independent, and all its products are self-funded.<br />
+      If you appreciate the work, donations are gratefully accepted and can be made <br />
+      <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
+    </i></p>
+  </main>
+</body>
+<footer>
+</footer>
+</html>
