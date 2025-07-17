@@ -255,10 +255,30 @@
         } else if (audioCtx.state === "suspended") {
           audioCtx.resume();
         }
-
         startSequence(e.clientX, e.clientY);
       }
     });
+
+    // Added touch support for mobile:
+    canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (
+        touch.clientX > rect.x &&
+        touch.clientX < rect.x + rect.w &&
+        touch.clientY > rect.y &&
+        touch.clientY < rect.y + rect.h
+      ) {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+        } 
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        startSequence(touch.clientX, touch.clientY);
+      }
+    }, { passive: false });
 
     window.addEventListener("resize", () => {
       W = window.innerWidth;
