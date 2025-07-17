@@ -1,177 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mobile Audio Test</title>
-<style>
-  html, body {
-    margin: 0; padding: 0; overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: #222;
-    color: white;
-    user-select: none;
-  }
-  #start-audio, #test-tone {
-    position: fixed;
-    left: 10px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  #start-audio { top: 10px; }
-  #test-tone { top: 60px; }
-  canvas {
-    display: block;
-    background: #444;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <title>Flower Generator</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: url('media/grassbg.jpg') center top repeat;
+      background-size: cover;
+      font-family: marion;
+      color: white;
+    }
+    canvas {
+      display: block;
+    }
+    #header-text {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+      font-family: marion;
+      color: white;
+    }
+    #home-link {
+      position: absolute;
+      top: 55px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-family: marion;
+      margin-top: 10px;
+    }
+    #home-link a {
+      text-decoration: underline;
+      color: inherit;
+    }
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    #controls label {
+      text-align: center;
+      font-size: 16px;
+    }
+    #controls input, #controls select {
+      font-size: 16px;
+      padding: 4px;
+      font-family: marion;
+    }
+  </style>
 </head>
 <body>
+  <div id="header-text">flower grower v.1</div>
+  <div id="home-link"><a href="index.html">home</a></div>
+  <canvas id="canvas"></canvas>
+  <div id="controls">
+    <label>
+      T:<br />
+      <input type="number" id="tempo" min="30" max="300" value="120" />
+    </label>
+    <label>
+      D:<br />
+      <select id="subdivision">
+        <option value="quarter">1/4</option>
+        <option value="triplet">1/3</option>
+        <option value="eighth">1/8</option>
+        <option value="dotted_eighth">3/8</option>
+        <option value="sixteenth">1/16</option>
+        <option value="random" selected>rnd</option>
+      </select>
+    </label>
+    <label>
+      L:<br />
+      <input type="number" id="length" min="1" max="32" value="8" />
+    </label>
+    <label>
+      K:<br />
+      <select id="key">
+        <option value="C">C</option>
+        <option value="C#">C#</option>
+        <option value="D">D</option>
+        <option value="D#">D#</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="F#">F#</option>
+        <option value="G">G</option>
+        <option value="G#">G#</option>
+        <option value="A" selected>A</option>
+        <option value="A#">A#</option>
+        <option value="B">B</option>
+      </select>
+    </label>
+  </div>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const DOT_COLORS = ["red", "lime", "blue", "yellow", "magenta", "cyan"];
 
-<button id="start-audio">Start Audio</button>
-<button id="test-tone">Test Tone</button>
-<canvas id="canvas"></canvas>
-
-<script>
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-
-  let W = window.innerWidth;
-  let H = window.innerHeight;
-  canvas.width = W;
-  canvas.height = H;
-
-  const rect = { x: W/2 - 110, y: H/2 - 150, w: 220, h: 300 };
-
-  let audioCtx = null;
-
-  const DOT_COLORS = ["red", "lime", "blue", "yellow", "magenta", "cyan"];
-
-  // Simple note play function
-  function playNote(freq, duration = 0.2) {
-    if (!audioCtx) return;
-
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.frequency.value = freq;
-    osc.type = "sine";
-
-    const now = audioCtx.currentTime;
-    gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + 0.01);
-    gain.gain.linearRampToValueAtTime(0, now + duration);
-
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(now);
-    osc.stop(now + duration + 0.05);
-  }
-
-  // Start Audio button unlocks audio context
-  const startBtn = document.getElementById('start-audio');
-  startBtn.addEventListener('click', () => {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume().then(() => {
-        console.log('AudioContext resumed');
-        startBtn.style.display = 'none';
-      });
-    } else {
-      startBtn.style.display = 'none';
-    }
-  });
-
-  // Test Tone button plays a beep
-  document.getElementById('test-tone').addEventListener('click', () => {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume().then(() => playNote(440));
-    } else {
-      playNote(440);
-    }
-  });
-
-  // Dummy sequence: play 5 notes going up in frequency
-  function startSequence(x, y) {
-    if (!audioCtx) return;
-
-    const baseFreq = 220;
-    const interval = 2; // semitones
-
-    for (let i = 0; i < 5; i++) {
-      const freq = baseFreq * Math.pow(2, (interval * i) / 12);
-      setTimeout(() => playNote(freq), i * 300);
-    }
-  }
-
-  // Canvas interaction for desktop and mobile
-  canvas.addEventListener('click', (e) => {
-    if (
-      e.clientX > rect.x &&
-      e.clientX < rect.x + rect.w &&
-      e.clientY > rect.y &&
-      e.clientY < rect.y + rect.h
-    ) {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => startSequence(e.clientX, e.clientY));
-      } else {
-        startSequence(e.clientX, e.clientY);
-      }
-    }
-  });
-
-  canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    if (
-      touch.clientX > rect.x &&
-      touch.clientX < rect.x + rect.w &&
-      touch.clientY > rect.y &&
-      touch.clientY < rect.y + rect.h
-    ) {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().then(() => startSequence(touch.clientX, touch.clientY));
-      } else {
-        startSequence(touch.clientX, touch.clientY);
-      }
-    }
-  }, { passive: false });
-
-  // Draw rectangle on canvas
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = "saddlebrown";
-    ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-
-    requestAnimationFrame(draw);
-  }
-  draw();
-
-  // Resize handling
-  window.addEventListener('resize', () => {
-    W = window.innerWidth;
-    H = window.innerHeight;
+    let W = window.innerWidth;
+    let H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
-    rect.x = W / 2 - 110;
-    rect.y = H / 2 - 150;
-  });
-</script>
 
+    // Responsive rect sizing & positioning
+    let rect = {
+      w: W * 0.6,
+      h: H * 0.5,
+      x: W * 0.2,
+      y: H * 0.25,
+    };
+
+    let audioCtx = null;
+
+    let dotSequences = [];
+
+    const NOTE_FREQS = {
+      C: 130.81,
+      "C#": 138.59,
+      D: 146.83,
+      "D#": 155.56,
+      E: 164.81,
+      F: 174.61,
+      "F#": 185.0,
+      G: 196.0,
+      "G#": 207.65,
+      A: 220.0,
+      "A#": 233.08,
+      B: 246.94,
+    };
+
+    const MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11];
+
+    function noteNameToIndex(note) {
+      const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+      return NOTES.indexOf(note);
+    }
+
+    function quantizeToMajorScale(semitoneOffset) {
+      const octave = Math.floor(semitoneOffset / 12);
+      const degree = semitoneOffset % 12;
+
+      let closest = 0;
+      for (let i = 0; i < MAJOR_SCALE.length; i++) {
+        if (MAJOR_SCALE[i] <= degree) closest = MAJOR_SCALE[i];
+      }
+      if (degree < MAJOR_SCALE[0]) {
+        closest = MAJOR_SCALE[MAJOR_SCALE.length - 1];
+        return (octave - 1) * 12 + closest;
+      }
+      return octave * 12 + closest;
+    }
+
+    function playNote(freq, duration = 0.2) {
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.value = freq;
+      osc.type = "sine";
+
+      const now = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.2, now + 0.01);
+      gain.gain.linearRampToValueAtTime(0, now + duration);
+
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.05);
+    }
+
+    function startSequence(x, y) {
+      const tempo = parseInt(document.getElementById("tempo").value);
+      const subdiv = document.getElementById("subdivision").value;
+      const length = parseInt(document.getElementById("length").value);
+      const key = document.getElementById("key").value;
+
+      const base = 60 / tempo;
+      let speed;
+      switch (subdiv) {
+        case "quarter": speed = base; break;
+        case "triplet": speed = base / 3; break;
+        case "eighth": speed = base / 2; break;
+        case "dotted_eighth": speed = base * 0.75; break;
+        case "sixteenth": speed = base / 4; break;
+        case "random":
+        default:
+          speed = [base, base / 3, base / 2, base * 0.75, base / 4][
+            Math.floor(Math.random() * 5)
+          ];
+      }
+
+      let relativeX = x - rect.x;
+      relativeX = Math.min(Math.max(relativeX, 0), rect.w);
+
+      let relativeY = y - rect.y;
+      relativeY = Math.min(Math.max(relativeY, 0), rect.h);
+
+      const baseFreqRoot = NOTE_FREQS[key] || 220;
+      const octaveMultiplier = 1 + (1 - relativeY / rect.h) * 2;
+      let rootFreq = baseFreqRoot * octaveMultiplier;
+
+      const C1 = 130.81;
+      let semitonesFromC1 = 12 * Math.log2(rootFreq / C1);
+      semitonesFromC1 = Math.round(semitonesFromC1);
+
+      const keyRootIndex = noteNameToIndex(key);
+      let relToKeyRoot = (semitonesFromC1 - keyRootIndex + 1200) % 12;
+      let octaveShift = Math.floor((semitonesFromC1 - keyRootIndex) / 12);
+
+      let quantizedRel = quantizeToMajorScale(relToKeyRoot);
+      let quantizedSemitones = keyRootIndex + octaveShift * 12 + quantizedRel;
+
+      rootFreq = C1 * Math.pow(2, quantizedSemitones / 12);
+
+      const interval = 2 + (relativeX / rect.w) * (14 - 2);
+
+      for (let i = 0; i < length; i++) {
+        const freq = rootFreq * Math.pow(2, (interval * i) / 12);
+        setTimeout(() => playNote(freq), i * speed * 1000);
+      }
+
+      dotSequences.push({
+        x: x,
+        y: y,
+        step: 0,
+        nextTime: performance.now() + speed * 1000,
+        interval: speed * 1000,
+        maxSteps: length,
+        colors: Array.from({ length }, () =>
+          DOT_COLORS[Math.floor(Math.random() * DOT_COLORS.length)]
+        ),
+      });
+    }
+
+    let lastMouse = { x: W / 2, y: H / 2 };
+
+    canvas.addEventListener("mousemove", (e) => {
+      lastMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    canvas.addEventListener("click", (e) => {
+      if (
+        e.clientX > rect.x &&
+        e.clientX < rect.x + rect.w &&
+        e.clientY > rect.y &&
+        e.clientY < rect.y + rect.h
+      ) {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+        } else if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        startSequence(e.clientX, e.clientY);
+      }
+    });
+
+    canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (
+        touch.clientX > rect.x &&
+        touch.clientX < rect.x + rect.w &&
+        touch.clientY > rect.y &&
+        touch.clientY < rect.y + rect.h
+      ) {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        startSequence(touch.clientX, touch.clientY);
+      }
+    }, { passive: false });
+
+    window.addEventListener("resize", () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+
+      rect.w = W * 0.6;
+      rect.h = H * 0.5;
+      rect.x = W * 0.2;
+      rect.y = H * 0.25;
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgb(139, 69, 19)";
+      ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+
+      const now = performance.now();
+      dotSequences.forEach((seq) => {
+        if (now > seq.nextTime && seq.step < seq.maxSteps) {
+          seq.step++;
+          seq.nextTime += seq.interval;
+        }
+        if (seq.step < seq.maxSteps) {
+          let y = seq.y - seq.step * 15;
+          ctx.beginPath();
+          ctx.arc(seq.x, y, 6, 0, 2 * Math.PI);
+          ctx.fillStyle = seq.colors[seq.step];
+          ctx.fill();
+        }
+      });
+      dotSequences = dotSequences.filter((s) => s.step < s.maxSteps);
+
+      const mx = lastMouse.x;
+      const my = lastMouse.y;
+      ctx.beginPath();
+      ctx.arc(mx, my, 6, 0, 2 * Math.PI);
+      ctx.fillStyle = "black";
+      ctx.fill();
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
 </body>
 </html>
