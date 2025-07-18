@@ -1,6 +1,12 @@
 /* Crimson Text Font */
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-size: cover;
   background-position: center;
@@ -28,6 +34,7 @@ main {
   min-width: 300px;
   padding: 10px 10px;
   margin: auto;
+  margin-bottom: 40px; /* ensure gap below main */
 }
 
 audio {
@@ -113,7 +120,7 @@ footer {
   line-height: 1.4;
   pointer-events: none;
   z-index: 10;
-  text-align: centre;
+  text-align: center;  /* fixed spelling */
   font-weight: normal;
 }
 
