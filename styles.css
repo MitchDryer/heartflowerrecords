@@ -64,12 +64,13 @@ main.main_releases a {
 
 .release_box {
   margin-bottom: 10px;
+  background-color: var(--bg-color);
   transition: background-color 0.2s ease, opacity 0.2s ease;
   opacity: 1;
 }
 
 .release_box:hover {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--bg-color-light);
   cursor: pointer;
   opacity: 1;
 }
@@ -78,13 +79,8 @@ main.main_releases a {
 .release_box:hover p,
 .release_box:hover em,
 .release_box:hover a {
-  opacity: 0;
+  opacity: 0.9;
   transition: opacity 0.2s ease;
-}
-
-.WITGEPK {
-  background-color: #191d1a;
-  color: white;
 }
 
 .main_contact {
@@ -95,27 +91,41 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
+
+
 .SHP_box {
   padding: 5px;
-  background-color: #4baee2;
+  --bg-color: #4baee2;
+  --bg-color-light: #8fcff9; /* lighter blue */
+  background-color: var(--bg-color);
 }
 
 .FOBS_box {
   padding: 5px;
-  background-color: #aa7db6;
+  --bg-color: #aa7db6;
+  --bg-color-light: #d2b4db; /* lighter purple */
+  background-color: var(--bg-color);
 }
 
 .LLLSSSBBB_box {
   padding: 5px;
-  background-color: #46825A;
+  --bg-color: #46825A;
+  --bg-color-light: #7abf8f; /* lighter green */
+  background-color: var(--bg-color);
   color: black;
 }
 
 .WITG_box {
   padding: 5px;
-  background-color: #012A0F;
+  --bg-color: #012A0F;
+  --bg-color-light: #335942; /* lighter dark green */
+  background-color: var(--bg-color);
   color: white;
 }
+
+
+
+
 
 .title_img {
   width: 100%;

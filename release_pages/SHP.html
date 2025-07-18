@@ -7,67 +7,146 @@
   <title>SHEEP! HIDE! POWER!</title>
   <link rel="icon" href="./media/SHPart.jpg" />
   <style>
+    a {
+      color: black;
+    }
+
     html, body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif;
+      color: black;
+    }
 
-body {
-  background-color: #4baee2;
-  background-image: url("./media/SHPgrass.jpg");
-  background-repeat: repeat-y;
-  background-position: center center;
-  background-size: cover; /* ensures full coverage */
-  color: black;
-}
+    body {
+      background-color: #4baee2;
+      background-image: url("./media/SHPgrass.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover;
+    }
 
-    /* Removed main background-color from here to inline */
+    main {
+      background-color: #4baee2;
+    }
 
-    /* Player container and buttons */
     #playerContainer {
       text-align: center;
-      margin-top: 10px;
-      font-family: sans-serif;
-      color: white;
-    }
-
-    #trackName {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    #smallPlayer {
-      width: 75%;
-      height: 35px;
-      display: block;
-      margin: 0 auto 10px auto;
+      max-width: 600px;
+      margin: 10px auto 0;
+      font-family: inherit;
+      color: black;
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
       color: black;
-      padding: 5px 10px;
       border: none;
       border-radius: 0;
       cursor: pointer;
-      font-size: 14px;
-      margin: 0 5px;
+      font-family: inherit;
+      font-weight: inherit;
+      user-select: none;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
     }
 
     .player-button:hover {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Track list container */
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
+
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      margin-top: -5px;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
+
+    #timeline::-moz-range-thumb {
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+    }
+
+    #timeDisplay {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+      margin-top: 10px;
+    }
+
+    #skipButtons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #skipButtons .player-button {
+      width: 80px;
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 6px; /* tweak vertical alignment */
+      padding-bottom: 0;
+      vertical-align: middle;
+    }
+
+    #playPauseBtn {
+      width: 80px;
+      height: 30px;
+      font-size: 18px;
+      margin: 0 auto 8px auto;
+      padding-top: 6px;        /* tweak this value to nudge vertical */
+    }
+
     #trackList {
       text-align: center;
       color: black;
-      font-family: marion, sans-serif;
+      font-family: inherit;
+      margin-top: 10px;
     }
 
-    /* Clickable track styles */
     .clickable-track {
       cursor: pointer;
       color: black;
@@ -93,15 +172,15 @@ body {
   <header>
     <h1>SHEEP! HIDE! POWER!</h1>
     <h2>
-  <span class="artist-hover">
-    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-      Mitch Zachry
-    </a>
-    <div class="artist-info-box">
-      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
-    </div>
-  </span>
-</h2>
+      <span class="artist-hover">
+        <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Mitch Zachry
+        </a>
+        <div class="artist-info-box">
+          Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+        </div>
+      </span>
+    </h2>
   </header>
   <main style="background-color: #4baee2;">
     <div style="display: flex; justify-content: space-between;">
@@ -110,45 +189,50 @@ body {
       <a href="./FOBS.html">&gt;&gt;&gt;</a>
     </div>
 
-    <br />
-
     <div id="trackList">
-      1. Don't Be Scared It's Just Strange<br /><br />
-      2. Dancing Sheep Bossa Nova<br /><br />
-      3. Nobody Can Touch Ur Love<br /><br />
-      4. A Discussion Among Sheep<br /><br />
-      5. Lover Come Undone<br /><br />
-      <i>- Bonus Tracks -</i><br /><br />
-      1. Hiding (don't lay it on lightly)<br /><br />
-      2. A Change of Heart<br /><br />
-      3. Setting Sun<br /><br />
+      1. Don't Be Scared It's Just Strange<br><br>
+      2. Dancing Sheep Bossa Nova<br><br>
+      3. Nobody Can Touch Ur Love<br><br>
+      4. A Discussion Among Sheep<br><br>
+      5. Lover Come Undone<br><br>
+      <i>- Bonus Tracks -</i><br><br>
+      6. Hiding (don't lay it on lightly)<br><br>
+      7. A Change of Heart<br><br>
+      8. Setting Sun<br><br>
     </div>
 
     <div id="playerContainer">
-      <!-- <div id="trackName">Loading...</div> -->
-      <audio id="smallPlayer" controls></audio>
-      <div>
-        <button class="player-button" id="prevButton">&lt;</button>
-        <button class="player-button" id="nextButton">&gt;</button>
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+
+      <div id="timeDisplay">0:00 / 0:00</div>
+
+      <div id="skipButtons">
+        <button class="player-button" id="prevButton" aria-label="Previous track"><</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">></button>
       </div>
     </div>
 
-    <script>
-const tracks = [
-  { name: "Don't Be Scared It's Just Strange", url: "https://media.heartflowerrecords.com/SHP/01-just-strange.mp3" },
-  { name: "Dancing Sheep Bossa Nova", url: "https://media.heartflowerrecords.com/SHP/02-sheep-bossa.mp3" },
-  { name: "Nobody Can Touch Ur Love", url: "https://media.heartflowerrecords.com/SHP/03-nobody-touch.mp3" },
-  { name: "A Discussion Among Sheep", url: "https://media.heartflowerrecords.com/SHP/04-discussion-sheep.mp3" },
-  { name: "Lover Come Undone", url: "https://media.heartflowerrecords.com/SHP/05-lover-undone.mp3" },
-  { name: "Hiding", url: "https://media.heartflowerrecords.com/SHP/06-devil-hiding.mp3" },
-  { name: "Change of Heart", url: "https://media.heartflowerrecords.com/SHP/07-change-heart.mp3" },
-  { name: "Setting Sun", url: "https://media.heartflowerrecords.com/SHP/08-setting-sun.mp3" },
-];
+    <audio id="smallPlayer" src="" preload="metadata"></audio>
 
+    <script>
+      const tracks = [
+        { name: "Don't Be Scared It's Just Strange", url: "https://media.heartflowerrecords.com/SHP/01-just-strange.mp3" },
+        { name: "Dancing Sheep Bossa Nova", url: "https://media.heartflowerrecords.com/SHP/02-sheep-bossa.mp3" },
+        { name: "Nobody Can Touch Ur Love", url: "https://media.heartflowerrecords.com/SHP/03-nobody-touch.mp3" },
+        { name: "A Discussion Among Sheep", url: "https://media.heartflowerrecords.com/SHP/04-discussion-sheep.mp3" },
+        { name: "Lover Come Undone", url: "https://media.heartflowerrecords.com/SHP/05-lover-undone.mp3" },
+        { name: "Hiding (don't lay it on lightly)", url: "https://media.heartflowerrecords.com/SHP/06-devil-hiding.mp3" },
+        { name: "A Change of Heart", url: "https://media.heartflowerrecords.com/SHP/07-change-heart.mp3" },
+        { name: "Setting Sun", url: "https://media.heartflowerrecords.com/SHP/08-setting-sun.mp3" }
+      ];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
-      // const trackName = document.getElementById("trackName");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const timeline = document.getElementById("timeline");
+      const timeDisplay = document.getElementById("timeDisplay");
       const nextButton = document.getElementById("nextButton");
       const prevButton = document.getElementById("prevButton");
       const trackListDiv = document.getElementById("trackList");
@@ -177,16 +261,36 @@ const tracks = [
       document.querySelectorAll(".clickable-track").forEach(el => {
         el.addEventListener("click", e => {
           const idx = parseInt(e.target.getAttribute("data-index"));
-          if (!isNaN(idx)) loadTrack(idx);
+          if (!isNaN(idx)) {
+            loadTrack(idx);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+            updateMediaSessionMetadata();
+          }
         });
       });
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      function updateTimeDisplay() {
+        timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+      }
 
       function loadTrack(index) {
         current = index;
         player.src = tracks[current].url;
-        // trackName.textContent = tracks[current].name;
-        player.play();
+        player.load();
+        playPauseBtn.textContent = "►";
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        timeline.value = 0;
+        updateTimeDisplay();
         updateActiveTrack();
+        updateMediaSessionMetadata();
       }
 
       function updateActiveTrack() {
@@ -200,23 +304,107 @@ const tracks = [
         });
       }
 
+      playPauseBtn.addEventListener("click", () => {
+        if (player.paused) {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      player.addEventListener("loadedmetadata", () => {
+        timeline.max = player.duration;
+        updateTimeDisplay();
+      });
+
+      player.addEventListener("timeupdate", () => {
+        timeline.value = player.currentTime;
+        updateTimeDisplay();
+      });
+
+      timeline.addEventListener("input", () => {
+        player.currentTime = timeline.value;
+        updateTimeDisplay();
+      });
+
       nextButton.addEventListener("click", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       prevButton.addEventListener("click", () => {
         if (current - 1 >= 0) {
           loadTrack(current - 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       player.addEventListener("ended", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+          timeline.value = 0;
+          updateTimeDisplay();
         }
       });
+
+      // MEDIA SESSION API integration for lock screen controls
+      function updateMediaSessionMetadata() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[current].name,
+            artist: 'Mitch Zachry',
+            album: 'SHEEP! HIDE! POWER!',
+            artwork: [
+              { src: 'https://media.heartflowerrecords.com/SHP/SHPart.jpg', sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        }
+      }
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (current > 0) {
+            loadTrack(current - 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (current + 1 < tracks.length) {
+            loadTrack(current + 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+      }
 
       loadTrack(0);
     </script>
@@ -227,6 +415,8 @@ const tracks = [
       <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
     </i></p>
   </main>
+<div style="height: 40px; pointer-events: none;"></div>
+
 </body>
 <footer>
 </footer>

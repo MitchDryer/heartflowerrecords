@@ -11,69 +11,143 @@
       color: black;
     }
 
- html, body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
+    html, body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif;
+      color: black;
+    }
 
-body {
-  background-color: #aa7db6;
-  background-image: url("./media/FOBSart.jpg");
-  background-repeat: repeat-y;
-  background-position: center center;
-  background-size: cover; /* ensures full coverage */
-  color: black;
-}
+    body {
+      background-color: #aa7db6;
+      background-image: url("./media/FOBSart.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover;
+    }
 
     main {
       background-color: #aa7db6;
     }
 
-    /* Player container and buttons */
     #playerContainer {
       text-align: center;
-      margin-top: 10px;
-      font-family: sans-serif;
+      max-width: 600px;
+      margin: 10px auto 0;
+      font-family: inherit;
       color: black;
-    }
-
-    #trackName {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    #smallPlayer {
-      width: 75%;
-      height: 35px;
-      display: block;
-      margin: 0 auto 10px auto;
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
       color: black;
-      padding: 5px 10px;
       border: none;
       border-radius: 0;
       cursor: pointer;
-      font-size: 14px;
-      margin: 0 5px;
+      font-family: inherit;
+      font-weight: inherit;
+      user-select: none;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
     }
 
     .player-button:hover {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Track list container */
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
+
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      margin-top: -5px;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
+
+    #timeline::-moz-range-thumb {
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+    }
+
+    #timeDisplay {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #skipButtons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #skipButtons .player-button {
+      width: 80px;
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 6px; /* tweak vertical alignment */
+      padding-bottom: 0;
+      vertical-align: middle;
+    }
+
+    #playPauseBtn {
+      width: 80px;
+      height: 30px;
+      font-size: 18px;
+      margin: 0 auto 8px auto;
+      padding-top: 6px;        /* tweak this value to nudge vertical */
+    }
+
     #trackList {
       text-align: center;
       color: black;
-      font-family: marion, sans-serif;
+      font-family: inherit;
+      margin-top: 10px;
     }
 
-    /* Clickable track styles */
     .clickable-track {
       cursor: pointer;
       color: black;
@@ -99,67 +173,74 @@ body {
   <header>
     <h1>Flower Ocean Burning Sun</h1>
     <h2>
-  <span class="artist-hover">
-    <a href="https://www.instagram.com/space_foe/" target="_blank" rel="noopener noreferrer" class="artist-link">
-      SPACE FOE
-    </a>
-    <div class="artist-info-box">
-      SPACE FOE combines cosmic jazz, immersive soundscapes, and transmissions for humankind. 
-    </div>
-  </span>
-</h2>
+      <span class="artist-hover">
+        <a href="https://www.instagram.com/space_foe/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          SPACE FOE
+        </a>
+        <div class="artist-info-box">
+          SPACE FOE combines cosmic jazz, immersive soundscapes, and transmissions for humankind.
+        </div>
+      </span>
+    </h2>
   </header>
-  <main>
+  <main style="background-color: #aa7db6;">
     <div style="display: flex; justify-content: space-between;">
       <a href="./SHP.html">&lt;&lt;&lt;</a>
       <a href="../releases.html">----</a>
       <a href="./LSB.html">&gt;&gt;&gt;</a>
     </div>
 
-    <br />
-
     <div id="trackList">
-      1. Introduction<br /><br />
-      2. Morning Like an Infinite Clarity<br /><br />
-      3. Flower Ocean<br /><br />
-      4. The Unbearable Physicality of Nature<br /><br />
-      5. From Where Everything Arises<br /><br />
-      6. Rainbow on the Wind<br /><br />
-      7. Petals of the Evening<br /><br />
-      8. Burning Sun<br /><br />
-      <i>- Bonus Track -</i><br /><br />
-      9. Spaceship Lobby Music #1<br /><br />
+      1. Introduction<br><br>
+      2. Morning Like an Infinite Clarity<br><br>
+      3. Flower Ocean<br><br>
+      4. The Unbearable Physicality of Nature<br><br>
+      5. From Where Everything Arises<br><br>
+      6. Rainbow on the Wind<br><br>
+      7. Petals of the Evening<br><br>
+      8. Burning Sun<br><br>
+      <i>- Bonus Track -</i><br><br>
+      9. Spaceship Lobby Music #1<br><br>
     </div>
 
     <div id="playerContainer">
-      <!-- <div id="trackName">Loading...</div> -->
-      <audio id="smallPlayer" controls></audio>
-      <div>
-        <button class="player-button" id="prevButton">&lt;</button>
-        <button class="player-button" id="nextButton">&gt;</button>
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+
+      <div id="timeDisplay">0:00 / 0:00</div>
+
+      <div id="skipButtons">
+        <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
       </div>
     </div>
 
+    <audio id="smallPlayer" src="" preload="metadata"></audio>
+
     <script>
-const tracks = [
-  { name: "Introduction", url: "https://media.heartflowerrecords.com/FOBS/01-intro.mp3" },
-  { name: "Morning Like an Infinite Clarity", url: "https://media.heartflowerrecords.com/FOBS/02-infinite-clarity.mp3" },
-  { name: "Flower Ocean", url: "https://media.heartflowerrecords.com/FOBS/03-flower-ocean.mp3" },
-  { name: "The Unbearable Physicality", url: "https://media.heartflowerrecords.com/FOBS/04-unbearable-physicality.mp3" },
-  { name: "From Where Everything Arises", url: "https://media.heartflowerrecords.com/FOBS/05-everything-arises.mp3" },
-  { name: "Rainbow on the Wind", url: "https://media.heartflowerrecords.com/FOBS/06-rainbow-wind.mp3" },
-  { name: "Petals of the Evening", url: "https://media.heartflowerrecords.com/FOBS/07-petals-evening.mp3" },
-  { name: "Burning Sun", url: "https://media.heartflowerrecords.com/FOBS/08-burning-sun.mp3" },
-  { name: "Spaceship Lobby Music #1", url: "https://media.heartflowerrecords.com/FOBS/09-bonus-track.mp3" },
-];
+      const tracks = [
+        { name: "Introduction", url: "https://media.heartflowerrecords.com/FOBS/01-intro.mp3" },
+        { name: "Morning Like an Infinite Clarity", url: "https://media.heartflowerrecords.com/FOBS/02-infinite-clarity.mp3" },
+        { name: "Flower Ocean", url: "https://media.heartflowerrecords.com/FOBS/03-flower-ocean.mp3" },
+        { name: "The Unbearable Physicality of Nature", url: "https://media.heartflowerrecords.com/FOBS/04-unbearable-physicality.mp3" },
+        { name: "From Where Everything Arises", url: "https://media.heartflowerrecords.com/FOBS/05-everything-arises.mp3" },
+        { name: "Rainbow on the Wind", url: "https://media.heartflowerrecords.com/FOBS/06-rainbow-wind.mp3" },
+        { name: "Petals of the Evening", url: "https://media.heartflowerrecords.com/FOBS/07-petals-evening.mp3" },
+        { name: "Burning Sun", url: "https://media.heartflowerrecords.com/FOBS/08-burning-sun.mp3" },
+        { name: "Spaceship Lobby Music #1", url: "https://media.heartflowerrecords.com/FOBS/09-bonus-track.mp3" },
+      ];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
-      // const trackName = document.getElementById("trackName");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const timeline = document.getElementById("timeline");
+      const timeDisplay = document.getElementById("timeDisplay");
       const nextButton = document.getElementById("nextButton");
       const prevButton = document.getElementById("prevButton");
       const trackListDiv = document.getElementById("trackList");
 
+      // Lines in trackList that correspond to each track index
       const clickableLines = [
         { line: 0, trackIndex: 0 },
         { line: 1, trackIndex: 1 },
@@ -169,7 +250,7 @@ const tracks = [
         { line: 5, trackIndex: 5 },
         { line: 6, trackIndex: 6 },
         { line: 7, trackIndex: 7 },
-        { line: 9, trackIndex: 8 }
+        { line: 9, trackIndex: 8 } // skipping bonus track label line 8
       ];
 
       let lines = trackListDiv.innerHTML.split("<br><br>");
@@ -185,16 +266,36 @@ const tracks = [
       document.querySelectorAll(".clickable-track").forEach(el => {
         el.addEventListener("click", e => {
           const idx = parseInt(e.target.getAttribute("data-index"));
-          if (!isNaN(idx)) loadTrack(idx);
+          if (!isNaN(idx)) {
+            loadTrack(idx);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+            updateMediaSessionMetadata();
+          }
         });
       });
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      function updateTimeDisplay() {
+        timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+      }
 
       function loadTrack(index) {
         current = index;
         player.src = tracks[current].url;
-        // trackName.textContent = tracks[current].name;
-        player.play();
+        player.load();
+        playPauseBtn.textContent = "►";
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        timeline.value = 0;
+        updateTimeDisplay();
         updateActiveTrack();
+        updateMediaSessionMetadata();
       }
 
       function updateActiveTrack() {
@@ -208,23 +309,106 @@ const tracks = [
         });
       }
 
+      playPauseBtn.addEventListener("click", () => {
+        if (player.paused) {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      player.addEventListener("loadedmetadata", () => {
+        timeline.max = player.duration;
+        updateTimeDisplay();
+      });
+
+      player.addEventListener("timeupdate", () => {
+        timeline.value = player.currentTime;
+        updateTimeDisplay();
+      });
+
+      timeline.addEventListener("input", () => {
+        player.currentTime = timeline.value;
+        updateTimeDisplay();
+      });
+
       nextButton.addEventListener("click", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       prevButton.addEventListener("click", () => {
         if (current - 1 >= 0) {
           loadTrack(current - 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       player.addEventListener("ended", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+          timeline.value = 0;
+          updateTimeDisplay();
         }
       });
+
+      function updateMediaSessionMetadata() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[current].name,
+            artist: 'SPACE FOE',
+            album: 'Flower Ocean Burning Sun',
+            artwork: [
+              { src: 'https://media.heartflowerrecords.com/FOBS/FOBSart.jpg', sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        }
+      }
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (current > 0) {
+            loadTrack(current - 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (current + 1 < tracks.length) {
+            loadTrack(current + 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+      }
 
       loadTrack(0);
     </script>
@@ -235,6 +419,7 @@ const tracks = [
       <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
     </i></p>
   </main>
+  <div style="height: 40px; pointer-events: none;"></div>
 </body>
 <footer>
 </footer>

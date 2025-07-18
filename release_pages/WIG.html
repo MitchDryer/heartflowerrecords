@@ -12,66 +12,142 @@
     }
 
     html, body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: #012A0F;
-  background-image: url("./media/WIGbg.jpg");
-  background-repeat: repeat-y;
-  background-position: center center;
-  background-size: cover; /* ensures full coverage */
-  color: white;
-}
-
-    /* removed main background-color from here, applied inline */
-
-    /* Player container and buttons */
-    #playerContainer {
-      text-align: center;
-      margin-top: 10px;
-      font-family: sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif;
       color: white;
     }
 
-    #trackName {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: 16px;
+    body {
+      background-color: #012A0F;
+      background-image: url("./media/WIGbg.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover;
     }
 
-    #smallPlayer {
-      width: 75%;
-      height: 35px;
-      display: block;
-      margin: 0 auto 10px auto;
+    main {
+      background-color: #012A0F;
+      background-position: 100% 65%;
+    }
+
+    #playerContainer {
+      text-align: center;
+      max-width: 600px;
+      margin: 10px auto 0;
+      font-family: inherit;
+      color: white;
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
       color: white;
-      padding: 5px 10px;
       border: none;
       border-radius: 0;
       cursor: pointer;
-      font-size: 14px;
-      margin: 0 5px;
+      font-family: inherit;
+      font-weight: inherit;
+      user-select: none;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
     }
 
     .player-button:hover {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Track list container */
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
+
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 8px;
+      height: 16px;
+      background: white;
+      border-radius: 0;
+      cursor: pointer;
+      margin-top: -5px;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
+
+    #timeline::-moz-range-thumb {
+      width: 8px;
+      height: 16px;
+      background: white;
+      border-radius: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+    }
+
+    #timeDisplay {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+      margin-top: 10px;
+    }
+
+    #skipButtons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #skipButtons .player-button {
+      width: 80px;
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 6px;
+      padding-bottom: 0;
+      vertical-align: middle;
+    }
+
+    #playPauseBtn {
+      width: 80px;
+      height: 30px;
+      font-size: 18px;
+      margin: 0 auto 8px auto;
+      padding-top: 6px;
+    }
+
     #trackList {
       text-align: center;
       color: white;
-      font-family: marion, sans-serif;
+      font-family: inherit;
+      margin-top: 10px;
     }
 
-    /* Clickable track styles */
     .clickable-track {
       cursor: pointer;
       color: white;
@@ -97,15 +173,15 @@ body {
   <header>
     <h1>War In The Garden</h1>
     <h2>
-  <span class="artist-hover">
-    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-      Mitch Zachry
-    </a>
-    <div class="artist-info-box">
-      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
-    </div>
-  </span>
-</h2>
+      <span class="artist-hover">
+        <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Mitch Zachry
+        </a>
+        <div class="artist-info-box">
+          Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+        </div>
+      </span>
+    </h2>
   </header>
   <main style="background-color: #012A0F; background-position: 100% 65%;">
     <div style="display: flex; justify-content: space-between;">
@@ -114,47 +190,53 @@ body {
       <a href="./SHP.html">&gt;&gt;&gt;</a>
     </div>
 
-    <br />
-
     <div id="trackList">
-      1. From The Garden<br /><br />
-      2. A Love Hard Fought<br /><br />
-      3. Teach Me Loving<br /><br />
-      4. Holy Water in a Wishing Well<br /><br />
-      5. River Love Song<br /><br />
-      6. War in the Garden<br /><br />
-      7. Textures of an Evening Garden<br /><br />
-      8. The Bloom of Spring<br /><br />
-      9. If I Don't Go Home Again<br /><br />
-      10. Everything Goes Away<br /><br />
+      1. From The Garden<br><br>
+      2. A Love Hard Fought<br><br>
+      3. Teach Me Loving<br><br>
+      4. Holy Water in a Wishing Well<br><br>
+      5. River Love Song<br><br>
+      6. War in the Garden<br><br>
+      7. Textures of an Evening Garden<br><br>
+      8. The Bloom of Spring<br><br>
+      9. If I Don't Go Home<br><br>
+      10. Everything Goes Away<br><br>
     </div>
 
     <div id="playerContainer">
-      <!-- <div id="trackName">Loading...</div> -->
-      <audio id="smallPlayer" controls></audio>
-      <div>
-        <button class="player-button" id="prevButton">&lt;</button>
-        <button class="player-button" id="nextButton">&gt;</button>
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+
+      <div id="timeDisplay">0:00 / 0:00</div>
+
+      <div id="skipButtons">
+        <button class="player-button" id="prevButton" aria-label="Previous track"><</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">></button>
       </div>
     </div>
 
+    <audio id="smallPlayer" src="" preload="metadata"></audio>
+
     <script>
-const tracks = [
-  { name: "From The Garden", url: "https://media.heartflowerrecords.com/WIG/01-from-garden.mp3" },
-  { name: "A Love Hard Fought", url: "https://media.heartflowerrecords.com/WIG/02-hard-fought.mp3" },
-  { name: "Teach Me Loving", url: "https://media.heartflowerrecords.com/WIG/03-teach-loving.mp3" },
-  { name: "Holy Water in a Wishing Well", url: "https://media.heartflowerrecords.com/WIG/04-holy-water.mp3" },
-  { name: "River Love Song", url: "https://media.heartflowerrecords.com/WIG/05-river-love.mp3" },
-  { name: "War in the Garden", url: "https://media.heartflowerrecords.com/WIG/06-war-garden.mp3" },
-  { name: "Textures of an Evening Garden", url: "https://media.heartflowerrecords.com/WIG/07-textures-eveing.mp3" },
-  { name: "The Bloom of Spring", url: "https://media.heartflowerrecords.com/WIG/08-bloom-spring.mp3" },
-  { name: "If I Don't Go Home", url: "https://media.heartflowerrecords.com/WIG/09-home-again.mp3" },
-  { name: "Everything Goes Away", url: "https://media.heartflowerrecords.com/WIG/10-everything-goes.mp3" },
-];
+      const tracks = [
+        { name: "From The Garden", url: "https://media.heartflowerrecords.com/WIG/01-from-garden.mp3" },
+        { name: "A Love Hard Fought", url: "https://media.heartflowerrecords.com/WIG/02-hard-fought.mp3" },
+        { name: "Teach Me Loving", url: "https://media.heartflowerrecords.com/WIG/03-teach-loving.mp3" },
+        { name: "Holy Water in a Wishing Well", url: "https://media.heartflowerrecords.com/WIG/04-holy-water.mp3" },
+        { name: "River Love Song", url: "https://media.heartflowerrecords.com/WIG/05-river-love.mp3" },
+        { name: "War in the Garden", url: "https://media.heartflowerrecords.com/WIG/06-war-garden.mp3" },
+        { name: "Textures of an Evening Garden", url: "https://media.heartflowerrecords.com/WIG/07-textures-eveing.mp3" },
+        { name: "The Bloom of Spring", url: "https://media.heartflowerrecords.com/WIG/08-bloom-spring.mp3" },
+        { name: "If I Don't Go Home", url: "https://media.heartflowerrecords.com/WIG/09-home-again.mp3" },
+        { name: "Everything Goes Away", url: "https://media.heartflowerrecords.com/WIG/10-everything-goes.mp3" },
+      ];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
-      // const trackName = document.getElementById("trackName");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const timeline = document.getElementById("timeline");
+      const timeDisplay = document.getElementById("timeDisplay");
       const nextButton = document.getElementById("nextButton");
       const prevButton = document.getElementById("prevButton");
       const trackListDiv = document.getElementById("trackList");
@@ -185,16 +267,36 @@ const tracks = [
       document.querySelectorAll(".clickable-track").forEach(el => {
         el.addEventListener("click", e => {
           const idx = parseInt(e.target.getAttribute("data-index"));
-          if (!isNaN(idx)) loadTrack(idx);
+          if (!isNaN(idx)) {
+            loadTrack(idx);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+            updateMediaSessionMetadata();
+          }
         });
       });
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      function updateTimeDisplay() {
+        timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+      }
 
       function loadTrack(index) {
         current = index;
         player.src = tracks[current].url;
-        // trackName.textContent = tracks[current].name;
-        player.play();
+        player.load();
+        playPauseBtn.textContent = "►";
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        timeline.value = 0;
+        updateTimeDisplay();
         updateActiveTrack();
+        updateMediaSessionMetadata();
       }
 
       function updateActiveTrack() {
@@ -208,23 +310,106 @@ const tracks = [
         });
       }
 
+      playPauseBtn.addEventListener("click", () => {
+        if (player.paused) {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      player.addEventListener("loadedmetadata", () => {
+        timeline.max = player.duration;
+        updateTimeDisplay();
+      });
+
+      player.addEventListener("timeupdate", () => {
+        timeline.value = player.currentTime;
+        updateTimeDisplay();
+      });
+
+      timeline.addEventListener("input", () => {
+        player.currentTime = timeline.value;
+        updateTimeDisplay();
+      });
+
       nextButton.addEventListener("click", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       prevButton.addEventListener("click", () => {
         if (current - 1 >= 0) {
           loadTrack(current - 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       player.addEventListener("ended", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+          timeline.value = 0;
+          updateTimeDisplay();
         }
       });
+
+      function updateMediaSessionMetadata() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[current].name,
+            artist: 'Mitch Zachry',
+            album: 'War In The Garden',
+            artwork: [
+              { src: 'https://media.heartflowerrecords.com/WIG/WIGart.jpg', sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        }
+      }
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (current > 0) {
+            loadTrack(current - 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (current + 1 < tracks.length) {
+            loadTrack(current + 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+      }
 
       loadTrack(0);
     </script>
