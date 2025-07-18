@@ -15,7 +15,7 @@
       min-height: 100vh;
       margin: 0;
       padding: 0;
-      font-family: marion, serif; /* or your main font */
+      font-family: marion, serif;
       color: black;
     }
 
@@ -24,111 +24,104 @@
       background-image: url("./media/LSBwater.jpg");
       background-repeat: repeat-y;
       background-position: center center;
-      background-size: cover; /* ensures full coverage */
+      background-size: cover;
     }
 
-    /* Player container and buttons */
     #playerContainer {
       text-align: center;
-      margin-top: 10px;
+      max-width: 600px;
+      margin: 10px auto 0;
       font-family: inherit;
       color: black;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #playerContainer > div {
-      text-align: center;
-    }
-
-    #smallPlayer {
-      display: none; /* hide native controls */
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
       color: black;
-      padding: 0 6px;
+      padding: 2px 6px;
       border: none;
       border-radius: 0;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 300;
-      margin-top: 10px;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
       user-select: none;
-      line-height: 1;
-      display: inline-block;
+      line-height: 1.5;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
     }
 
     .player-button:hover {
       background-color: rgba(255, 255, 255, 0.5);
+      
+      
     }
 
-    /* Timeline slider styling */
     #timeline {
       -webkit-appearance: none;
       width: 75%;
       height: 6px;
-      background: #ccc;
-      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
       cursor: pointer;
-      margin-top: 5px;
       position: relative;
       vertical-align: middle;
+      margin: 8px auto 16px;
+      display: block;
     }
 
-    /* Chrome, Safari, Edge */
     #timeline::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 8px;
+      height: 16px;
       background: black;
-      border-radius: 50%;
+      border-radius: 0;
       cursor: pointer;
-      margin-top: -4px; /* center thumb on track */
+      margin-top: -5px;
       position: relative;
       z-index: 1;
       box-shadow: none;
       border: none;
     }
 
-    /* Firefox */
     #timeline::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
+      width: 8px;
+      height: 16px;
       background: black;
-      border-radius: 50%;
+      border-radius: 0;
       cursor: pointer;
       border: none;
       box-shadow: none;
     }
 
-    /* Firefox track */
     #timeline::-moz-range-track {
       height: 6px;
-      background: #ccc;
-      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
     }
 
-    /* Time display */
     #timeDisplay {
       font-family: inherit;
-      font-weight: normal;
       font-size: 14px;
-      margin-bottom: 4px;
+      font-weight: normal;
       user-select: none;
+      margin-top: 0px;
     }
 
-    /* Track list container */
+    #skipButtons {
+      margin-top: 10px;
+    }
+
     #trackList {
       text-align: center;
       color: black;
       font-family: inherit;
+      margin-top: 20px;
     }
 
-    /* Clickable track styles */
     .clickable-track {
       cursor: pointer;
       color: black;
@@ -185,23 +178,19 @@
     </div>
 
     <div id="playerContainer">
+      <button id="playPauseBtn" class="player-button" aria-label="Play">play</button>
+
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+
       <div id="timeDisplay">0:00 / 0:00</div>
 
-      <div>
-        <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
-      </div>
-
-      <div style="margin-top: 8px;">
-        <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
-      </div>
-
-      <audio id="smallPlayer" src="" preload="metadata"></audio>
-
-      <div>
+      <div id="skipButtons">
         <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
         <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
       </div>
     </div>
+
+    <audio id="smallPlayer" src="" preload="metadata"></audio>
 
     <script>
       const tracks = [
@@ -266,8 +255,7 @@
         current = index;
         player.src = tracks[current].url;
         player.load();
-        // Do NOT autoplay on load — keep paused and show play symbol
-        playPauseBtn.textContent = "►"; // play symbol
+        playPauseBtn.textContent = "►";
         playPauseBtn.setAttribute('aria-label', 'Play');
         timeline.value = 0;
         updateTimeDisplay();
@@ -288,7 +276,7 @@
       playPauseBtn.addEventListener("click", () => {
         if (player.paused) {
           player.play();
-          playPauseBtn.textContent = "❚❚";
+          playPauseBtn.textContent = "❙❙";
           playPauseBtn.setAttribute('aria-label', 'Pause');
         } else {
           player.pause();
@@ -328,7 +316,7 @@
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
         } else {
-          playPauseBtn.textContent = "►";
+          playPauseBtn.textContent = "play";
           playPauseBtn.setAttribute('aria-label', 'Play');
           timeline.value = 0;
           updateTimeDisplay();
