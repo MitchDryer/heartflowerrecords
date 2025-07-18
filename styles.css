@@ -1,6 +1,11 @@
+
+/* Crimson Text Font */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+
 a {
-  text-decoration: none; /* removes underline */
-  color: inherit;        /* makes link use same color as surrounding text */
+  text-decoration: none;
+  color: inherit;
 }
 
 body {
@@ -8,7 +13,7 @@ body {
   background-size: cover;
   background-position: center top;
   background-repeat: repeat;
-  font-family: marion;
+  font-family: 'Marion', 'Crimson Text', Georgia, serif;
 }
 
 h1, h2, h3, p {
@@ -27,13 +32,9 @@ main {
   justify-content: center;
   width: 60%;
   max-width: 600px;
-  min-width: 200px;
+  min-width: 300px;
   padding: 10px 10px;
   margin: auto;
-  /*
-  font-size: 40pt;
-  color: #efc61c;
-  */
 }
 
 footer {
@@ -56,13 +57,29 @@ audio {
 }
 
 main.main_releases a {
-  display: block;   /* makes the <a> fill horizontal space and margin works */
-  margin-bottom: 20px; /* space between release links */
-  text-decoration: none; /* optional: remove underline on links */
+  display: block;
+  margin-bottom: 20px;
+  text-decoration: none;
 }
 
 .release_box {
-  margin-bottom: 10px; /* optional extra spacing inside the link */
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.release_box:hover {
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  opacity: 1;
+}
+
+.release_box:hover h3,
+.release_box:hover p,
+.release_box:hover em,
+.release_box:hover a {
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .WITGEPK {
@@ -108,13 +125,7 @@ main.main_releases a {
   align-items: center;
 }
 
-.profile_img {
-  display: block;
-  width: 50%;
-  height: 50%;
-  margin: auto;
-}
-
+.profile_img,
 .release_img {
   display: block;
   width: 50%;
@@ -128,12 +139,6 @@ main.main_releases a {
 }
 
 .menu {
-  /*
-  width: 30%;
-  height: 80%;
-  max-width: 600px;
-  margin: auto;
-  */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,25 +162,6 @@ main.main_releases a {
   width: 50px;
   display: block;
   margin: auto;
-}
-
-.release_box {
-  transition: background-color 0.2s ease, opacity 0.2s ease;
-  opacity: 1;
-}
-
-.release_box:hover {
-  background-color: rgba(255, 255, 255, 0);
-  cursor: pointer;
-  opacity: 1;
-}
-
-.release_box:hover h3,
-.release_box:hover p,
-.release_box:hover em,
-.release_box:hover a {
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
 
 .aboutgame {

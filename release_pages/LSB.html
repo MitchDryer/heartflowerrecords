@@ -11,55 +11,121 @@
       color: black;
     }
 
-    body {
-      background-image: url("./media/LSBwater.jpg");
-      background-repeat: repeat-y;
+    html, body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif; /* or your main font */
       color: black;
     }
 
-    /* Removed main { background-color } from here to inline */
+    body {
+      background-color: #46825A;
+      background-image: url("./media/LSBwater.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover; /* ensures full coverage */
+    }
 
     /* Player container and buttons */
     #playerContainer {
       text-align: center;
       margin-top: 10px;
-      font-family: sans-serif;
+      font-family: inherit;
       color: black;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    #trackName {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: 16px;
+    #playerContainer > div {
+      text-align: center;
     }
 
     #smallPlayer {
-      width: 75%;
-      height: 35px;
-      display: block;
-      margin: 0 auto 10px auto;
+      display: none; /* hide native controls */
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
       color: black;
-      padding: 5px 10px;
+      padding: 0 6px;
       border: none;
       border-radius: 0;
       cursor: pointer;
       font-size: 14px;
-      margin: 0 5px;
+      font-weight: 300;
+      margin-top: 10px;
+      user-select: none;
+      line-height: 1;
+      display: inline-block;
     }
 
     .player-button:hover {
       background-color: rgba(255, 255, 255, 0.5);
     }
 
+    /* Timeline slider styling */
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: #ccc;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 5px;
+      position: relative;
+      vertical-align: middle;
+    }
+
+    /* Chrome, Safari, Edge */
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: black;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -4px; /* center thumb on track */
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
+
+    /* Firefox */
+    #timeline::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: black;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    /* Firefox track */
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: #ccc;
+      border-radius: 3px;
+    }
+
+    /* Time display */
+    #timeDisplay {
+      font-family: inherit;
+      font-weight: normal;
+      font-size: 14px;
+      margin-bottom: 4px;
+      user-select: none;
+    }
+
     /* Track list container */
     #trackList {
       text-align: center;
       color: black;
-      font-family: marion, sans-serif;
+      font-family: inherit;
     }
 
     /* Clickable track styles */
@@ -88,16 +154,15 @@
   <header>
     <h1>love love love swim swim swim be be be</h1>
     <h2>
-  <span class="artist-hover">
-    <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-      Mitch Zachry
-    </a>
-    <div class="artist-info-box">
-      Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
-    </div>
-  </span>
-</h2>
-
+      <span class="artist-hover">
+        <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Mitch Zachry
+        </a>
+        <div class="artist-info-box">
+          Mitch Zachry is a Melbourne-based songwriter and producer. His releases span folk, ambient, electronic, and DIY pop.
+        </div>
+      </span>
+    </h2>
   </header>
   <main style="background-color: #46825A;">
     <div style="display: flex; justify-content: space-between;">
@@ -120,30 +185,41 @@
     </div>
 
     <div id="playerContainer">
-      <!-- <div id="trackName">Loading...</div> -->
-      <audio id="smallPlayer" controls></audio>
+      <div id="timeDisplay">0:00 / 0:00</div>
+
       <div>
-        <button class="player-button" id="prevButton">&lt;</button>
-        <button class="player-button" id="nextButton">&gt;</button>
+        <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+      </div>
+
+      <div style="margin-top: 8px;">
+        <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+      </div>
+
+      <audio id="smallPlayer" src="" preload="metadata"></audio>
+
+      <div>
+        <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
       </div>
     </div>
 
     <script>
-const tracks = [
-  { name: "love swim be", url: "https://media.heartflowerrecords.com/LSB/01-love-swim.mp3" },
-  { name: "there's a river right by my home", url: "https://media.heartflowerrecords.com/LSB/02-river-home.mp3" },
-  { name: "nature of a loneliness", url: "https://media.heartflowerrecords.com/LSB/03-nature-loneliness.mp3" },
-  { name: "julia you're home", url: "https://media.heartflowerrecords.com/LSB/04-julia-home.mp3" },
-  { name: "it's right here", url: "https://media.heartflowerrecords.com/LSB/05-right-here.mp3" },
-  { name: "don't listen to peter", url: "https://media.heartflowerrecords.com/LSB/06-peter.mp3" },
-  { name: "immersion", url: "https://media.heartflowerrecords.com/LSB/07-immersion.mp3" },
-  { name: "summer sun", url: "https://media.heartflowerrecords.com/LSB/08-summer-sun.mp3" },
-];
-
+      const tracks = [
+        { name: "love swim be", url: "https://media.heartflowerrecords.com/LSB/01-love-swim.mp3" },
+        { name: "there's a river right by my home", url: "https://media.heartflowerrecords.com/LSB/02-river-home.mp3" },
+        { name: "nature of a loneliness", url: "https://media.heartflowerrecords.com/LSB/03-nature-loneliness.mp3" },
+        { name: "julia you're home", url: "https://media.heartflowerrecords.com/LSB/04-julia-home.mp3" },
+        { name: "it's right here", url: "https://media.heartflowerrecords.com/LSB/05-right-here.mp3" },
+        { name: "don't listen to peter", url: "https://media.heartflowerrecords.com/LSB/06-peter.mp3" },
+        { name: "immersion", url: "https://media.heartflowerrecords.com/LSB/07-immersion.mp3" },
+        { name: "summer sun", url: "https://media.heartflowerrecords.com/LSB/08-summer-sun.mp3" },
+      ];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
-      // const trackName = document.getElementById("trackName");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const timeline = document.getElementById("timeline");
+      const timeDisplay = document.getElementById("timeDisplay");
       const nextButton = document.getElementById("nextButton");
       const prevButton = document.getElementById("prevButton");
       const trackListDiv = document.getElementById("trackList");
@@ -176,11 +252,25 @@ const tracks = [
         });
       });
 
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      function updateTimeDisplay() {
+        timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+      }
+
       function loadTrack(index) {
         current = index;
         player.src = tracks[current].url;
-        // trackName.textContent = tracks[current].name;
-        player.play();
+        player.load();
+        // Do NOT autoplay on load — keep paused and show play symbol
+        playPauseBtn.textContent = "►"; // play symbol
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        timeline.value = 0;
+        updateTimeDisplay();
         updateActiveTrack();
       }
 
@@ -194,6 +284,33 @@ const tracks = [
           }
         });
       }
+
+      playPauseBtn.addEventListener("click", () => {
+        if (player.paused) {
+          player.play();
+          playPauseBtn.textContent = "❚❚";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      player.addEventListener("loadedmetadata", () => {
+        timeline.max = player.duration;
+        updateTimeDisplay();
+      });
+
+      player.addEventListener("timeupdate", () => {
+        timeline.value = player.currentTime;
+        updateTimeDisplay();
+      });
+
+      timeline.addEventListener("input", () => {
+        player.currentTime = timeline.value;
+        updateTimeDisplay();
+      });
 
       nextButton.addEventListener("click", () => {
         if (current + 1 < tracks.length) {
@@ -210,6 +327,11 @@ const tracks = [
       player.addEventListener("ended", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+        } else {
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+          timeline.value = 0;
+          updateTimeDisplay();
         }
       });
 
