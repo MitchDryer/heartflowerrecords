@@ -7,140 +7,160 @@
   <title>love love love swim swim swim be be be</title>
   <link rel="icon" href="./media/LSBart.jpg" />
   <style>
-    a {
-      color: black;
-    }
+a {
+  color: black;
+}
 
-    html, body {
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      font-family: marion, serif;
-      color: black;
-    }
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: marion, serif;
+  color: black;
+}
 
-    body {
-      background-color: #46825A;
-      background-image: url("./media/LSBwater.jpg");
-      background-repeat: repeat-y;
-      background-position: center center;
-      background-size: cover;
-    }
+body {
+  background-color: #46825A;
+  background-image: url("./media/LSBwater.jpg");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: cover;
+}
 
-    #playerContainer {
-      text-align: center;
-      max-width: 600px;
-      margin: 10px auto 0;
-      font-family: inherit;
-      color: black;
-    }
+#playerContainer {
+  text-align: center;
+  max-width: 600px;
+  margin: 10px auto 0;
+  font-family: inherit;
+  color: black;
+}
 
-    .player-button {
-      background-color: rgba(0, 0, 0, 0);
-      color: black;
-      padding: 2px 6px;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: inherit;
-      user-select: none;
-      line-height: 1.5;
-      display: inline-flex;
-      align-items: center;
-      transition: background-color 0.2s ease;
-      margin-top: 10px;
-    }
+.player-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: inherit;
+  user-select: none;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
 
-    .player-button:hover {
-      background-color: rgba(255, 255, 255, 0.5);
-      
-      
-    }
+.player-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
 
-    #timeline {
-      -webkit-appearance: none;
-      width: 75%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 0;
-      cursor: pointer;
-      position: relative;
-      vertical-align: middle;
-      margin: 8px auto 16px;
-      display: block;
-    }
+#timeline {
+  -webkit-appearance: none;
+  width: 75%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 auto;
+  display: block;
+}
 
-    #timeline::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 8px;
-      height: 16px;
-      background: black;
-      border-radius: 0;
-      cursor: pointer;
-      margin-top: -5px;
-      position: relative;
-      z-index: 1;
-      box-shadow: none;
-      border: none;
-    }
+#timeline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 16px;
+  background: black;
+  border-radius: 0;
+  cursor: pointer;
+  margin-top: -5px;
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+  border: none;
+}
 
-    #timeline::-moz-range-thumb {
-      width: 8px;
-      height: 16px;
-      background: black;
-      border-radius: 0;
-      cursor: pointer;
-      border: none;
-      box-shadow: none;
-    }
+#timeline::-moz-range-thumb {
+  width: 8px;
+  height: 16px;
+  background: black;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+}
 
-    #timeline::-moz-range-track {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 0;
-    }
+#timeline::-moz-range-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0;
+}
 
-    #timeDisplay {
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: normal;
-      user-select: none;
-      margin-top: 0px;
-    }
+#timeDisplay {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: normal;
+  user-select: none;
+  margin-top: 10px;
+}
 
-    #skipButtons {
-      margin-top: 10px;
-    }
+#skipButtons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
-    #trackList {
-      text-align: center;
-      color: black;
-      font-family: inherit;
-      margin-top: 20px;
-    }
+#skipButtons .player-button {
+  width: 80px;
+  margin-top: 0;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6px; /* tweak vertical alignment */
+  padding-bottom: 0;
+  vertical-align: middle;
+}
 
-    .clickable-track {
-      cursor: pointer;
-      color: black;
-      font-weight: normal;
-      display: inline;
-      text-decoration: none;
-    }
+#playPauseBtn {
+  width: 80px;
+  height: 30px;
+  font-size: 18px;
+  margin: 0 auto 8px auto;
+  padding-top: 6px;        /* tweak this value to nudge vertical */
+}
 
-    .clickable-track.active {
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-    }
+#trackList {
+  text-align: center;
+  color: black;
+  font-family: inherit;
+  margin-top: 20px;
+}
 
-    .clickable-track:hover {
-      cursor: pointer;
-      color: black;
-      text-decoration: none;
-    }
+.clickable-track {
+  cursor: pointer;
+  color: black;
+  font-weight: normal;
+  display: inline;
+  text-decoration: none;
+}
+
+.clickable-track.active {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.clickable-track:hover {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
   </style>
 </head>
 <body>
@@ -178,15 +198,15 @@
     </div>
 
     <div id="playerContainer">
-      <button id="playPauseBtn" class="player-button" aria-label="Play">play</button>
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
 
       <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
 
       <div id="timeDisplay">0:00 / 0:00</div>
 
       <div id="skipButtons">
-        <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
-        <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
+        <button class="player-button" id="prevButton" aria-label="Previous track">⏮</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">⏭</button>
       </div>
     </div>
 
@@ -237,7 +257,13 @@
       document.querySelectorAll(".clickable-track").forEach(el => {
         el.addEventListener("click", e => {
           const idx = parseInt(e.target.getAttribute("data-index"));
-          if (!isNaN(idx)) loadTrack(idx);
+          if (!isNaN(idx)) {
+            loadTrack(idx);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+            updateMediaSessionMetadata();
+          }
         });
       });
 
@@ -260,6 +286,7 @@
         timeline.value = 0;
         updateTimeDisplay();
         updateActiveTrack();
+        updateMediaSessionMetadata();
       }
 
       function updateActiveTrack() {
@@ -303,25 +330,77 @@
       nextButton.addEventListener("click", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       prevButton.addEventListener("click", () => {
         if (current - 1 >= 0) {
           loadTrack(current - 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         }
       });
 
       player.addEventListener("ended", () => {
         if (current + 1 < tracks.length) {
           loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
         } else {
-          playPauseBtn.textContent = "play";
+          playPauseBtn.textContent = "►";
           playPauseBtn.setAttribute('aria-label', 'Play');
           timeline.value = 0;
           updateTimeDisplay();
         }
       });
+
+      // MEDIA SESSION API integration for lock screen controls
+      function updateMediaSessionMetadata() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[current].name,
+            artist: 'Mitch Zachry',
+            album: 'love love love swim swim swim be be be',
+            artwork: [
+              { src: 'https://media.heartflowerrecords.com/LSB/LSBart.jpg', sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        }
+      }
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (current > 0) {
+            loadTrack(current - 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (current + 1 < tracks.length) {
+            loadTrack(current + 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+      }
 
       loadTrack(0);
     </script>
