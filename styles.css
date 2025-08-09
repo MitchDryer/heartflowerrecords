@@ -91,7 +91,12 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
-
+.MOUTH_box {
+  padding: 5px;
+  --bg-color: #F92F00;
+  --bg-color-light: #FF6633; /* lighter red */
+  background-color: var(--bg-color);
+}
 
 .SHP_box {
   padding: 5px;

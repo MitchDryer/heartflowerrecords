@@ -4,199 +4,197 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styles.css" />
-  <title>love love love swim swim swim be be be</title>
-  <link rel="icon" href="./media/LSBart.jpg" />
+  <title>MOUTH</title>
+  <link rel="icon" href="./media/MOUTHart.jpg" />
   <style>
-a {
-  color: black;
-}
+    a {
+      color: black;
+    }
 
-html, body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: marion, serif;
-  color: black;
-}
+    html, body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif;
+      color: black;
+    }
 
-body {
-  background-color: #46825A;
-  background-image: url("./media/LSBwater.jpg");
-  background-repeat: repeat-y;
-  background-position: center center;
-  background-size: cover;
-}
+    body {
+      background-color: #F92F00;
+      background-image: url("./media/MOUTHbg.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover;
+    }
 
+    main {
+      background-color: #F92F00;
+    }
 
+    #playerContainer {
+      text-align: center;
+      max-width: 600px;
+      margin: 10px auto 0;
+      font-family: inherit;
+      color: black;
+    }
 
-#playerContainer {
-  text-align: center;
-  max-width: 600px;
-  margin: 10px auto 0;
-  font-family: inherit;
-  color: black;
-}
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: inherit;
+      user-select: none;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
 
-.player-button {
-  background-color: rgba(0, 0, 0, 0);
-  color: black;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: inherit;
-  user-select: none;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-  margin-top: 10px;
-}
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
 
-.player-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
 
-#timeline {
-  -webkit-appearance: none;
-  width: 75%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 0;
-  cursor: pointer;
-  vertical-align: middle;
-  margin: 10px auto 0 auto;
-  display: block;
-}
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      margin-top: -5px;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
 
-#timeline::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 8px;
-  height: 16px;
-  background: black;
-  border-radius: 0;
-  cursor: pointer;
-  margin-top: -5px;
-  position: relative;
-  z-index: 1;
-  box-shadow: none;
-  border: none;
-}
+    #timeline::-moz-range-thumb {
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
 
-#timeline::-moz-range-thumb {
-  width: 8px;
-  height: 16px;
-  background: black;
-  border-radius: 0;
-  cursor: pointer;
-  border: none;
-  box-shadow: none;
-}
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+    }
 
-#timeline::-moz-range-track {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 0;
-}
+    #timeDisplay {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+      margin-top: 10px;
+    }
 
-#timeDisplay {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: normal;
-  user-select: none;
-  margin-top: 10px;
-}
+    #skipButtons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
 
-#skipButtons {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
+    #skipButtons .player-button {
+      width: 80px;
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 6px; /* tweak vertical alignment */
+      padding-bottom: 0;
+      vertical-align: middle;
+    }
 
-#skipButtons .player-button {
-  width: 80px;
-  margin-top: 0;
-  font-size: 22px;
-  font-weight: bold;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 6px; /* tweak vertical alignment */
-  padding-bottom: 0;
-  vertical-align: middle;
-}
+    #playPauseBtn {
+      width: 80px;
+      height: 30px;
+      font-size: 18px;
+      margin: 0 auto 8px auto;
+      padding-top: 6px;        /* tweak this value to nudge vertical */
+    }
 
-#playPauseBtn {
-  width: 80px;
-  height: 30px;
-  font-size: 18px;
-  margin: 0 auto 8px auto;
-  padding-top: 6px;        /* tweak this value to nudge vertical */
-}
+    #trackList {
+      text-align: center;
+      color: black;
+      font-family: inherit;
+      margin-top: 10px;
+    }
 
-#trackList {
-  text-align: center;
-  color: black;
-  font-family: inherit;
-  margin-top: 10px;
-}
+    .clickable-track {
+      cursor: pointer;
+      color: black;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
 
-.clickable-track {
-  cursor: pointer;
-  color: black;
-  font-weight: normal;
-  display: inline;
-  text-decoration: none;
-}
+    .clickable-track.active {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-.clickable-track.active {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.clickable-track:hover {
-  cursor: pointer;
-  color: black;
-  text-decoration: none;
-}
+    .clickable-track:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>love love love swim swim swim be be be</h1>
+    <h1>MOUTH</h1>
     <h2>
       <span class="artist-hover">
         <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-          Mitch Zachry
+          supersoft
         </a>
         <div class="artist-info-box">
-          Mitch Zachry is a folk-influenced singer-songwriter from Melbourne, drawn to existential themes.
+          supersoft is Mitch's DIY-pop, production-focused sound lab.
         </div>
       </span>
     </h2>
   </header>
-  <main style="background-color: #46825A;">
+  <main>
     <div style="display: flex; justify-content: space-between;">
-      <a href="./FOBS.html">&lt;&lt;&lt;</a>
+      <a href="./WIG.html">&lt;&lt;&lt;</a>
       <a href="../releases.html">----</a>
-      <a href="./WIG.html">&gt;&gt;&gt;</a>
+      <a href="./SHP.html">&gt;&gt;&gt;</a>
     </div>
 
-
     <div id="trackList">
-      1. love swim be<br><br>
-      2. there's a river right by my home<br><br>
-      3. nature of a loneliness<br><br>
-      4. julia you're home<br><br>
-      5. it's right here<br><br>
-      6. don't listen to peter<br><br>
-      7. immersion<br><br>
-      8. summer sun<br><br>
+      1. there is no one less free than they wanna be<br><br>
+      2. you can ask love to see you through<br><br>
+      3. i never was not supersoft<br><br>
+      4. even if i could say everything i wanted to<br><br>
+      5. take my mouth from me<br><br>
     </div>
 
     <div id="playerContainer">
@@ -215,16 +213,13 @@ body {
     <audio id="smallPlayer" src="" preload="metadata"></audio>
 
     <script>
-      const tracks = [
-        { name: "love swim be", url: "https://media.heartflowerrecords.com/LSB/01-love-swim.mp3" },
-        { name: "there's a river right by my home", url: "https://media.heartflowerrecords.com/LSB/02-river-home.mp3" },
-        { name: "nature of a loneliness", url: "https://media.heartflowerrecords.com/LSB/03-nature-loneliness.mp3" },
-        { name: "julia you're home", url: "https://media.heartflowerrecords.com/LSB/04-julia-home.mp3" },
-        { name: "it's right here", url: "https://media.heartflowerrecords.com/LSB/05-right-here.mp3" },
-        { name: "don't listen to peter", url: "https://media.heartflowerrecords.com/LSB/06-peter.mp3" },
-        { name: "immersion", url: "https://media.heartflowerrecords.com/LSB/07-immersion.mp3" },
-        { name: "summer sun", url: "https://media.heartflowerrecords.com/LSB/08-summer-sun.mp3" },
-      ];
+ const tracks = [
+  { name: "No One Less Free", url: "https://media.heartflowerrecords.com/MOUTH/01-no-one-less-free.mp3" },
+  { name: "Love to See You Through", url: "https://media.heartflowerrecords.com/MOUTH/02-love-to-see-you-through.mp3" },
+  { name: "Not SuperSoft", url: "https://media.heartflowerrecords.com/MOUTH/03-not-supersoft.mp3" },
+  { name: "Didn't Go My Way", url: "https://media.heartflowerrecords.com/MOUTH/04-didnt-go-my-way.mp3" },
+  { name: "Take My Mouth", url: "https://media.heartflowerrecords.com/MOUTH/05-take-my-mouth.mp3" }
+];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
@@ -241,9 +236,6 @@ body {
         { line: 2, trackIndex: 2 },
         { line: 3, trackIndex: 3 },
         { line: 4, trackIndex: 4 },
-        { line: 5, trackIndex: 5 },
-        { line: 6, trackIndex: 6 },
-        { line: 7, trackIndex: 7 }
       ];
 
       let lines = trackListDiv.innerHTML.split("<br><br>");
@@ -367,9 +359,9 @@ body {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: tracks[current].name,
             artist: 'Mitch Zachry',
-            album: 'love love love swim swim swim be be be',
+            album: 'SHEEP! HIDE! POWER!',
             artwork: [
-              { src: 'https://media.heartflowerrecords.com/LSB/LSBart.jpg', sizes: '512x512', type: 'image/jpeg' }
+              { src: 'https://media.heartflowerrecords.com/SHP/SHPart.jpg', sizes: '512x512', type: 'image/jpeg' }
             ]
           });
         }
