@@ -69,6 +69,10 @@ main.main_releases a {
   opacity: 1;
 }
 
+.digisettelogo {
+  width: 15%;
+}
+
 .release_box:hover {
   background-color: var(--bg-color-light);
   cursor: pointer;
@@ -129,7 +133,16 @@ main.main_releases a {
 }
 
 
-
+.cassette_img {
+  display: block;
+  width: 70%;          /* shrinks with page width */
+  max-width: 340px;    /* optional max width */
+  height: auto;        /* keeps aspect ratio */
+  aspect-ratio: 340 / 220; /* keeps 340x230 proportion */
+  margin: 20px auto;   /* centers image */
+  object-fit: cover;   /* fills the box if needed */
+  border-radius: 10px;
+}
 
 
 .title_img {

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ASCII Forest — Top-Down Garden</title>
+<style>
+    #home-link {
+      top: 55px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-family: marion;
+      margin-top: 10px;
+    }
+    #home-link a {
+      text-decoration: underline;
+      color: inherit;
+    }
+  :root{
+    --bg:#78b159; /* grass green */
+    --text:#000000;
+    --player:#ffffff;
+    --tree:#5a381c; /* brown */
+    --trunk:#6f3f1f;
+    --bush:#0b6623; /* dark green */
+  }
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:14px;
+  }
+  h1{margin:8px 0 12px;font-size:20px}
+
+  /* grid */
+  #grid{
+    line-height:1;
+    font-size:20px;
+    background:transparent;
+    padding:8px;
+    user-select:none;
+    -webkit-user-select:none;
+    border-radius:6px;
+    box-sizing:border-box;
+    text-align:left;
+  }
+  .row{height:22px}
+  .cell{display:inline-block;width:22px;height:22px;text-align:center;vertical-align:middle}
+
+  /* colours */
+  .player{color:var(--player); font-weight:bold}
+  .tree{color:var(--tree)}
+  .trunk{color:var(--trunk)}
+  .bush{color:var(--bush)}
+
+  /* flower palette (fixed per plant) */
+  .flower-a{color:#e91e63} /* pink */
+  .flower-b{color:#f44336} /* red */
+  .flower-c{color:#2196f3} /* blue */
+  .flower-d{color:#ffeb3b} /* yellow */
+  .flower-e{color:#9c27b0} /* purple */
+
+  /* buttons: no fill, no border, same font */
+  button.plain{background:transparent;border:0;padding:8px 14px;font-family:Georgia, 'Times New Roman', serif;color:var(--text);font-size:16px;cursor:pointer}
+  .controls{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:12px}
+  .dpad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:6px}
+  .dpad button{width:44px;height:44px;padding:0}
+  .info{max-width:360px;font-size:13px;text-align:center}
+
+  @media (max-width:480px){#grid{font-size:18px}.cell{width:20px;height:20px}}
+</style>
+</head>
+<body>
+<h1>forest explorer V1</h1>
+<div id="home-link"><a href="index.html">home</a></div>
+<div id="grid" aria-live="polite"></div>
+
+<div class="controls">
+  <div class="info"><strong>Controls:</strong> Arrow keys or buttons below. Touch plants by moving onto them (flowers) or by bumping into them (trees/bushes).</div>
+  <button class="plain" id="regen">Regenerate Forest</button>
+  <div class="dpad" role="group" aria-label="movement buttons">
+    <button class="plain" id="b1" aria-hidden="true"></button>
+    <button class="plain" id="up">▲</button>
+    <button class="plain" id="b2" aria-hidden="true"></button>
+    <button class="plain" id="left">◀</button>
+    <button class="plain" id="center">O</button>
+    <button class="plain" id="right">▶</button>
+    <button class="plain" id="b3" aria-hidden="true"></button>
+    <button class="plain" id="down">▼</button>
+    <button class="plain" id="b4" aria-hidden="true"></button>
+  </div>
+</div>
+
+<script>
+// Configuration
+const COLS = 20;
+const ROWS = 14;
+const INTERVALS = [0,4,7,11,14,18,21]; // 1,3,5,7,9,#11,13 semitone offsets
+
+// glyph categories (user-specified)
+const FLOWER_GLYPHS = ['.',',','*']; // small, multicoloured, passable
+const TREE_GLYPHS = ['T','I','|','!']; // tall, brown, obstacles
+const BUSH_GLYPHS = ['@','o','&','Q']; // medium, dark green, obstacles
+
+// flower colour classes
+const FLOWER_CLASSES = ['flower-a','flower-b','flower-c','flower-d','flower-e'];
+
+// game state
+let grid = []; // 2D array of chars
+let plants = {}; // key 'x,y' -> {glyph, kind, size, rootMidi, colourClass}
+let player = {x: Math.floor(COLS/2), y: Math.floor(ROWS/2)};
+
+const gridEl = document.getElementById('grid');
+const regenBtn = document.getElementById('regen');
+
+// audio
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+function ensureAudio(){ if(!audioCtx) audioCtx = new AudioCtx(); }
+function midiToFreq(m){ return 440 * Math.pow(2,(m-69)/12); }
+
+// helpers
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function keyFor(x,y){ return `${x},${y}` }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+// generate forest with mixed clearings and patches
+function generateForest(){
+  grid = Array.from({length:ROWS}, ()=>Array.from({length:COLS}, ()=>' '));
+  plants = {};
+
+  // create density map: some patches dense, some clear
+  for(let y=0;y<ROWS;y++){
+    for(let x=0;x<COLS;x++){
+      // base density by simple noise (rows and cols influence)
+      const noise = (Math.sin(x*0.7)+Math.cos(y*0.5))+Math.random()*0.8;
+      // probability thresholds
+      if(noise > 1.2){
+        // dense patch: higher chance of trees/bushes/flowers
+        let r = Math.random();
+        if(r<0.25){ placePlant(x,y,'tree'); }
+        else if(r<0.55){ placePlant(x,y,'bush'); }
+        else if(r<0.95){ placePlant(x,y,'flower'); }
+        // else leave empty
+      } else if(noise > 0.2){
+        let r = Math.random();
+        if(r<0.08) placePlant(x,y,'tree');
+        else if(r<0.18) placePlant(x,y,'bush');
+        else if(r<0.35) placePlant(x,y,'flower');
+      } else {
+        // clearing
+        if(Math.random()<0.10) placePlant(x,y,'flower');
+      }
+    }
+  }
+
+  // ensure player not inside obstacle; if it is, move to nearest empty
+  if(isObstacle(player.x, player.y)){
+    for(let r=1;r<Math.max(COLS,ROWS);r++){
+      let found=false;
+      for(let dy=-r;dy<=r;dy++){
+        for(let dx=-r;dx<=r;dx++){
+          let nx=player.x+dx, ny=player.y+dy;
+          if(nx<0||nx>=COLS||ny<0||ny>=ROWS) continue;
+          if(!isObstacle(nx,ny)) { player.x=nx; player.y=ny; found=true; break }
+        }
+        if(found) break;
+      }
+      if(found) break;
+    }
+  }
+
+  drawGrid();
+}
+
+function placePlant(x,y,type){
+  if(grid[y][x] !== ' ') return; // already occupied
+  if(type==='flower'){
+    const glyph = pick(FLOWER_GLYPHS);
+    const colourClass = pick(FLOWER_CLASSES);
+    // size small to medium for flowers (1..3)
+    const size = randInt(1,3);
+    const rootMidi = randInt(64,84); // higher root note
+    grid[y][x] = glyph;
+    plants[keyFor(x,y)] = {glyph, kind:'flower', size, rootMidi, colourClass};
+  } else if(type==='tree'){
+    const glyph = pick(TREE_GLYPHS);
+    // size larger (4..7)
+    const size = randInt(4,7);
+    const rootMidi = randInt(36,56); // low root
+    grid[y][x] = glyph;
+    plants[keyFor(x,y)] = {glyph, kind:'tree', size, rootMidi};
+  } else if(type==='bush'){
+    const glyph = pick(BUSH_GLYPHS);
+    const size = randInt(2,5);
+    const rootMidi = randInt(52,68); // medium root
+    grid[y][x] = glyph;
+    plants[keyFor(x,y)] = {glyph, kind:'bush', size, rootMidi};
+  }
+}
+
+function isObstacle(x,y){
+  const ch = grid[y][x];
+  return ch && (TREE_GLYPHS.includes(ch) || BUSH_GLYPHS.includes(ch));
+}
+
+function drawGrid(){
+  let html = '';
+  for(let y=0;y<ROWS;y++){
+    for(let x=0;x<COLS;x++){
+      let ch = ' ';
+      let cls = '';
+      if(player.x===x && player.y===y){ ch='O'; cls='player'; }
+      else ch = grid[y][x] || ' ';
+
+      // assign classes
+      if(TREE_GLYPHS.includes(ch)) cls = 'tree';
+      if(ch==='t') cls = 'trunk';
+      if(BUSH_GLYPHS.includes(ch)) cls = 'bush';
+      if(FLOWER_GLYPHS.includes(ch)){
+        // preserve flower colour per plant
+        const p = plants[keyFor(x,y)];
+        cls = p && p.colourClass ? p.colourClass : 'flower-a';
+      }
+
+      // escape
+      const esc = ch === ' ' ? '&nbsp;' : ch.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      html += `<span class="cell ${cls}">${esc}</span>`;
+    }
+    html += '<br/>';
+  }
+  gridEl.innerHTML = html;
+}
+
+// movement and interaction
+function move(dx,dy){
+  const nx = player.x + dx;
+  const ny = player.y + dy;
+  if(nx<0||nx>=COLS||ny<0||ny>=ROWS) return;
+  const target = grid[ny][nx];
+  if(isObstacle(nx,ny)){
+    // bump into obstacle: play its chord but don't move
+    const p = plants[keyFor(nx,ny)];
+    if(p) playPlantChord(p);
+    return;
+  }
+  // move onto tile (passable if empty or flower)
+  player.x = nx; player.y = ny;
+  // if there's a plant (flower or bush?) and passable -> play chord
+  const p = plants[keyFor(nx,ny)];
+  if(p && p.kind === 'flower') playPlantChord(p);
+
+  drawGrid();
+}
+
+function playPlantChord(plant){
+  ensureAudio();
+  const size = Math.max(1, Math.min(INTERVALS.length, plant.size));
+  const root = plant.rootMidi;
+  const chosen = INTERVALS.slice(0, size);
+  // build notes across 2 octaves
+  let notes = [];
+  for(let oct=0; oct<2; oct++){
+    for(const iv of chosen){ notes.push(root + iv + oct*12); }
+  }
+  notes.sort((a,b)=>a-b);
+  const now = audioCtx.currentTime;
+  const baseDur = 0.06;
+  const master = audioCtx.createGain();
+  master.gain.value = 0.18;
+  master.connect(audioCtx.destination);
+  for(let i=0;i<notes.length;i++){
+    const midi = notes[i];
+    const t0 = now + i*baseDur;
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = midiToFreq(midi);
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(1.0, t0+0.01);
+    g.gain.linearRampToValueAtTime(0.0001, t0+baseDur+0.08);
+    osc.connect(g); g.connect(master);
+    osc.start(t0);
+    osc.stop(t0+baseDur+0.12);
+  }
+}
+
+// input handlers
+window.addEventListener('keydown', (e)=>{
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){
+    e.preventDefault();
+    if(e.key==='ArrowUp') move(0,-1);
+    if(e.key==='ArrowDown') move(0,1);
+    if(e.key==='ArrowLeft') move(-1,0);
+    if(e.key==='ArrowRight') move(1,0);
+  }
+  if(e.key === ' ') { e.preventDefault(); generateForest(); }
+});
+
+document.getElementById('up').addEventListener('click', ()=>move(0,-1));
+document.getElementById('down').addEventListener('click', ()=>move(0,1));
+document.getElementById('left').addEventListener('click', ()=>move(-1,0));
+document.getElementById('right').addEventListener('click', ()=>move(1,0));
+regenBtn.addEventListener('click', ()=> generateForest());
+
+// initial generate
+generateForest();
+</script>
+</body>
+</html>

@@ -2,8 +2,8 @@
 <svg
    viewBox="0 0 823.04997 137.99999"
    version="1.1"
-   id="svg833"
-   sodipodi:docname="contact.svg"
+   id="svg996"
+   sodipodi:docname="cassettesB.svg"
    width="823.04999"
    height="138"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
@@ -12,7 +12,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
-     id="namedview835"
+     id="namedview998"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -24,25 +24,25 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.63821784"
-     inkscape:cx="418.35245"
-     inkscape:cy="69.725409"
-     inkscape:window-width="1312"
+     inkscape:zoom="0.66255329"
+     inkscape:cx="268.65764"
+     inkscape:cy="62.636471"
+     inkscape:window-width="1296"
      inkscape:window-height="826"
-     inkscape:window-x="552"
-     inkscape:window-y="225"
+     inkscape:window-x="598"
+     inkscape:window-y="285"
      inkscape:window-maximized="0"
-     inkscape:current-layer="Layer_1"
+     inkscape:current-layer="Layer_2"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
   <defs
-     id="defs826">
+     id="defs989">
     <style
-       id="style824">.cls-1{fill:#f7f4e1;}.cls-2{font-size:150px;fill:#eec51b;font-family:Marion-Regular, Marion;letter-spacing:-0.01em;}</style>
+       id="style987">.cls-1{fill:#121111;}.cls-2{font-size:150px;fill:#eec51b;font-family:Marion-Regular, Marion;letter-spacing:-0.01em;}</style>
   </defs>
   <g
-     id="Layer_1"
-     data-name="Layer 1"
+     id="Layer_2"
+     data-name="Layer 2"
      transform="translate(-9.4200001,-220.73)">
     <rect
        class="cls-1"
@@ -50,11 +50,11 @@
        y="220.73"
        width="823.04999"
        height="138"
-       id="rect828" />
+       id="rect991" />
     <text
        class="cls-2"
-       id="text830"
-       x="273.7948"
-       y="317.78003">tapes</text>
+       id="text993"
+       x="172.54483"
+       y="336.00504">cassettes</text>
   </g>
 </svg>

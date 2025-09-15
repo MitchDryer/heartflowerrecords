@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+ul {
+  list-style: none; /* removes bullets */
+}
+    body {
+      background-image: url("./media/flower_bg_2.png");
+      color: #000000;
+      text-align: center;
+    }
+    a {
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #555;
+    }
+    #codeInput {
+      margin-top: 20px;
+      font-size: 18px;
+      padding: 5px 10px;
+      text-transform: uppercase;
+      color: black;
+      font-family: inherit;
+      width: 70px;
+      text-align: center;
+    }
+    #playerContainer {
+      text-align: center;
+      max-width: 600px;
+      margin: 10px auto 0;
+      color: black;
+      font-family: inherit;
+    }
+    .player-button {
+      background-color: transparent;
+      color: black;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      font-family: inherit;
+    }
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    #sideSwitch {
+      margin-top: 10px;
+    }
+    #sideSwitch button {
+      background-color: transparent;
+      color: black;
+      border: none;
+      font-family: inherit;
+      font-size: 18px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #sideSwitch button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    #sideSwitch button:disabled {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 8px;
+      height: 16px;
+      background: black;
+      cursor: pointer;
+    }
+    #timeDisplay {
+      font-size: 14px;
+      margin-top: 10px;
+      font-family: inherit;
+    }
+  </style>
+  <title>Heartflower Records - cassettes</title>
+  <link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+  <header>
+    <a class="menu" href="index.html">
+      <img
+        class="title_img"
+        src="./media/buttons/cassettes.svg"
+        alt="about button"
+        onmouseover="this.src='./media/buttons/cassettesB.svg'"
+        onmouseout="this.src='./media/buttons/cassettes.svg'"
+        onmousedown="this.src='./media/buttons/cassettes.svg'"
+      >
+    </a>
+  </header>
+
+  <main class="main_contact">
+    <img class="cassette_img" id="cassetteImg" src="./media/tapeblank.jpg">
+
+    <div> <br>enter digi-sette code:</div>
+
+    <div>
+      <input id="codeInput" placeholder="******" maxlength="6">
+    </div>
+    <br>
+
+    <div id="sideSwitch">
+      <button id="sideA" disabled>Side A</button>
+      <button id="sideB" disabled>Side B</button>
+    </div>
+
+    <div id="playerContainer">
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+      <div id="timeDisplay">00:00 / 00:00</div>
+    </div>
+
+    <audio id="smallPlayer" preload="metadata"></audio>
+    <br>
+    <img class="digisettelogo" src="./media/digisette_logo.png">
+  </main>
+<br>
+  <main class="main_contact">
+  all cassettes are recycled, hand made and contain totally unique bonus material
+<br><br>
+the following cassettes are avaliable to purchase through Bandcamp:
+<ul>
+	<li><a href="https://mitchzachry.bandcamp.com/album/war-in-the-garden" target="_blank">War In The Garden - Mitch Zachry</a></li>
+        <li><a href="https://mitchzachry.bandcamp.com/album/love-love-love-swim-swim-swim-be-be-be" target="_blank">love swim be - Mitch Zachry</a></li>
+	<li><a href="https://spacefoe.bandcamp.com/album/flower-ocean-burning-sun" target="_blank">Flower Ocean Burning Sun - SPACE FOE</a></li>
+</ul>
+</main>
+
+
+
+<script>
+  const baseURL = "https://media.heartflowerrecords.com";
+  const cassetteImg = document.getElementById("cassetteImg");
+  const codeInput = document.getElementById("codeInput");
+
+  const player = document.getElementById("smallPlayer");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const timeline = document.getElementById("timeline");
+  const timeDisplay = document.getElementById("timeDisplay");
+  const sideAButton = document.getElementById("sideA");
+  const sideBButton = document.getElementById("sideB");
+
+  let currentCode = "";
+  let currentSide = "A";
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2,'0')}`;
+  }
+
+  function updateTimeDisplay() {
+    timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+  }
+
+  function loadCassette(code) {
+    const upperCode = code.toUpperCase();
+    const imgA = `${baseURL}/cassettes/${upperCode}/A.jpg`;
+    const img = new Image();
+    img.onload = () => {
+      currentCode = upperCode;
+      currentSide = "A";
+      cassetteImg.src = imgA;
+      player.removeAttribute("src"); // don't auto-play
+      playPauseBtn.textContent = "►";
+      sideAButton.disabled = false;
+      sideBButton.disabled = false;
+    };
+    img.onerror = () => {
+      alert("Cassette code not found.");
+      cassetteImg.src = "./media/tapeblank.jpg";
+      player.removeAttribute("src");
+      codeInput.value = ""; // clear input on wrong code
+      sideAButton.disabled = true;
+      sideBButton.disabled = true;
+    };
+    img.src = imgA;
+  }
+
+  function playSide(side) {
+    if (!currentCode) return;
+    currentSide = side;
+    const img = side === "A" ? "A.jpg" : "B.jpg";
+    const audio = side === "A" ? "A.mp3" : "B.mp3";
+    cassetteImg.src = `${baseURL}/cassettes/${currentCode}/${img}`;
+    player.src = `${baseURL}/cassettes/${currentCode}/${audio}`;
+    player.play();
+    playPauseBtn.textContent = "❙❙";
+  }
+
+  // Auto-load cassette when 6 characters entered, reset when fewer
+  codeInput.addEventListener("input", () => {
+    const value = codeInput.value.trim().toUpperCase();
+    codeInput.value = value; // force uppercase as user types
+
+    if (value.length === 6) {
+      loadCassette(value);
+    } else {
+      // Reset to defaults when fewer than 6 characters
+      currentCode = "";
+      currentSide = "A";
+      cassetteImg.src = "./media/tapeblank.jpg";
+
+      // stop audio completely
+      player.pause();
+      player.currentTime = 0;
+      player.removeAttribute("src");
+
+      playPauseBtn.textContent = "►";
+      timeline.value = 0;
+      timeDisplay.textContent = "00:00 / 00:00";
+
+      sideAButton.disabled = true;
+      sideBButton.disabled = true;
+    }
+  });
+
+  sideAButton.addEventListener("click", () => {
+    playSide("A");
+  });
+
+  sideBButton.addEventListener("click", () => {
+    playSide("B");
+  });
+
+  playPauseBtn.addEventListener("click", () => {
+    if (!player.src) return;
+    if (player.paused) {
+      player.play();
+      playPauseBtn.textContent = "❙❙";
+    } else {
+      player.pause();
+      playPauseBtn.textContent = "►";
+    }
+  });
+
+  player.addEventListener("loadedmetadata", () => {
+    timeline.max = player.duration;
+    updateTimeDisplay();
+  });
+
+  player.addEventListener("timeupdate", () => {
+    timeline.value = player.currentTime;
+    updateTimeDisplay();
+  });
+
+  timeline.addEventListener("input", () => {
+    player.currentTime = timeline.value;
+  });
+
+  // Auto-play side B after side A finishes
+  player.addEventListener("ended", () => {
+    if (currentSide === "A" && currentCode) {
+      playSide("B");
+    } else {
+      playPauseBtn.textContent = "►";
+    }
+  });
+</script>
+
+</body>
+</html>
