@@ -1,0 +1,64 @@
+
+/* Crimson Text Font */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+/* Center form contents and make font inherit */
+    main.main_cassettebuy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    main.main_cassettebuy form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: Marion, Georgia, serif;
+      text-align: center;
+    }
+
+    input, textarea, select {
+      font-family: inherit;
+      font-size: 16px;
+      text-align: center;       /* center the default grey text */
+      border-radius: 0;
+      padding: 6px;
+      border: 1px solid black;  /* thin light border */
+      background: transparent;  /* remove white background */
+      color: inherit;           /* make text same as page text */
+
+      width: 250px;       /* desired width */
+      max-width: 90%;     /* responsive for small screens */
+      margin: 0 auto;     /* keep centered */
+      box-sizing: border-box; /* includes padding in width */
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 0;
+      padding: 8px 12px;
+      border: 1px solid black;
+      cursor: pointer;
+      background: #D8E6D1;
+      color: black;
+    
+      width: 150px;       /* desired width */
+      max-width: 90%;     /* responsive for small screens */
+      margin: 0 auto;     /* keep centered */
+      box-sizing: border-box; /* includes padding in width */
+    }
+
+h1 {
+  margin-bottom: 0;
+}
+
+.cassettebuy_img {
+	width: 30%;
+display: block;
+  margin: 0 auto;
+	
+}

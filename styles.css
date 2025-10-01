@@ -91,6 +91,10 @@ main.main_releases a {
   background-color: #eec51bff;
 }
 
+.main_cassettebuy {
+  background-color: #F7F5E0;
+}
+
 .main_media {
   background-color: #e76726ff;
 }
@@ -215,4 +219,12 @@ main.main_releases a {
 
 #wins {
   display: none;
+}
+
+.cassettebuy_img {
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 10px;
+	
 }
