@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./cassettepurchase.css">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Heartflower Cassette Purchase</title>
+  <link rel="icon" href="../media/favicon.png">
+  <style>
+    body {
+      background-image: url("./media/flower_bg_6.jpg");
+    }
+    a { text-decoration: underline; }
+    a:hover { color: #555; }
+  </style>
+</head>
+<body>
+
+<main class="main_cassettebuy">
+  <!-- form submits to hidden iframe -->
+  <form id="cassetteForm" 
+        action="https://formspree.io/f/meorggwn" 
+        method="POST" 
+        target="hidden_iframe">
+    <h1 id="cassetteTitle"></h1>
+    <div id="home-link"><a href="javascript:history.back()">back</a></div>
+    <img id="cassetteImage" class="cassettebuy_img">
+    <p id="cassetteDesc"></p>
+
+    <h3>Name</h3>
+    <input type="text" name="name" placeholder="Full Name" required>
+
+    <h3>Email</h3>
+    <input type="email" name="email" placeholder="Email Address" required>
+
+    <h3>Address</h3>
+    <textarea name="address" placeholder="Shipping Address w/ Postcode" required></textarea>
+
+    <h3>Shipping</h3>
+    <select name="country" id="country" required>
+      <option value="">-- Select Country --</option>
+      <option value="nz">New Zealand $17</option>
+      <option value="au">Australia $10</option>
+      <option value="other">Other $23</option>
+      <option value="combined">Combined $0</option>
+    </select>
+    <div><em>note: shipping covers up to 3 cassettes<br>for additional cassettes choose "combined"</em></div>
+
+    <input type="hidden" name="product" id="productInput">
+    <br><br>
+    <button type="submit">Submit & Pay</button>
+  </form>
+
+  <!-- invisible iframe -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+</main>
+
+<script>
+const cassetteData = {
+  wig: {
+    title: "Order Form",
+    img: "./media/cassettes/WIG_cassette1.jpg",
+    desc: "War In the Garden handmade and recycled cassette (w/ digi-sette technology).<br>Each cassette contains a unique selection of bonus material.<br>$20aud + shipping",
+    product: "War in the Garden Cassette",
+    paypal: {
+      nz: "4ZKQMZL77BRV8",
+      au: "A7DY9M84H65Y8",
+      other: "C97ADDH9FFAYL",
+      combined: "Y45LDGZRHEWQE"
+    }
+  },
+  lsb: {
+    title: "Order Form",
+    img: "./media/cassettes/LSB_cassette1.jpg",
+    desc: "Love Swim Be handmade and recycled cassette (w/ digi-sette technology).<br>Each cassette contains a unique selection of bonus material.<br>$20aud + shipping",
+    product: "Love Swim Be Cassette",
+    paypal: {
+      nz: "VPLZWN4FCT8KS",
+      au: "8KCNTPDG63PFS",
+      other: "Z4MLZQ3A9B2CG",
+      combined: "8C6PSA9CKUJGN"
+    }
+  },
+  fobs: {
+    title: "Order Form",
+    img: "./media/cassettes/FOBS_cassette1.jpg",
+    desc: "Flower Ocean Burning Sun handmade and recycled cassette (w/ digi-sette technology).<br>Each cassette contains a unique selection of bonus material.<br>$20aud + shipping",
+    product: "FOBS Cassette",
+    paypal: {
+      nz: "PFYR33CM2HYC6",
+      au: "C2TFR5HUA4R4E",
+      other: "QD24RTMJPC2NA",
+      combined: "R77PJESDSA5L2"
+    }
+  }
+};
+
+// pick cassette from ?c=wig / lsb / fobs
+const params = new URLSearchParams(window.location.search);
+const cassetteKey = params.get("c");
+const data = cassetteData[cassetteKey];
+
+if (!data) {
+  document.querySelector("main").innerHTML = "<p>Invalid cassette link.</p>";
+} else {
+  document.getElementById("cassetteTitle").textContent = data.title;
+  document.getElementById("cassetteImage").src = data.img;
+  document.getElementById("cassetteDesc").innerHTML = data.desc;
+  document.getElementById("productInput").value = data.product;
+
+  document.getElementById('cassetteForm').addEventListener('submit', function(e) {
+    const country = document.getElementById('country').value;
+    if (!country) return alert("Please select a country.");
+
+    const paypalId = data.paypal[country];
+    const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=${paypalId}`;
+
+    // Form submits to Formspree in hidden iframe, then redirect
+    setTimeout(() => window.location.href = paypalLink, 500);
+  });
+}
+</script>
+
+</body>
+</html>
