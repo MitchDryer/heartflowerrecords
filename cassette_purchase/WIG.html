@@ -15,8 +15,6 @@
     a:hover {
       color: #555;
     }
-
-    
   </style>
   <title>Heartflower Cassette Purchase</title>
   <link rel="icon" href="../media/favicon.png">
@@ -24,13 +22,19 @@
 <body>
 
   <main class="main_cassettebuy">
-    <form id="cassetteForm" action="https://formspree.io/f/meorggwn" method="POST">
+    <!-- target hidden iframe -->
+    <form id="cassetteForm" 
+          action="https://formspree.io/f/meorggwn" 
+          method="POST" 
+          target="hidden_iframe">
       <h1>Order Form</h1>
-	  <div id="home-link"><a href="javascript:history.back()">back</a></div>
+      <div id="home-link"><a href="javascript:history.back()">back</a></div>
       <img class="cassettebuy_img" src="./media/WIG_cassette1.jpg">
-      <p>War In the Garden handmade and recycled cassette (w/ digi-sette technology).  <br> Each cassette contains a unique selection of bonus material.<br>$20aud + shipping</p>
+      <p>War In the Garden handmade and recycled cassette (w/ digi-sette technology).  
+      <br> Each cassette contains a unique selection of bonus material.
+      <br>$20aud + shipping</p>
+      
       <h3>Name</h3>
-
       <input type="text" name="name" placeholder="Full Name" required>
 
       <h3>Email</h3>
@@ -45,20 +49,20 @@
         <option value="nz">New Zealand $17</option>
         <option value="au">Australia $10</option>
         <option value="other">Other $23</option>
-	<option value="combined">Combined $0</option>
+        <option value="combined">Combined $0</option>
       </select>
-	<div><em>note: shipping covers up to 3 cassettes<br> for additional cassettes chose "combined"</div>
-        <!-- Hidden product info -->
+      <div><em>note: shipping covers up to 3 cassettes<br>for additional cassettes choose "combined"</em></div>
+
       <input type="hidden" name="product" value="War in the Garden Cassette">
       <br><br>
       <button type="submit">Submit & Pay</button>
     </form>
+    <!-- invisible iframe -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
   </main>
 
   <script>
   document.getElementById('cassetteForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // prevent normal submit
-
     const country = document.getElementById('country').value;
 
     let paypalLink = '';
@@ -72,25 +76,16 @@
       paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Y45LDGZRHEWQE';
     } else {
       alert('Please select a country.');
+      e.preventDefault(); // stop submission if invalid
       return;
     }
-    // Submit the form to Formspree via fetch, then redirect to PayPal
-    const form = e.target;
-    const formData = new FormData(form);
 
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      // redirect after successful submission
+    // let the browser submit to Formspree (hidden iframe), then redirect
+    setTimeout(() => {
       window.location.href = paypalLink;
-    }).catch(error => {
-      alert('There was a problem submitting your form.');
-      console.error(error);
-    });
+    }, 500); // tiny delay to let submission start
   });
-</script>
+  </script>
 
 </body>
 </html>
