@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>BEHOLD THE ORB</title>
+  <link rel="icon" href="./media/BTOart.jpg" />
+  <style>
+    a {
+      color: yellow;
+    }
+
+    html, body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: marion, serif;
+      color: yellow;
+    }
+
+    body {
+      background-color: #468CA5;
+      background-image: url("./media/BTOart.jpg");
+      background-repeat: repeat-y;
+      background-position: center center;
+      background-size: cover;
+    }
+
+    main {
+      background-color: #468CA5;
+    }
+
+    #playerContainer {
+      text-align: center;
+      max-width: 600px;
+      margin: 10px auto 0;
+      font-family: inherit;
+      color: yellow;
+    }
+
+    .player-button {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: inherit;
+      user-select: none;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    #timeline {
+      -webkit-appearance: none;
+      width: 75%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 10px auto 0 auto;
+      display: block;
+    }
+
+    #timeline::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      margin-top: -5px;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      border: none;
+    }
+
+    #timeline::-moz-range-thumb {
+      width: 8px;
+      height: 16px;
+      background: black;
+      border-radius: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    #timeline::-moz-range-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 0;
+    }
+
+    #timeDisplay {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      user-select: none;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #skipButtons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #skipButtons .player-button {
+      width: 80px;
+      margin-top: 0;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 6px; /* tweak vertical alignment */
+      padding-bottom: 0;
+      vertical-align: middle;
+    }
+
+    #playPauseBtn {
+      width: 80px;
+      height: 30px;
+      font-size: 18px;
+      margin: 0 auto 8px auto;
+      padding-top: 6px;        /* tweak this value to nudge vertical */
+    }
+
+    #trackList {
+      text-align: center;
+      color: yellow;
+      font-family: inherit;
+      margin-top: 10px;
+    }
+
+    .clickable-track {
+      cursor: pointer;
+      color: yellow;
+      font-weight: normal;
+      display: inline;
+      text-decoration: none;
+    }
+
+    .clickable-track.active {
+      color: yellow;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .clickable-track:hover {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BEHOLD THE ORB</h1>
+    <h2>
+      <span class="artist-hover">
+        <a href="https://www.instagram.com/behold_the_orb/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Abey Sparks
+        </a>
+        <div class="artist-info-box">
+         Abey Sparks is an innovative drummer and artist based in Pōneke, New Zealand.
+        </div>
+      </span>
+    </h2>
+  </header>
+  <main>
+    <div style="display: flex; justify-content: space-between;">
+      <a href="./SHP.html">&lt;&lt;&lt;</a>
+      <a href="../releases.html">----</a>
+      <a href="./LSB.html">&gt;&gt;&gt;</a>
+    </div>
+
+    <div id="trackList">
+      1. more strange evasions <br><br>
+      2. struck by the prophecy<br><br>
+      3. hurtling orb<br><br>
+      4. descent into the orb underworld<br><br>
+      5. born to lose touch<br><br>
+      6. break it free<br><br>
+      7. discomfort/departure <br><br>
+      8. the light is stuck<br><br>
+      9. the orb is my mind’s eye crying<br><br>
+      10. orbital rim<br><br>
+      11. BEHOLD THE ORB<br><br>
+      12. splendid orb<br><br>
+    </div>
+
+    <div id="playerContainer">
+      <button id="playPauseBtn" class="player-button" aria-label="Play">►</button>
+
+      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+
+      <div id="timeDisplay">0:00 / 0:00</div>
+
+      <div id="skipButtons">
+        <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
+      </div>
+    </div>
+
+    <audio id="smallPlayer" src="" preload="metadata"></audio>
+
+    <script>
+      const tracks = [
+        { name: "more strange evasions", url: "https://media.heartflowerrecords.com/BTO/01-strange-evasions.mp3" },
+        { name: "struck by the prophecy", url: "https://media.heartflowerrecords.com/BTO/02-struck-prophecy.mp3" },
+        { name: "hurtling orb", url: "https://media.heartflowerrecords.com/BTO/03-hurtling-orb.mp3" },
+        { name: "descent into the orb underworld", url: "https://media.heartflowerrecords.com/BTO/04-descent-underworld.mp3" },
+        { name: "born to lose touch", url: "https://media.heartflowerrecords.com/BTO/05-lose-touch.mp3" },
+        { name: "break it free", url: "https://media.heartflowerrecords.com/BTO/06-break-free.mp3" },
+        { name: "discomfort/departure ", url: "https://media.heartflowerrecords.com/BTO/07-discomfort-departure.mp3" },
+        { name: "the light is stuck", url: "https://media.heartflowerrecords.com/BTO/08-light-stuck.mp3" },
+        { name: "the orb is my mind’s eye crying", url: "https://media.heartflowerrecords.com/BTO/09-mind-crying.mp3" },
+        { name: "orbital rim", url: "https://media.heartflowerrecords.com/BTO/10-orbital-rim.mp3" },
+        { name: "BEHOLD THE ORB", url: "https://media.heartflowerrecords.com/BTO/11-behold-orb.mp3" },
+        { name: "splendid orb", url: "https://media.heartflowerrecords.com/BTO/12-splendid-orb.mp3" },
+      ];
+
+      let current = 0;
+      const player = document.getElementById("smallPlayer");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const timeline = document.getElementById("timeline");
+      const timeDisplay = document.getElementById("timeDisplay");
+      const nextButton = document.getElementById("nextButton");
+      const prevButton = document.getElementById("prevButton");
+      const trackListDiv = document.getElementById("trackList");
+
+      // Lines in trackList that correspond to each track index
+      const clickableLines = [
+        { line: 0, trackIndex: 0 },
+        { line: 1, trackIndex: 1 },
+        { line: 2, trackIndex: 2 },
+        { line: 3, trackIndex: 3 },
+        { line: 4, trackIndex: 4 },
+        { line: 5, trackIndex: 5 },
+        { line: 6, trackIndex: 6 },
+        { line: 7, trackIndex: 7 },
+        { line: 8, trackIndex: 8 },
+        { line: 9, trackIndex: 9 },
+        { line: 10, trackIndex: 10 },
+        { line: 11, trackIndex: 11 }
+      ];
+
+      let lines = trackListDiv.innerHTML.split("<br><br>");
+
+      clickableLines.forEach(({ line, trackIndex }) => {
+        if (lines[line]) {
+          lines[line] = `<span class="clickable-track" data-index="${trackIndex}">${lines[line]}</span>`;
+        }
+      });
+
+      trackListDiv.innerHTML = lines.join("<br><br>");
+
+      document.querySelectorAll(".clickable-track").forEach(el => {
+        el.addEventListener("click", e => {
+          const idx = parseInt(e.target.getAttribute("data-index"));
+          if (!isNaN(idx)) {
+            loadTrack(idx);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+            updateMediaSessionMetadata();
+          }
+        });
+      });
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      function updateTimeDisplay() {
+        timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration || 0)}`;
+      }
+
+      function loadTrack(index) {
+        current = index;
+        player.src = tracks[current].url;
+        player.load();
+        playPauseBtn.textContent = "►";
+        playPauseBtn.setAttribute('aria-label', 'Play');
+        timeline.value = 0;
+        updateTimeDisplay();
+        updateActiveTrack();
+        updateMediaSessionMetadata();
+      }
+
+      function updateActiveTrack() {
+        document.querySelectorAll(".clickable-track").forEach(el => {
+          const idx = parseInt(el.getAttribute("data-index"));
+          if (idx === current) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+      }
+
+      playPauseBtn.addEventListener("click", () => {
+        if (player.paused) {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      player.addEventListener("loadedmetadata", () => {
+        timeline.max = player.duration;
+        updateTimeDisplay();
+      });
+
+      player.addEventListener("timeupdate", () => {
+        timeline.value = player.currentTime;
+        updateTimeDisplay();
+      });
+
+      timeline.addEventListener("input", () => {
+        player.currentTime = timeline.value;
+        updateTimeDisplay();
+      });
+
+      nextButton.addEventListener("click", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        }
+      });
+
+      prevButton.addEventListener("click", () => {
+        if (current - 1 >= 0) {
+          loadTrack(current - 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        }
+      });
+
+      player.addEventListener("ended", () => {
+        if (current + 1 < tracks.length) {
+          loadTrack(current + 1);
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+          timeline.value = 0;
+          updateTimeDisplay();
+        }
+      });
+
+      function updateMediaSessionMetadata() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: tracks[current].name,
+            artist: 'SPACE FOE',
+            album: 'Flower Ocean Burning Sun',
+            artwork: [
+              { src: 'https://media.heartflowerrecords.com/FOBS/FOBSart.jpg', sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        }
+      }
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          player.play();
+          playPauseBtn.textContent = "❙❙";
+          playPauseBtn.setAttribute('aria-label', 'Pause');
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          player.pause();
+          playPauseBtn.textContent = "►";
+          playPauseBtn.setAttribute('aria-label', 'Play');
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          if (current > 0) {
+            loadTrack(current - 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          if (current + 1 < tracks.length) {
+            loadTrack(current + 1);
+            player.play();
+            playPauseBtn.textContent = "❙❙";
+            playPauseBtn.setAttribute('aria-label', 'Pause');
+          }
+        });
+      }
+
+      loadTrack(0);
+    </script>
+
+    <p><i>
+      You can support Abey Sparks by purchasing this album on bandcamp
+      <a href="https://abeysparks.bandcamp.com" target="_blank"><u>here</u></a>
+    </i></p>
+  </main>
+  <div style="height: 40px; pointer-events: none;"></div>
+</body>
+<footer>
+</footer>
+</html>
