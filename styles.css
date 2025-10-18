@@ -99,6 +99,15 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
+
+.BTO_box {
+  padding: 5px;
+  --bg-color: #468CA5;
+  --bg-color-light: #5CA2BB; /* lighter red */
+  background-color: var(--bg-color);
+  color: yellow;
+}
+
 .MOUTH_box {
   padding: 5px;
   --bg-color: #F92F00;
