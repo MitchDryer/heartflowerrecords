@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styles.css" />
-  <title>BEHOLD THE ORB</title>
-  <link rel="icon" href="./media/BTOart.jpg" />
+  <title>Alive & Well</title>
+  <link rel="icon" href="./media/AAWart.jpg" />
   <style>
     a {
-      color: yellow;
+      color: black;
+    }
+
+    header {
+      color: black
     }
 
     html, body {
@@ -16,19 +20,19 @@
       margin: 0;
       padding: 0;
       font-family: marion, serif;
-      color: yellow;
+      color: black;
     }
 
     body {
-      background-color: #468CA5;
-      background-image: url("./media/BTOart.jpg");
+      background-color: #FFD326;
+      background-image: url("./media/AAWbg.jpg");
       background-repeat: repeat-y;
       background-position: center center;
       background-size: cover;
     }
 
     main {
-      background-color: #468CA5;
+      background-color: #FFD326;
     }
 
     #playerContainer {
@@ -36,7 +40,7 @@
       max-width: 600px;
       margin: 10px auto 0;
       font-family: inherit;
-      color: yellow;
+      color: black;
     }
 
     .player-button {
@@ -109,7 +113,6 @@
       font-weight: normal;
       user-select: none;
       margin-top: 10px;
-      text-align: center;
     }
 
     #skipButtons {
@@ -143,21 +146,21 @@
 
     #trackList {
       text-align: center;
-      color: yellow;
+      color: black;
       font-family: inherit;
       margin-top: 10px;
     }
 
     .clickable-track {
       cursor: pointer;
-      color: yellow;
+      color: black;
       font-weight: normal;
       display: inline;
       text-decoration: none;
     }
 
     .clickable-track.active {
-      color: yellow;
+      color: black;
       font-weight: bold;
       text-decoration: none;
     }
@@ -171,38 +174,40 @@
 </head>
 <body>
   <header>
-    <h1>BEHOLD THE ORB</h1>
+    <h1>Alive & Well</h1>
     <h2>
       <span class="artist-hover">
-        <a href="https://www.instagram.com/behold_the_orb/" target="_blank" rel="noopener noreferrer" class="artist-link">
-          abey sparks
+        <a href="https://www.instagram.com/trav.music/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Trav & Mitch
         </a>
         <div class="artist-info-box">
-         abey sparks is a drummer, composer and producer creating strange evasions in the void
+          Trav Jordaan and Mitch Dwyer are good friends who lived together in Wellington. They wrote this album to commemorate that time.
         </div>
       </span>
     </h2>
   </header>
   <main>
     <div style="display: flex; justify-content: space-between;">
-      <a href="./MOUTH.html">&lt;&lt;&lt;</a>
+      <a href="./BTO.html">&lt;&lt;&lt;</a>
       <a href="../releases.html">----</a>
-      <a href="./AAW.html">&gt;&gt;&gt;</a>
+      <a href="./SHP.html">&gt;&gt;&gt;</a>
     </div>
 
     <div id="trackList">
-      1. more strange evasions <br><br>
-      2. struck by the prophecy<br><br>
-      3. hurtling orb<br><br>
-      4. descent into the orb underworld<br><br>
-      5. born to lose touch<br><br>
-      6. break it free<br><br>
-      7. discomfort/departure <br><br>
-      8. the light is stuck<br><br>
-      9. the orb is my mind’s eye crying<br><br>
-      10. orbital rim<br><br>
-      11. BEHOLD THE ORB<br><br>
-      12. splendid orb<br><br>
+      1. Prelude to Unfurling<br><br>
+      2. Walking Into New Places<br><br>
+      3. Hedgehogs<br><br>
+      4. Colour Study<br><br>
+      5. Don't Know What<br><br>
+      6. Rats<br><br>
+      7. Zarby's Lullaby<br><br>
+      8. Travelling Shapes<br><br>
+      9. Spitflower<br><br>
+      10. Alive & Well<br><br>
+
+
+
+
     </div>
 
     <div id="playerContainer">
@@ -213,28 +218,26 @@
       <div id="timeDisplay">0:00 / 0:00</div>
 
       <div id="skipButtons">
-        <button class="player-button" id="prevButton" aria-label="Previous track">&lt;</button>
-        <button class="player-button" id="nextButton" aria-label="Next track">&gt;</button>
+        <button class="player-button" id="prevButton" aria-label="Previous track"><</button>
+        <button class="player-button" id="nextButton" aria-label="Next track">></button>
       </div>
     </div>
 
     <audio id="smallPlayer" src="" preload="metadata"></audio>
 
     <script>
-      const tracks = [
-        { name: "more strange evasions", url: "https://media.heartflowerrecords.com/BTO/01-strange-evasions.mp3" },
-        { name: "struck by the prophecy", url: "https://media.heartflowerrecords.com/BTO/02-struck-prophecy.mp3" },
-        { name: "hurtling orb", url: "https://media.heartflowerrecords.com/BTO/03-hurtling-orb.mp3" },
-        { name: "descent into the orb underworld", url: "https://media.heartflowerrecords.com/BTO/04-descent-underworld.mp3" },
-        { name: "born to lose touch", url: "https://media.heartflowerrecords.com/BTO/05-lose-touch.mp3" },
-        { name: "break it free", url: "https://media.heartflowerrecords.com/BTO/06-break-free.mp3" },
-        { name: "discomfort/departure ", url: "https://media.heartflowerrecords.com/BTO/07-discomfort-departure.mp3" },
-        { name: "the light is stuck", url: "https://media.heartflowerrecords.com/BTO/08-light-stuck.mp3" },
-        { name: "the orb is my mind’s eye crying", url: "https://media.heartflowerrecords.com/BTO/09-mind-crying.mp3" },
-        { name: "orbital rim", url: "https://media.heartflowerrecords.com/BTO/10-orbital-rim.mp3" },
-        { name: "BEHOLD THE ORB", url: "https://media.heartflowerrecords.com/BTO/11-behold-orb.mp3" },
-        { name: "splendid orb", url: "https://media.heartflowerrecords.com/BTO/12-splendid-orb.mp3" },
-      ];
+const tracks = [
+  { name: "Prelude to Unfurling", url: "https://media.heartflowerrecords.com/AAW/01-PreludeToUnfurling.mp3" },
+  { name: "Walking Into New Places", url: "https://media.heartflowerrecords.com/AAW/02-WalkingIntoNewPlaces.mp3" },
+  { name: "Hedgehogs", url: "https://media.heartflowerrecords.com/AAW/03-Hedgehogs.mp3" },
+  { name: "Colour Study", url: "https://media.heartflowerrecords.com/AAW/04-ColourStudy.mp3" },
+  { name: "Don't Know What", url: "https://media.heartflowerrecords.com/AAW/05-DontKnowWhat.mp3" },
+  { name: "Rats", url: "https://media.heartflowerrecords.com/AAW/06-Rats.mp3" },
+  { name: "Zarby's Lullaby", url: "https://media.heartflowerrecords.com/AAW/07-ZarbysLullaby.mp3" },
+  { name: "Travelling Shapes", url: "https://media.heartflowerrecords.com/AAW/08-TravellingShapes.mp3" },
+  { name: "Spitflower", url: "https://media.heartflowerrecords.com/AAW/09-Spitflower.mp3" },
+  { name: "Alive and Well", url: "https://media.heartflowerrecords.com/AAW/10-AliveAndWell.mp3" }
+];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
@@ -245,7 +248,6 @@
       const prevButton = document.getElementById("prevButton");
       const trackListDiv = document.getElementById("trackList");
 
-      // Lines in trackList that correspond to each track index
       const clickableLines = [
         { line: 0, trackIndex: 0 },
         { line: 1, trackIndex: 1 },
@@ -256,9 +258,7 @@
         { line: 6, trackIndex: 6 },
         { line: 7, trackIndex: 7 },
         { line: 8, trackIndex: 8 },
-        { line: 9, trackIndex: 9 },
-        { line: 10, trackIndex: 10 },
-        { line: 11, trackIndex: 11 }
+        { line: 9, trackIndex: 9 }
       ];
 
       let lines = trackListDiv.innerHTML.split("<br><br>");
@@ -376,14 +376,15 @@
         }
       });
 
+      // MEDIA SESSION API integration for lock screen controls
       function updateMediaSessionMetadata() {
         if ('mediaSession' in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: tracks[current].name,
-            artist: 'SPACE FOE',
-            album: 'Flower Ocean Burning Sun',
+            artist: 'Mitch Zachry',
+            album: 'SHEEP! HIDE! POWER!',
             artwork: [
-              { src: 'https://media.heartflowerrecords.com/FOBS/FOBSart.jpg', sizes: '512x512', type: 'image/jpeg' }
+              { src: 'https://media.heartflowerrecords.com/SHP/SHPart.jpg', sizes: '512x512', type: 'image/jpeg' }
             ]
           });
         }
@@ -422,11 +423,12 @@
     </script>
 
     <p><i>
-      You can support abey sparks by purchasing this album on bandcamp
-      <a href="https://abeysparks.bandcamp.com" target="_blank"><u>here</u></a>
+      You can support this album by purchasing it on bandcamp
+      <a href="https://travjordaan.bandcamp.com/album/alive-well" target="_blank"><u>here</u></a>
     </i></p>
   </main>
-  <div style="height: 40px; pointer-events: none;"></div>
+<div style="height: 40px; pointer-events: none;"></div>
+
 </body>
 <footer>
 </footer>

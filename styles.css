@@ -99,6 +99,13 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
+.AAW_box {
+  padding: 5px;
+  --bg-color: #FFD326;
+  --bg-color-light: #FFE066; /* lighter red */
+  background-color: var(--bg-color);
+  color: black;
+}
 
 .BTO_box {
   padding: 5px;
