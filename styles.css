@@ -99,6 +99,14 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
+.TB_box {
+  padding: 5px;
+  --bg-color: #FCFFFB;
+  --bg-color-light: white; /* lighter red */
+  background-color: var(--bg-color);
+  color: black;
+}
+
 .AAW_box {
   padding: 5px;
   --bg-color: #FFD326;

@@ -4,11 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styles.css" />
-  <title>War In The Garden</title>
-  <link rel="icon" href="./media/WIGart.jpg" />
+  <title>Truer Being</title>
+  <link rel="icon" href="./media/TBart.jpg" />
   <style>
+
+/* Rainbow animated text only */
+.rainbow-text {
+  animation: rainbowText 6s linear infinite;
+  background: none !important;
+}
+
+@keyframes rainbowText {
+  0%   { color: #ff4d4d; }   /* vibrant red */
+  20%  { color: #ff7f32; }   /* warm orange */
+  40%  { color: #ffeb33; }   /* bright yellow */
+  60%  { color: #3bd6c8; }   /* aqua/turquoise */
+  80%  { color: #9c4dff; }   /* violet */
+  100% { color: #ff4dbd; }   /* magenta */
+}
+
+.rainbow-text1 {
+  animation: rainbowText1 10s linear infinite;
+  background: none !important;
+}
+
+@keyframes rainbowText1 {
+  0%   { color: #ff6b6b; }   /* soft red */
+  16%  { color: #ffa94d; }   /* peach/orange */
+  33%  { color: #ffe066; }   /* warm yellow */
+  50%  { color: #8ce99a; }   /* soft green */
+  66%  { color: #74c0fc; }   /* sky blue */
+  83%  { color: #b197fc; }   /* lavender */
+  100% { color: #ff6bce; }   /* pink-magenta */
+}
+
+
+
+
     a {
-      color: white;
+      color: black;
+    }
+
+    header {
+      color: black;
     }
 
     html, body {
@@ -16,20 +54,19 @@
       margin: 0;
       padding: 0;
       font-family: marion, serif;
-      color: white;
+      color: black;
     }
 
     body {
-      background-color: #012A0F;
-      background-image: url("./media/WIGbg.jpg");
+      background-color: white;
+      ;
       background-repeat: repeat-y;
       background-position: center center;
       background-size: cover;
     }
 
     main {
-      background-color: #012A0F;
-      background-position: 100% 65%;
+      background-color: white;
     }
 
     #playerContainer {
@@ -37,12 +74,12 @@
       max-width: 600px;
       margin: 10px auto 0;
       font-family: inherit;
-      color: white;
+      color: blackblack;
     }
 
     .player-button {
       background-color: rgba(0, 0, 0, 0);
-      color: white;
+      color: black;
       border: none;
       border-radius: 0;
       cursor: pointer;
@@ -65,7 +102,7 @@
       -webkit-appearance: none;
       width: 75%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(128, 128, 128, 0.1);
       border-radius: 0;
       cursor: pointer;
       vertical-align: middle;
@@ -78,7 +115,7 @@
       appearance: none;
       width: 8px;
       height: 16px;
-      background: white;
+      background: grey;
       border-radius: 0;
       cursor: pointer;
       margin-top: -5px;
@@ -91,7 +128,7 @@
     #timeline::-moz-range-thumb {
       width: 8px;
       height: 16px;
-      background: white;
+      background: black;
       border-radius: 0;
       cursor: pointer;
       border: none;
@@ -128,7 +165,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding-top: 6px;
+      padding-top: 6px; /* tweak vertical alignment */
       padding-bottom: 0;
       vertical-align: middle;
     }
@@ -138,69 +175,66 @@
       height: 30px;
       font-size: 18px;
       margin: 0 auto 8px auto;
-      padding-top: 6px;
+      padding-top: 6px;        /* tweak this value to nudge vertical */
     }
 
     #trackList {
       text-align: center;
-      color: white;
       font-family: inherit;
       margin-top: 10px;
     }
 
     .clickable-track {
       cursor: pointer;
-      color: white;
       font-weight: normal;
       display: inline;
       text-decoration: none;
     }
 
     .clickable-track.active {
-      color: white;
       font-weight: bold;
       text-decoration: none;
     }
 
     .clickable-track:hover {
       cursor: pointer;
-      color: white;
+      color: black;
       text-decoration: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>War In The Garden</h1>
+    <h1 class="rainbow-text">truer being</h1>
     <h2>
       <span class="artist-hover">
-        <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-          Mitch Zachry
+        <a href="https://www.instagram.com/space_foe/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          space foe
         </a>
         <div class="artist-info-box">
-          Mitch Zachry is a folk-influenced singer-songwriter from Melbourne, drawn to existential themes.
+          real and unreal
         </div>
       </span>
     </h2>
   </header>
-  <main style="background-color: #012A0F; background-position: 100% 65%;">
+  <main class="rainbow-text">
     <div style="display: flex; justify-content: space-between;">
-      <a href="./LSB.html">&lt;&lt;&lt;</a>
+      <a href="./AAW.html">&lt;&lt;&lt;</a>
       <a href="../releases.html">----</a>
-      <a href="./MOUTH.html">&gt;&gt;&gt;</a>
+      <a href="./SHP.html">&gt;&gt;&gt;</a>
     </div>
 
-    <div id="trackList">
-      1. From The Garden<br><br>
-      2. A Love Hard Fought<br><br>
-      3. Teach Me Loving<br><br>
-      4. Holy Water in a Wishing Well<br><br>
-      5. River Love Song<br><br>
-      6. War in the Garden<br><br>
-      7. Textures of an Evening Garden<br><br>
-      8. The Bloom of Spring<br><br>
-      9. If I Don't Go Home Again<br><br>
-      10. Everything Goes Away<br><br>
+    <div class="rainbow-text1" id="trackList">
+      1. the ocean of mercury smiles upon you<br><br>
+      2. a golden star a coiled bird<br><br>
+      3. endless orbits of love<br><br>
+      4. lunar snow & the suffering of mars<br><br>
+      5. open space deep blue inside you<br><br>
+      6. objects of love begin to appear<br><br>
+      7. understanding<br><br>
+
+
+
     </div>
 
     <div id="playerContainer">
@@ -219,18 +253,16 @@
     <audio id="smallPlayer" src="" preload="metadata"></audio>
 
     <script>
-      const tracks = [
-        { name: "From The Garden", url: "https://media.heartflowerrecords.com/WIG/01-from-garden.mp3" },
-        { name: "A Love Hard Fought", url: "https://media.heartflowerrecords.com/WIG/02-hard-fought.mp3" },
-        { name: "Teach Me Loving", url: "https://media.heartflowerrecords.com/WIG/03-teach-loving.mp3" },
-        { name: "Holy Water in a Wishing Well", url: "https://media.heartflowerrecords.com/WIG/04-holy-water.mp3" },
-        { name: "River Love Song", url: "https://media.heartflowerrecords.com/WIG/05-river-love.mp3" },
-        { name: "War in the Garden", url: "https://media.heartflowerrecords.com/WIG/06-war-garden.mp3" },
-        { name: "Textures of an Evening Garden", url: "https://media.heartflowerrecords.com/WIG/07-textures-eveing.mp3" },
-        { name: "The Bloom of Spring", url: "https://media.heartflowerrecords.com/WIG/08-bloom-spring.mp3" },
-        { name: "If I Don't Go Home", url: "https://media.heartflowerrecords.com/WIG/09-home-again.mp3" },
-        { name: "Everything Goes Away", url: "https://media.heartflowerrecords.com/WIG/10-everything-goes.mp3" },
-      ];
+const tracks = [
+  { name: "Ocean Smiles",      url: "https://media.heartflowerrecords.com/TB/01-ocean-smiles.mp3" },
+  { name: "Golden Star",       url: "https://media.heartflowerrecords.com/TB/02-golden-star.mp3" },
+  { name: "Endless Orbits",    url: "https://media.heartflowerrecords.com/TB/03-endless-orbits.mp3" },
+  { name: "Lunar Snow",        url: "https://media.heartflowerrecords.com/TB/04-lunar-snow.mp3" },
+  { name: "Open Space",        url: "https://media.heartflowerrecords.com/TB/05-open-space.mp3" },
+  { name: "Objects Love",      url: "https://media.heartflowerrecords.com/TB/06-objects-love.mp3" },
+  { name: "Understanding",     url: "https://media.heartflowerrecords.com/TB/07-understanding.mp3" }
+];
+
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
@@ -369,14 +401,15 @@
         }
       });
 
+      // MEDIA SESSION API integration for lock screen controls
       function updateMediaSessionMetadata() {
         if ('mediaSession' in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: tracks[current].name,
             artist: 'Mitch Zachry',
-            album: 'War In The Garden',
+            album: 'SHEEP! HIDE! POWER!',
             artwork: [
-              { src: 'https://media.heartflowerrecords.com/WIG/WIGart.jpg', sizes: '512x512', type: 'image/jpeg' }
+              { src: 'https://media.heartflowerrecords.com/SHP/SHPart.jpg', sizes: '512x512', type: 'image/jpeg' }
             ]
           });
         }
@@ -413,13 +446,14 @@
 
       loadTrack(0);
     </script>
-
     <p><i>
       You can support this album by purchasing it on bandcamp
-      <a href="https://mitchzachry.bandcamp.com/album/war-in-the-garden" target="_blank"><u>here</u></a>
+      <a href="https://spacefoe.bandcamp.com/album/truer-being" target="_blank"><u>here</u></a>
     </i></p>
+
   </main>
 <div style="height: 40px; pointer-events: none;"></div>
+
 </body>
 <footer>
 </footer>
