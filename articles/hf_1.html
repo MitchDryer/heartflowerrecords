@@ -32,7 +32,8 @@
   </div>
 
 
-    <audio id="smallPlayer" src="" preload="metadata"></audio>
+    <audio id="smallPlayer" src="" preload="auto" playsinline></audio>
+
 
 <br>
 
@@ -360,17 +361,13 @@ which aren’t rooted in truth.</p>
 
   function startAudio() {
     if (!hasStarted) {
-      audio.play().catch(err => console.log(err));
-      hasStarted = true;
+      audio.play().then(() => {
+        hasStarted = true;
+      }).catch(err => console.log("Playback blocked:", err));
     }
   }
 
-  // Start on first scroll
-  window.addEventListener("scroll", () => {
-    startAudio();
-  }, { once: true });
-
-  // Start on slider interaction (Safari-safe)
+  // Start immediately when slider is touched (Safari-safe)
   slider.addEventListener("pointerdown", startAudio);
   slider.addEventListener("touchstart", startAudio);
   slider.addEventListener("mousedown", startAudio);
@@ -380,6 +377,7 @@ which aren’t rooted in truth.</p>
     audio.volume = slider.value / 100;
   });
 </script>
+
 
 
 </body>
