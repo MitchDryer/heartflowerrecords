@@ -1,4 +1,8 @@
 
+html {
+  overflow-y: scroll; /* reserve scrollbar space to prevent layout shift */
+}
+
 /* Crimson Text Font */
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
@@ -251,4 +255,14 @@ main.main_releases a {
   margin: 0 auto;
   padding-bottom: 10px;
 	
+}
+
+.intlinks {
+   margin-top: 4px;
+   text-align: center;
+   font-size: 18px;
+}
+
+.zineline {
+   text-align: center;
 }

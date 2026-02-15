@@ -6,7 +6,7 @@
    sodipodi:docname="media.svg"
    width="823.04999"
    height="138"
-   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,23 +24,25 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="1.0583255"
-     inkscape:cx="377.48311"
-     inkscape:cy="77.480888"
-     inkscape:window-width="1920"
-     inkscape:window-height="934"
+     inkscape:zoom="1.8984341"
+     inkscape:cx="440.36293"
+     inkscape:cy="92.971361"
+     inkscape:window-width="1904"
+     inkscape:window-height="1014"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="Layer_2" />
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs826">
     <style
-       id="style824">.cls-1{fill:#f7f4e1;}.cls-2{font-size:150px;fill:#e76726;font-family:Marion-Regular, Marion;letter-spacing:-0.01em;}</style>
+       id="style824">.cls-1{fill:#f7f4e1;}.cls-2{font-size:150px;fill:#e56a70;font-family:Marion-Regular, Marion;letter-spacing:-0.01em;}</style>
   </defs>
   <g
-     id="Layer_2"
-     data-name="Layer 2"
+     id="Layer_1"
+     data-name="Layer 1"
      transform="translate(-9.4200001,-220.73)">
     <rect
        class="cls-1"
@@ -52,7 +54,8 @@
     <text
        class="cls-2"
        id="text830"
-       x="237.24422"
-       y="337.5">watch</text>
+       x="290.07001"
+       y="337.5"
+       style="fill:#e76726">look</text>
   </g>
 </svg>
