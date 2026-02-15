@@ -349,42 +349,40 @@ which aren’t rooted in truth.</p>
 
   </main>
 <script>
-  const audio = document.getElementById("smallPlayer");
-  const slider = document.getElementById("timeline");
+const audio = document.getElementById("smallPlayer");
+const slider = document.getElementById("timeline");
 
-  audio.loop = true;
-  audio.volume = 0.5;
-  slider.value = 50;
+// Set initial volume
+audio.volume = slider.value / 100;
+audio.loop = true;
 
-  let hasStarted = false;
+let hasStarted = false;
 
-  function startAudio() {
-    if (hasStarted) return;
+// Start audio on first user interaction
+function startAudio() {
+  if (hasStarted) return;
 
-    audio.load(); // important for Safari
-
-    const playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          hasStarted = true;
-        })
-        .catch(err => {
-          console.log("Playback blocked:", err);
-        });
-    }
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => { hasStarted = true; })
+      .catch(err => { console.log("Playback blocked:", err); });
   }
+}
 
-  // This MUST be a trusted user gesture
-  slider.addEventListener("touchend", startAudio);
-  slider.addEventListener("mouseup", startAudio);
-  slider.addEventListener("click", startAudio);
+// For mobile Safari, use touch events
+slider.addEventListener("touchend", startAudio);
+slider.addEventListener("touchmove", () => {
+  if (hasStarted) audio.volume = slider.value / 100;
+});
 
-  slider.addEventListener("input", () => {
-    audio.volume = slider.value / 100;
-  });
+// For desktop
+slider.addEventListener("mouseup", startAudio);
+slider.addEventListener("input", () => {
+  if (hasStarted) audio.volume = slider.value / 100;
+});
 </script>
+
 
 
 
