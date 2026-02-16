@@ -15,24 +15,30 @@
   <main>
 
   <div class="title">
-    <img src="assets/hf_1/title2_.png" alt="" style="width:100%; height:auto;">
-    <div class="heading1">heartflower issue #1</h3>
+    <a href="../zines.html"><img src="assets/hf_1/title2_.png" alt="" style="width:100%; height:auto;"></a>
+    <div class="heading1">heartflower issue #1</div>
   </div>
 
 
 
-    <div class="volumebar" id="playerContainer">
-
-      <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
-
-    </div>
+<div class="desktop-audio">
+  <div class="volumebar" id="playerContainer">
+    <input type="range" id="timeline" min="0" max="100" value="50" step="0.01" />
+  </div>
   <div class="subtitle">
-	<p><em>soundtrack by reuben hudson<br>(slide to adjust volume)</em></p>
-
+    <p><em>soundtrack by reuben hudson<br>(slide to adjust volume)</em></p>
   </div>
+</div>
 
+<div class="mobile-audio">
+  <button id="playButton">play</button>
+  <div class="subtitle">
+    <p><em>soundtrack by reuben hudson</em></p>
+  </div>
+</div>
 
-    <audio id="smallPlayer" src="https://media.heartflowerrecords.com/NEWSLETTER/1_peacheswinebar.mp3" preload="auto" playsinline></audio>
+<audio id="smallPlayer" src="https://media.heartflowerrecords.com/NEWSLETTER/1_peacheswinebar.mp3" preload="auto" playsinline></audio>
+
 
 
 <br>
@@ -351,37 +357,61 @@ which aren’t rooted in truth.</p>
 <script>
 const audio = document.getElementById("smallPlayer");
 const slider = document.getElementById("timeline");
+const playButton = document.getElementById("playButton");
 
-// Set initial volume
-audio.volume = slider.value / 100;
 audio.loop = true;
 
-let hasStarted = false;
+/* -----------------------
+   Desktop Slider
+----------------------- */
+if (slider) {
+  slider.value = 50; // default 50%
+  audio.volume = slider.value / 100;
 
-// Start audio on first user interaction
-function startAudio() {
-  if (hasStarted) return;
+  slider.addEventListener("input", () => {
+    audio.volume = slider.value / 100;
+  });
 
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => { hasStarted = true; })
-      .catch(err => { console.log("Playback blocked:", err); });
-  }
+  // Start audio on first interaction (desktop)
+  slider.addEventListener("mousedown", () => {
+    if (audio.paused) audio.play();
+  });
+
+  slider.addEventListener("touchend", () => {
+    if (audio.paused) audio.play();
+  });
 }
 
-// For mobile Safari, use touch events
-slider.addEventListener("touchend", startAudio);
-slider.addEventListener("touchmove", () => {
-  if (hasStarted) audio.volume = slider.value / 100;
-});
+/* -----------------------
+   Mobile Button Toggle
+----------------------- */
+if (playButton) {
 
-// For desktop
-slider.addEventListener("mouseup", startAudio);
-slider.addEventListener("input", () => {
-  if (hasStarted) audio.volume = slider.value / 100;
-});
+  playButton.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  // Sync button state when playing
+  audio.addEventListener("play", () => {
+    playButton.textContent = "pause";
+    playButton.classList.add("active");
+  });
+
+  // Sync button state when paused
+  audio.addEventListener("pause", () => {
+    playButton.textContent = "play";
+    playButton.classList.remove("active");
+  });
+
+}
 </script>
+
+
+
 
 
 
