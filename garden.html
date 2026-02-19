@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="./styles.css">
 <style>
 main{
-  width: 90%;
-  margin: 0 auto;
+  width:90%;
+  margin:0 auto;
 }
+
 body{
   background-image:url("./media/flower_bg_3.png");
   background-size:cover;
@@ -25,13 +26,12 @@ body{
   width:90%;
   max-width:600px;
   aspect-ratio:3/2;
-  background-color: #78b159;
+  background-color:#78b159;
   position:relative;
   overflow:hidden;
   margin:20px auto 0 auto;
   border-radius:0px;
 
-  /* enables container queries */
   container-type:inline-size;
   container-name:garden;
 }
@@ -48,7 +48,6 @@ body{
   top:50%;
   transform:translate(-50%,-50%);
   width:min(90%,520px);
-  height:92%;
   text-align:center;
   z-index:10;
   pointer-events:auto;
@@ -59,16 +58,15 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
+  gap:4px;              /* tighter vertical spacing */
   width:100%;
-  max-height:100%;
-  overflow:hidden;
+  overflow:visible;     /* prevent clipping */
 }
 
 /* track text */
 #trackInfoInGarden{
   width:100%;
-  min-height:42px;
+  min-height:36px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -90,9 +88,9 @@ body{
   overflow:hidden;
 }
 
-/* album art scales relative to container */
+/* album art */
 #albumArt{
-  width:min(90px,22%);
+  width:min(80px,22%);
   aspect-ratio:1/1;
   height:auto;
   object-fit:cover;
@@ -111,7 +109,7 @@ body{
   align-items:center;
   justify-content:center;
   transition:background-color 0.2s ease;
-  margin-top:10px;
+  margin-top:4px;        /* reduced */
 }
 
 .player-button:hover{
@@ -119,42 +117,43 @@ body{
 }
 
 #playPauseBtn{
-  width:min(80px,26%);
-  height:30px;
-  font-size:18px;
+  width:min(70px,26%);
+  height:28px;
+  font-size:17px;
   margin:0 auto;
-  padding-top:6px;
+  padding-top:4px;
 }
 
+/* skip buttons tighter */
 #skipButtons{
-  margin-top:8px;
+  margin-top:4px;
   display:flex;
   justify-content:center;
-  gap:10px;
+  gap:6px;
 }
 
 #skipButtons .player-button{
-  width:min(80px,26%);
-  font-size:22px;
+  width:min(70px,26%);
+  font-size:20px;
   font-weight:bold;
-  padding-top:6px;
+  padding-top:4px;
 }
 
 /* timeline */
 #timeline{
   -webkit-appearance:none;
   width:100%;
-  height:6px;
+  height:5px;
   background:rgba(255,255,255,0.7);
   cursor:pointer;
-  margin:6px auto 0 auto;
+  margin:4px auto 0 auto;
   display:block;
 }
 
 #timeline::-webkit-slider-thumb{
   -webkit-appearance:none;
-  width:8px;
-  height:16px;
+  width:7px;
+  height:14px;
   background:black;
   cursor:pointer;
   border:none;
@@ -162,10 +161,10 @@ body{
 
 /* time display */
 #timeDisplay{
-  font-size:14px;
-  margin-top:6px;
+  font-size:13px;
+  margin-top:4px;
   font-variant-numeric:tabular-nums;
-  min-width:120px;
+  min-width:100px;
 }
 
 /* genre selector */
@@ -185,30 +184,15 @@ body{
   text-align:center;
   border-radius:4px;
   user-select:none;
-  font-size: 25px;
+  font-size:25px;
+  font-weight:bold;
 }
 
-/* ===== CONTAINER QUERIES (RESPONDS TO GREEN SQUARE SIZE) ===== */
-
+/* container adjustments for very small squares */
 @container garden (max-width:420px){
   #overlayStack{
     transform:scale(0.9);
     transform-origin:center;
-  }
-
-  #trackNameInGarden{ font-size:14px; }
-  #albumNameInGarden{ font-size:13px; }
-  #timeDisplay{ font-size:12px; }
-
-  #playPauseBtn{
-    height:28px;
-    font-size:16px;
-  }
-
-  #timeline{ height:5px; }
-  #timeline::-webkit-slider-thumb{
-    width:7px;
-    height:14px;
   }
 }
 
