@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+
+.rainbow-text1 {
+  animation: rainbowText1 10s linear infinite;
+  background: none !important;
+}
+
+@keyframes rainbowText1 {
+  0%   { color: #ff6b6b; }   /* soft red */
+  16%  { color: #ffa94d; }   /* peach/orange */
+  33%  { color: #ffe066; }   /* warm yellow */
+  50%  { color: #8ce99a; }   /* soft green */
+  66%  { color: #74c0fc; }   /* sky blue */
+  83%  { color: #b197fc; }   /* lavender */
+  100% { color: #ff6bce; }   /* pink-magenta */
+}
+
+    body {
+      background-image: url("./media/flower_bg_3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+    }
+  </style>
+  <title>Heartflower Records - Releases</title>
+  <link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+  <header>
+    <!--
+    <img class="title_img" src="./media/buttons/listen.svg" alt="heartflower logo">
+    -->
+    <a class="menu" href="index.html">
+      <img
+        class="title_img"
+        src="./media/buttons/listen.svg"
+        alt="about button"
+        onmouseover="this.src='./media/buttons/listenB.svg'"
+        onmouseout="this.src='./media/buttons/listen.svg'"
+        onmousedown="this.src='./media/buttons/listen.svg'"
+      >
+    </a>
+<div class="intlinks">
+  <a href="garden.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>garden</em>
+  </a>
+
+  <a href="albums.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>albums</em>
+  </a>
+
+  <a href="singles.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>singles</em>
+  </a>
+
+</div>
+
+  </header>
+ <main class="main_releases">
+
+    <a href="./release_pages/TB.html">
+      <div class="release_box TB_box">
+        <h3 class="rainbow-text1">truer being - space foe</h3>
+        <img class="release_img" src="./release_pages/media/TBart.png" style="vertical-align:middle">
+        <p><em>Jazz/ Ambient</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/AAW.html">
+      <div class="release_box AAW_box">
+        <h3>Alive & Well - Trav & Mitch</h3>
+        <img class="release_img" src="./release_pages/media/AAWart.jpg" style="vertical-align:middle">
+        <p><em>Jazz/ Folk/ Guitar</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/BTO.html">
+      <div class="release_box BTO_box">
+        <h3>BEHOLD THE ORB - abey sparks</h3>
+        <img class="release_img" src="./release_pages/media/BTOart.jpg" style="vertical-align:middle">
+        <p><em>Jazz/ Orbtastic</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/MOUTH.html">
+      <div class="release_box MOUTH_box">
+        <h3>MOUTH - supersoft</h3>
+        <img class="release_img" src="./release_pages/media/MOUTHart.jpg" style="vertical-align:middle">
+        <p><em>DIY-Pop</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/WIG.html">
+      <div class="release_box WITG_box">
+        <h3>War In The Garden - Mitch Zachry</h3>
+        <img class="release_img" src="./release_pages/media/WIGart.jpg" style="vertical-align:middle">
+        <p><em>Folk/ Singer Songwriter</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/LSB.html">
+      <div class="release_box LLLSSSBBB_box">
+        <h3>love love love swim swim swim be be be - Mitch Zachry</h3>
+        <img class="release_img" src="./release_pages/media/LSBart.jpg" style="vertical-align:middle">
+        <p><em>Folk/ Singer Songwriter</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/FOBS.html">
+      <div class="release_box FOBS_box">
+        <h3>Flower Ocean Burning Sun - Space Foe</h3>
+        <img class="release_img" src="./release_pages/media/FOBSart.jpg" style="vertical-align:middle">
+        <p><em>Jazz/ Experimental/ Ambient</em></p>
+      </div>
+    </a>
+
+    <a href="./release_pages/SHP.html">
+      <div class="release_box SHP_box">
+        <h3>SHEEP! HIDE! POWER! - supersoft</h3>
+        <img class="release_img" src="./release_pages/media/SHPart.jpg" style="vertical-align:middle">
+        <p><em>DIY-Pop/ Experimental</em></p>
+      </div>
+    </a>
+  </main>
+</body>
+</html>

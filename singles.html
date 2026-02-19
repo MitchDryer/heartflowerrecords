@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+
+.rainbow-text1 {
+  animation: rainbowText1 10s linear infinite;
+  background: none !important;
+}
+
+@keyframes rainbowText1 {
+  0%   { color: #ff6b6b; }   /* soft red */
+  16%  { color: #ffa94d; }   /* peach/orange */
+  33%  { color: #ffe066; }   /* warm yellow */
+  50%  { color: #8ce99a; }   /* soft green */
+  66%  { color: #74c0fc; }   /* sky blue */
+  83%  { color: #b197fc; }   /* lavender */
+  100% { color: #ff6bce; }   /* pink-magenta */
+}
+
+    body {
+      background-image: url("./media/flower_bg_3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+    }
+  </style>
+  <title>Heartflower Records - Releases</title>
+  <link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+  <header>
+    <!--
+    <img class="title_img" src="./media/buttons/listen.svg" alt="heartflower logo">
+    -->
+    <a class="menu" href="index.html">
+      <img
+        class="title_img"
+        src="./media/buttons/listen.svg"
+        alt="about button"
+        onmouseover="this.src='./media/buttons/listenB.svg'"
+        onmouseout="this.src='./media/buttons/listen.svg'"
+        onmousedown="this.src='./media/buttons/listen.svg'"
+      >
+    </a>
+<div class="intlinks">
+  <a href="garden.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>garden</em>
+  </a>
+
+  <a href="albums.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>albums</em>
+  </a>
+
+  <a href="singles.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>singles</em>
+  </a>
+
+</div>
+
+  </header>
+ <main class="main_releases">
+
+  </main>
+</body>
+</html>

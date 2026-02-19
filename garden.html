@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./styles.css">
+<style>
+main{
+  width: 90%;
+  margin: 0 auto;
+}
+body{
+  background-image:url("./media/flower_bg_3.png");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  margin:0;
+  font-family:marion,serif;
+  color:black;
+}
+
+/* Flower square */
+#flowerSquare{
+  width:90%;
+  max-width:600px;
+  aspect-ratio:3/2;
+  background-color: #78b159;
+  position:relative;
+  overflow:hidden;
+  margin:20px auto 0 auto;
+  border-radius:0px;
+
+  /* enables container queries */
+  container-type:inline-size;
+  container-name:garden;
+}
+
+/* flowers shouldn't steal clicks */
+#flowerSquare .flower-item{
+  pointer-events:none;
+}
+
+/* overlay centered */
+#playerContainer{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(90%,520px);
+  height:92%;
+  text-align:center;
+  z-index:10;
+  pointer-events:auto;
+}
+
+/* overlay stack */
+#overlayStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  max-height:100%;
+  overflow:hidden;
+}
+
+/* track text */
+#trackInfoInGarden{
+  width:100%;
+  min-height:42px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+  user-select:none;
+}
+
+#trackNameInGarden{
+  line-height:1.15;
+  max-height:2.3em;
+  overflow:hidden;
+}
+
+#albumNameInGarden{
+  font-style:italic;
+  line-height:1.15;
+  max-height:1.15em;
+  overflow:hidden;
+}
+
+/* album art scales relative to container */
+#albumArt{
+  width:min(90px,22%);
+  aspect-ratio:1/1;
+  height:auto;
+  object-fit:cover;
+  display:block;
+  cursor:pointer;
+}
+
+/* buttons */
+.player-button{
+  background-color:rgba(0,0,0,0);
+  color:black;
+  border:none;
+  cursor:pointer;
+  font-family:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background-color 0.2s ease;
+  margin-top:10px;
+}
+
+.player-button:hover{
+  background-color:rgba(255,255,255,0.3);
+}
+
+#playPauseBtn{
+  width:min(80px,26%);
+  height:30px;
+  font-size:18px;
+  margin:0 auto;
+  padding-top:6px;
+}
+
+#skipButtons{
+  margin-top:8px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+#skipButtons .player-button{
+  width:min(80px,26%);
+  font-size:22px;
+  font-weight:bold;
+  padding-top:6px;
+}
+
+/* timeline */
+#timeline{
+  -webkit-appearance:none;
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.7);
+  cursor:pointer;
+  margin:6px auto 0 auto;
+  display:block;
+}
+
+#timeline::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:8px;
+  height:16px;
+  background:black;
+  cursor:pointer;
+  border:none;
+}
+
+/* time display */
+#timeDisplay{
+  font-size:14px;
+  margin-top:6px;
+  font-variant-numeric:tabular-nums;
+  min-width:120px;
+}
+
+/* genre selector */
+#genreSelectors{
+  text-align:center;
+  margin-top:10px;
+}
+
+.genre-flower{
+  display:inline-block;
+  width:24px;
+  height:24px;
+  margin:0 6px;
+  cursor:pointer;
+  font-family:monospace;
+  line-height:24px;
+  text-align:center;
+  border-radius:4px;
+  user-select:none;
+  font-size: 25px;
+}
+
+/* ===== CONTAINER QUERIES (RESPONDS TO GREEN SQUARE SIZE) ===== */
+
+@container garden (max-width:420px){
+  #overlayStack{
+    transform:scale(0.9);
+    transform-origin:center;
+  }
+
+  #trackNameInGarden{ font-size:14px; }
+  #albumNameInGarden{ font-size:13px; }
+  #timeDisplay{ font-size:12px; }
+
+  #playPauseBtn{
+    height:28px;
+    font-size:16px;
+  }
+
+  #timeline{ height:5px; }
+  #timeline::-webkit-slider-thumb{
+    width:7px;
+    height:14px;
+  }
+}
+
+@container garden (max-width:340px){
+  #overlayStack{
+    transform:scale(0.82);
+  }
+}
+</style>
+
+<title>Heartflower Records - Garden</title>
+<link rel="icon" href="./media/favicon.png">
+</head>
+<body>
+<header>
+  <a class="menu" href="index.html">
+    <img class="title_img" src="./media/buttons/listen.svg" alt="about button"
+         onmouseover="this.src='./media/buttons/listenB.svg'"
+         onmouseout="this.src='./media/buttons/listen.svg'">
+  </a>
+<div class="intlinks">
+  <a href="garden.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>garden</em>
+  </a>
+
+  <a href="albums.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>albums</em>
+  </a>
+
+  <a href="singles.html"
+     style="background:#f7f4e1; color:#AA7DB6; width:65px; height:27px; line-height:30px; text-align:center; display:inline-block; text-decoration:none;"
+     onmouseover="this.style.background='black';"
+     onmouseout="this.style.background='#f7f4e1';">
+    <em>singles</em>
+  </a>
+
+</div>
+</header>
+
+<main class="main_garden">
+
+  <div id="flowerSquare">
+    <div id="playerContainer">
+      <div id="overlayStack">
+        <div id="trackInfoInGarden" style="display:none;">
+          <div id="trackNameInGarden"></div>
+          <div id="albumNameInGarden"></div>
+        </div>
+
+        <!-- keep it in layout; we just toggle visibility -->
+        <img id="albumArt" src="" alt="" style="visibility:hidden;">
+
+        <button id="playPauseBtn" class="player-button">►</button>
+        <input type="range" id="timeline" min="0" max="100" value="0" step="0.01" />
+        <div id="timeDisplay">0:00 / 0:00</div>
+        <div id="skipButtons">
+          <button class="player-button" id="prevButton"><</button>
+          <button class="player-button" id="nextButton">></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="genreSelectors">select your flowers:</div>
+
+  <audio id="smallPlayer" preload="metadata"></audio>
+
+</main>
+
+<br>
+<main class="main_garden">
+<b>key:<br></b>
+<span style="color:orange;">*</span> - singer/songwriter<br>
+<span style="color:skyblue;">.</span> - indie/pop<br>
+<span style="color:purple;">+</span> - experimental<br>
+<span style="color:white;">o</span> - ambient<br>
+<span style="color:red;">x</span> - jazz
+</main>
+
+<script>
+let allTracks = [], shuffledTracks = [], current = 0;
+
+const player = document.getElementById("smallPlayer");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const timeline = document.getElementById("timeline");
+const timeDisplay = document.getElementById("timeDisplay");
+const nextButton = document.getElementById("nextButton");
+const prevButton = document.getElementById("prevButton");
+
+const albumArt = document.getElementById("albumArt");
+const trackInfoInGarden = document.getElementById("trackInfoInGarden");
+const trackNameInGarden = document.getElementById("trackNameInGarden");
+const albumNameInGarden = document.getElementById("albumNameInGarden");
+
+/* case-insensitive genre helper */
+function normGenre(s){ return String(s || "").trim().toLowerCase(); }
+function getSelectedGenres(){ return Array.from(selectedGenres).map(normGenre); }
+
+/* ===========================
+   MEDIA SESSION (lock screen)
+   =========================== */
+function updateMediaSessionMetadata(track, artworkUrl){
+  if (!('mediaSession' in navigator)) return;
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: track?.name || "",
+    artist: track?.artist || "",
+    album: track?.album || "",
+    artwork: artworkUrl ? [
+      { src: artworkUrl, sizes: "512x512", type: "image/jpeg" }
+    ] : []
+  });
+}
+
+function setupMediaSessionHandlers(){
+  if (!('mediaSession' in navigator)) return;
+
+  // Play / Pause
+  navigator.mediaSession.setActionHandler('play', () => {
+    player.play().catch(()=>{});
+    playPauseBtn.textContent = "❙❙";
+  });
+
+  navigator.mediaSession.setActionHandler('pause', () => {
+    player.pause();
+    playPauseBtn.textContent = "►";
+  });
+
+  // Prev / Next
+  navigator.mediaSession.setActionHandler('previoustrack', () => {
+    if (current > 0){
+      loadTrack(current - 1);
+      player.play().catch(()=>{});
+      playPauseBtn.textContent = "❙❙";
+    }
+  });
+
+  navigator.mediaSession.setActionHandler('nexttrack', () => {
+    nextButton.click();
+  });
+
+  // Optional: seek (nice on Android / some browsers)
+  navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+    const skip = (details && details.seekOffset) ? details.seekOffset : 10;
+    player.currentTime = Math.max(0, (player.currentTime || 0) - skip);
+  });
+
+  navigator.mediaSession.setActionHandler('seekforward', (details) => {
+    const skip = (details && details.seekOffset) ? details.seekOffset : 10;
+    const dur = player.duration || 0;
+    player.currentTime = dur ? Math.min(dur, (player.currentTime || 0) + skip) : (player.currentTime || 0) + skip;
+  });
+
+  navigator.mediaSession.setActionHandler('seekto', (details) => {
+    if (details && typeof details.seekTime === "number"){
+      player.currentTime = details.seekTime;
+    }
+  });
+}
+
+// keep lockscreen state accurate
+player.addEventListener("play", () => {
+  if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
+
+  // iOS/Safari sometimes updates metadata more reliably once playback starts
+  const t = shuffledTracks[current];
+  if (t) {
+    // albumArt.src will already be set by loadTrack
+    updateMediaSessionMetadata(t, albumArt.src || "");
+  }
+});
+
+player.addEventListener("pause", () => {
+  if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "paused";
+});
+
+setupMediaSessionHandlers();
+
+/* ===========================
+   TRACK LOADING / PLAYBACK
+   =========================== */
+
+fetch('release_pages/releases.JSON')
+  .then(res => res.json())
+  .then(data => {
+    allTracks = data.map(track => {
+      const folder = track.url.split('/').slice(-2,-1)[0];
+      return { ...track, albumPage: `release_pages/${folder}.html` };
+    });
+    generateFlowers();
+  }).catch(console.error);
+
+function shuffle(array){
+  let a = array.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildShuffle(filterGenres){
+  let tracksToShuffle = allTracks;
+
+  const wanted = (filterGenres && filterGenres.length > 0)
+    ? filterGenres.map(normGenre)
+    : getSelectedGenres();
+
+  if(wanted.length > 0){
+    tracksToShuffle = allTracks.filter(t =>
+      (t.genre || []).some(g => wanted.includes(normGenre(g)))
+    );
+  }
+
+  shuffledTracks = shuffle(tracksToShuffle);
+  current = 0;
+}
+
+function loadTrack(i){
+  if(!shuffledTracks[i]) return;
+  current = i;
+  const t = shuffledTracks[current];
+
+  player.src = t.url;
+  player.load();
+  timeline.value = 0;
+  updateTimeDisplay();
+
+  trackNameInGarden.textContent = `${t.name} – ${t.artist}`;
+  albumNameInGarden.textContent = t.album;
+  trackInfoInGarden.style.display = "flex";
+  trackInfoInGarden.onclick = () => window.open(t.albumPage, "_blank");
+
+  // art URL: /FOLDER/FOLDERart.jpg
+  const parts = t.url.split('/');
+  const folder = parts[parts.length - 2];
+  const base = parts.slice(0, -1).join('/');
+  const artUrl = `${base}/${folder}art.jpg`;
+
+  // update lockscreen metadata immediately
+  updateMediaSessionMetadata(t, artUrl);
+
+  albumArt.style.visibility = "hidden";
+  albumArt.src = artUrl;
+  albumArt.onload = () => { albumArt.style.visibility = "visible"; };
+  albumArt.onerror = () => { albumArt.style.visibility = "hidden"; };
+  albumArt.onclick = () => window.open(t.albumPage, "_blank");
+
+  player.pause();
+  playPauseBtn.textContent = "►";
+}
+
+function formatTime(s){
+  const m = Math.floor(s/60);
+  const sec = Math.floor(s%60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+function updateTimeDisplay(){
+  timeDisplay.textContent = `${formatTime(player.currentTime)} / ${formatTime(player.duration||0)}`;
+}
+
+playPauseBtn.addEventListener("click", () => {
+  if(player.paused){
+    player.play().catch(()=>{});
+    playPauseBtn.textContent = "❙❙";
+  } else{
+    player.pause();
+    playPauseBtn.textContent = "►";
+  }
+});
+
+nextButton.addEventListener("click", () => {
+  if(current + 1 < shuffledTracks.length){
+    loadTrack(current + 1);
+    player.play().catch(()=>{});
+    playPauseBtn.textContent = "❙❙";
+  } else{
+    const wanted = getSelectedGenres();
+    if(wanted.length === 0) return;
+    buildShuffle(wanted);
+    if(shuffledTracks.length === 0) return;
+    loadTrack(0);
+    player.play().catch(()=>{});
+    playPauseBtn.textContent = "❙❙";
+  }
+});
+
+prevButton.addEventListener("click", () => {
+  if(current > 0){
+    loadTrack(current - 1);
+    player.play().catch(()=>{});
+    playPauseBtn.textContent = "❙❙";
+  }
+});
+
+player.addEventListener("ended", () => nextButton.click());
+player.addEventListener("loadedmetadata", () => {
+  timeline.max = player.duration;
+  updateTimeDisplay();
+});
+player.addEventListener("timeupdate", () => {
+  timeline.value = player.currentTime;
+  updateTimeDisplay();
+});
+timeline.addEventListener("input", () => {
+  player.currentTime = timeline.value;
+});
+
+/* ===========================
+   FLOWER GARDEN LOGIC
+   =========================== */
+
+const flowers = [
+  { art:" * ", genre:"Singer songwriter", color:"orange" },
+  { art:" . ", genre:"Indie pop", color:"skyblue" },
+  { art:" + ", genre:"Experimental", color:"purple" },
+  { art:" o ", genre:"Ambient", color:"white" },
+  { art:" x ", genre:"Jazz", color:"red" }
+];
+
+const flowerSquare = document.getElementById("flowerSquare");
+const genreSelectors = document.getElementById("genreSelectors");
+const bushChar = "⬢", bushColor = "#006400";
+let selectedGenres = new Set(flowers.map(f => f.genre));
+
+flowers.forEach(f => {
+  const span = document.createElement("span");
+  span.className = "genre-flower";
+  span.textContent = f.art;
+  span.style.color = f.color;
+  span.dataset.genre = f.genre;
+  span.onclick = () => {
+    if(selectedGenres.has(f.genre)){
+      selectedGenres.delete(f.genre);
+      span.style.color = "grey";
+    } else{
+      selectedGenres.add(f.genre);
+      span.style.color = f.color;
+    }
+    generateFlowers();
+  };
+  genreSelectors.appendChild(span);
+});
+
+function generateFlowers(){
+  flowerSquare.querySelectorAll(".flower-item").forEach(el => el.remove());
+  flowerSquare.style.backgroundColor = "green";
+
+  if(selectedGenres.size === 0){
+    player.pause(); player.src = "";
+    playPauseBtn.textContent = "►";
+    albumArt.style.visibility = "hidden";
+    trackInfoInGarden.style.display = "none";
+    shuffledTracks = [];
+    current = 0;
+
+    // clear media session metadata (optional)
+    if ('mediaSession' in navigator) navigator.mediaSession.metadata = null;
+
+    return;
+  }
+
+  const squareWidth = flowerSquare.clientWidth;
+  const squareHeight = flowerSquare.clientHeight;
+
+  const cols = Math.max(1, Math.floor(squareWidth / 60));
+  const rows = Math.max(1, Math.floor(squareHeight / 60));
+
+  const cellWidth = squareWidth / cols;
+  const cellHeight = squareHeight / rows;
+
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      if(Math.random() < 0.3) continue;
+      const span = document.createElement("span");
+      span.className = "flower-item";
+      span.style.position = "absolute";
+      span.style.whiteSpace = "pre";
+      span.style.fontFamily = "monospace";
+      span.style.fontWeight = "bold";
+      const x = c*cellWidth + Math.random()*(cellWidth-20);
+      const y = r*cellHeight + Math.random()*(cellHeight-20);
+      span.style.left = x + "px";
+      span.style.top = y + "px";
+
+      if(Math.random() < 0.12){
+        span.textContent = bushChar;
+        span.style.color = bushColor;
+        span.style.fontSize = (12 + Math.floor(Math.random()*6)) + "px";
+      } else{
+        const possible = flowers.filter(ff => selectedGenres.has(ff.genre));
+        if(possible.length === 0) continue;
+        const ff = possible[Math.floor(Math.random()*possible.length)];
+        span.textContent = ff.art;
+        span.style.fontSize = (10 + Math.floor(Math.random()*6)) + "px";
+        span.style.color = ff.color;
+      }
+      flowerSquare.appendChild(span);
+    }
+  }
+
+  buildShuffle(getSelectedGenres());
+
+  if(shuffledTracks.length > 0){
+    loadTrack(0);
+  } else{
+    player.pause(); player.src = "";
+    playPauseBtn.textContent = "►";
+    albumArt.style.visibility = "hidden";
+    trackInfoInGarden.style.display = "none";
+    if ('mediaSession' in navigator) navigator.mediaSession.metadata = null;
+  }
+}
+</script>
+
+
+
+</body>
+</html>
