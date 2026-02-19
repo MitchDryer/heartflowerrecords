@@ -316,7 +316,6 @@ function updateMediaSessionMetadata(track, artworkUrl){
 function setupMediaSessionHandlers(){
   if (!('mediaSession' in navigator)) return;
 
-  // Play / Pause
   navigator.mediaSession.setActionHandler('play', () => {
     player.play().catch(()=>{});
     playPauseBtn.textContent = "❙❙";
@@ -327,27 +326,23 @@ function setupMediaSessionHandlers(){
     playPauseBtn.textContent = "►";
   });
 
-  // Prev / Next
-  navigator.mediaSession.setActionHandler('previoustrack', () => {
-    if (current > 0){
-      loadTrack(current - 1);
-      player.play().catch(()=>{});
-      playPauseBtn.textContent = "❙❙";
-    }
-  });
-
+  // IMPORTANT: use your existing UI logic
   navigator.mediaSession.setActionHandler('nexttrack', () => {
     nextButton.click();
   });
 
-  // Optional: seek (nice on Android / some browsers)
+  navigator.mediaSession.setActionHandler('previoustrack', () => {
+    prevButton.click();
+  });
+
+  // Optional: seek support
   navigator.mediaSession.setActionHandler('seekbackward', (details) => {
-    const skip = (details && details.seekOffset) ? details.seekOffset : 10;
+    const skip = details?.seekOffset || 10;
     player.currentTime = Math.max(0, (player.currentTime || 0) - skip);
   });
 
   navigator.mediaSession.setActionHandler('seekforward', (details) => {
-    const skip = (details && details.seekOffset) ? details.seekOffset : 10;
+    const skip = details?.seekOffset || 10;
     const dur = player.duration || 0;
     player.currentTime = dur ? Math.min(dur, (player.currentTime || 0) + skip) : (player.currentTime || 0) + skip;
   });
@@ -359,16 +354,12 @@ function setupMediaSessionHandlers(){
   });
 }
 
-// keep lockscreen state accurate
 player.addEventListener("play", () => {
   if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
 
   // iOS/Safari sometimes updates metadata more reliably once playback starts
   const t = shuffledTracks[current];
-  if (t) {
-    // albumArt.src will already be set by loadTrack
-    updateMediaSessionMetadata(t, albumArt.src || "");
-  }
+  if (t) updateMediaSessionMetadata(t, albumArt.src || "");
 });
 
 player.addEventListener("pause", () => {
@@ -546,7 +537,7 @@ flowers.forEach(f => {
 
 function generateFlowers(){
   flowerSquare.querySelectorAll(".flower-item").forEach(el => el.remove());
-  flowerSquare.style.backgroundColor = "green";
+  flowerSquare.style.backgroundColor = "#78b159";
 
   if(selectedGenres.size === 0){
     player.pause(); player.src = "";
@@ -556,9 +547,7 @@ function generateFlowers(){
     shuffledTracks = [];
     current = 0;
 
-    // clear media session metadata (optional)
     if ('mediaSession' in navigator) navigator.mediaSession.metadata = null;
-
     return;
   }
 
@@ -573,7 +562,7 @@ function generateFlowers(){
 
   for(let r=0;r<rows;r++){
     for(let c=0;c<cols;c++){
-      if(Math.random() < 0.3) continue;
+      if(Math.random() < 0.12) continue; // denser garden
       const span = document.createElement("span");
       span.className = "flower-item";
       span.style.position = "absolute";
