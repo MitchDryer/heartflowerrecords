@@ -164,6 +164,14 @@ main.main_releases a {
   color: white;
 }
 
+.CHRSTN_box {
+  padding: 5px;
+  --bg-color: #6E5AFF;
+  --bg-color-light: #7A68FF; /* lighter dark green */
+  background-color: var(--bg-color);
+  color: white;
+}
+
 
 .cassette_img {
   display: block;

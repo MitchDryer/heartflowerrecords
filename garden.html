@@ -271,11 +271,12 @@ body{
 <br>
 <main class="main_garden">
 <b>key:<br></b>
-<span style="color:orange;">*</span> - singer/songwriter<br>
-<span style="color:skyblue;">.</span> - indie/pop<br>
-<span style="color:purple;">+</span> - experimental<br>
-<span style="color:white;">o</span> - ambient<br>
-<span style="color:red;">x</span> - jazz
+<span style="color:orange;">*</span> - physical<br>
+<span style="color:skyblue;">.</span> - formless<br>
+<span style="color:red;">+</span> - dense<br>
+<span style="color:white;">o</span> - light<br>
+<span style="color:purple;">x</span> - shadow<br>
+<span style="color:gold;">↑</span> - sun
 </main>
 
 <script>
@@ -391,17 +392,43 @@ function shuffle(array){
   return a;
 }
 
+/* ===========================
+   PAIR-AWARE GENRE FILTERING
+   =========================== */
+
+const GENRE_PAIRS = [
+  ["physical", "formless"],
+  ["dense", "light"],
+  ["shadow", "sun"],
+];
+
+function trackMatchesSelectedPairs(track, selectedSet){
+  const tags = (track.genre || []).map(normGenre);
+
+  for(const pair of GENRE_PAIRS){
+    const picked = pair.filter(g => selectedSet.has(g));
+
+    // 0 selected => no restriction for this pair
+    // 2 selected => no restriction for this pair
+    if(picked.length === 1){
+      // exactly one selected => track must contain it
+      if(!tags.includes(picked[0])) return false;
+    }
+  }
+  return true;
+}
+
 function buildShuffle(filterGenres){
   let tracksToShuffle = allTracks;
 
-  const wanted = (filterGenres && filterGenres.length > 0)
+  const wantedArr = (filterGenres && filterGenres.length > 0)
     ? filterGenres.map(normGenre)
     : getSelectedGenres();
 
-  if(wanted.length > 0){
-    tracksToShuffle = allTracks.filter(t =>
-      (t.genre || []).some(g => wanted.includes(normGenre(g)))
-    );
+  const wantedSet = new Set(wantedArr);
+
+  if(wantedSet.size > 0){
+    tracksToShuffle = allTracks.filter(t => trackMatchesSelectedPairs(t, wantedSet));
   }
 
   shuffledTracks = shuffle(tracksToShuffle);
@@ -504,11 +531,12 @@ timeline.addEventListener("input", () => {
    =========================== */
 
 const flowers = [
-  { art:" * ", genre:"Singer songwriter", color:"orange" },
-  { art:" . ", genre:"Indie pop", color:"skyblue" },
-  { art:" + ", genre:"Experimental", color:"purple" },
-  { art:" o ", genre:"Ambient", color:"white" },
-  { art:" x ", genre:"Jazz", color:"red" }
+  { art:" * ", genre:"physical", color:"orange" },
+  { art:" . ", genre:"formless", color:"skyblue" },
+  { art:" + ", genre:"dense", color:"red" },
+  { art:" o ", genre:"light", color:"white" },
+  { art:" x ", genre:"shadow", color:"purple" },
+  { art:" ↑ ", genre:"sun", color:"gold" }
 ];
 
 const flowerSquare = document.getElementById("flowerSquare");
