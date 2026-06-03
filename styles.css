@@ -95,8 +95,14 @@ main.main_releases a {
   background-color: #eec51bff;
 }
 
+.main_EPK {
+  background-color: white;
+  text-align: center;
+}
+
 .main_cassettebuy {
   background-color: #F7F5E0;
+
 }
 
 .main_media {
