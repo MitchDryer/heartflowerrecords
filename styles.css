@@ -178,6 +178,14 @@ main.main_releases a {
   color: white;
 }
 
+.FGIL_box {
+  padding: 5px;
+  --bg-color: #AD86FE;
+  --bg-color-light: #B595FE; /* lighter dark green */
+  background-color: var(--bg-color);
+  color: white;
+}
+
 
 .cassette_img {
   display: block;
