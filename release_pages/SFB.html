@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styles.css" />
-  <title>SHEEP! HIDE! POWER!</title>
-  <link rel="icon" href="./media/SHPart.jpg" />
+  <title>Solihhull Fireball</title>
+  <link rel="icon" href="https://media.heartflowerrecords.com/SFB/SFBallART.jpeg" />
   <style>
     a {
       color: black;
+    }
+
+    header {
+      color: black
     }
 
     html, body {
@@ -20,15 +24,15 @@
     }
 
     body {
-      background-color: #4baee2;
-      background-image: url("./media/SHPgrass.jpg");
+      background-color: #FE7145;
+      background-image: url("https://media.heartflowerrecords.com/SFB/SFBBG.jpeg");
       background-repeat: repeat-y;
-      background-position: center center;
+      background-position: top center;
       background-size: cover;
     }
 
     main {
-      background-color: #4baee2;
+      background-color: #FE7145;
     }
 
     #playerContainer {
@@ -170,35 +174,33 @@
 </head>
 <body>
   <header>
-    <h1>SHEEP! HIDE! POWER!</h1>
+    <h1>Solihull Fireball</h1>
     <h2>
       <span class="artist-hover">
-        <a href="https://www.instagram.com/mitchzachry/" target="_blank" rel="noopener noreferrer" class="artist-link">
-          supersoft
+        <a href="https://www.instagram.com/fivestringfin/" target="_blank" rel="noopener noreferrer" class="artist-link">
+          Finley Passmore
         </a>
         <div class="artist-info-box">
-          supersoft is Mitch's DIY-pop, production-focused sound lab.
+          Finley Passmore is one of Ōtautahi's hotest new banjo players with a passion for honest hard-working bluegrass
         </div>
       </span>
     </h2>
   </header>
-  <main style="background-color: #4baee2;">
+  <main>
     <div style="display: flex; justify-content: space-between;">
-      <a href="./SFB.html">&lt;&lt;&lt;</a>
+      <a href="./TB.html">&lt;&lt;&lt;</a>
       <a href="../albums.html">----</a>
-      <a href="./FOBS.html">&gt;&gt;&gt;</a>
+      <a href="./SHP.html">&gt;&gt;&gt;</a>
     </div>
 
     <div id="trackList">
-      1. Don't Be Scared It's Just Strange<br><br>
-      2. Dancing Sheep Bossa Nova<br><br>
-      3. Nobody Can Touch Ur Love<br><br>
-      4. A Discussion Among Sheep<br><br>
-      5. Lover Come Undone<br><br>
-      <i>- Bonus Tracks -</i><br><br>
-      6. Hiding (don't lay it on lightly)<br><br>
-      7. A Change of Heart<br><br>
-      8. Setting Sun<br><br>
+      1. The Core<br><br>
+      2. Seeing Things<br><br>
+      3. Fireball<br><br>
+      4. Leaving<br><br>
+
+
+
     </div>
 
     <div id="playerContainer">
@@ -217,16 +219,12 @@
     <audio id="smallPlayer" src="" preload="metadata"></audio>
 
     <script>
-      const tracks = [
-        { name: "Don't Be Scared It's Just Strange", url: "https://media.heartflowerrecords.com/SHP/01-just-strange.mp3" },
-        { name: "Dancing Sheep Bossa Nova", url: "https://media.heartflowerrecords.com/SHP/02-sheep-bossa.mp3" },
-        { name: "Nobody Can Touch Ur Love", url: "https://media.heartflowerrecords.com/SHP/03-nobody-touch.mp3" },
-        { name: "A Discussion Among Sheep", url: "https://media.heartflowerrecords.com/SHP/04-discussion-sheep.mp3" },
-        { name: "Lover Come Undone", url: "https://media.heartflowerrecords.com/SHP/05-lover-undone.mp3" },
-        { name: "Hiding (don't lay it on lightly)", url: "https://media.heartflowerrecords.com/SHP/06-devil-hiding.mp3" },
-        { name: "A Change of Heart", url: "https://media.heartflowerrecords.com/SHP/07-change-heart.mp3" },
-        { name: "Setting Sun", url: "https://media.heartflowerrecords.com/SHP/08-setting-sun.mp3" }
-      ];
+const tracks = [
+  { name: "The Core", url: "https://media.heartflowerrecords.com/SFB/01-core.mp3" },
+  { name: "Seeing Things", url: "https://media.heartflowerrecords.com/SFB/02-seeing.mp3" },
+  { name: "Fireball", url: "https://media.heartflowerrecords.com/SFB/03-fireball.mp3" },
+  { name: "Leaving", url: "https://media.heartflowerrecords.com/SFB/04-leaving.mp3" }
+];
 
       let current = 0;
       const player = document.getElementById("smallPlayer");
@@ -241,11 +239,7 @@
         { line: 0, trackIndex: 0 },
         { line: 1, trackIndex: 1 },
         { line: 2, trackIndex: 2 },
-        { line: 3, trackIndex: 3 },
-        { line: 4, trackIndex: 4 },
-        { line: 6, trackIndex: 5 },
-        { line: 7, trackIndex: 6 },
-        { line: 8, trackIndex: 7 }
+        { line: 3, trackIndex: 3 }
       ];
 
       let lines = trackListDiv.innerHTML.split("<br><br>");
@@ -371,7 +365,7 @@
             artist: 'Mitch Zachry',
             album: 'SHEEP! HIDE! POWER!',
             artwork: [
-              { src: 'https://media.heartflowerrecords.com/SHP/SHPart.jpg', sizes: '512x512', type: 'image/jpeg' }
+              { src: 'https://media.heartflowerrecords.com/AAW/AAWart.jpg', sizes: '512x512', type: 'image/jpeg' }
             ]
           });
         }
@@ -410,9 +404,8 @@
     </script>
 
     <p><i>
-      Heartflower Records is completely independent, and all its products are self-funded.<br />
-      If you appreciate the work, donations are gratefully accepted and can be made <br />
-      <a href="https://paypal.me/heartflowerrecords?country.x=NZ&locale.x=en_US" target="_blank"><u>here</u></a>
+      You can support this album by purchasing it on bandcamp
+      <a href="https://finleypassmore.bandcamp.com/album/solihull-fireball" target="_blank"><u>here</u></a>
     </i></p>
   </main>
 <div style="height: 40px; pointer-events: none;"></div>

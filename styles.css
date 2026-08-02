@@ -109,6 +109,14 @@ main.main_releases a {
   background-color: #e76726ff;
 }
 
+.SFB_box {
+  padding: 5px;
+  --bg-color: #FE7145;
+  --bg-color-light: #FE8463; /* lighter red */
+  background-color: var(--bg-color);
+  color: black;
+}
+
 .TB_box {
   padding: 5px;
   --bg-color: #FCFFFB;
