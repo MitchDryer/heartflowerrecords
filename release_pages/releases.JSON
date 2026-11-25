@@ -1,6 +1,6 @@
 [
   {
-    "name": "not the only love i know",
+    "name": "you're not the only love i know",
     "url": "https://media.heartflowerrecords.com/DBL/01-only-love.mp3",
     "album": "deep blue love i'm coming home to bed!",
     "artist": "Mitch Zachry",
@@ -28,7 +28,7 @@
     "genre": ["physical", "light", "sun"]
   },
   {
-    "name": "car song",
+    "name": "car song (i'm so in love with you)",
     "url": "https://media.heartflowerrecords.com/DBL/05-car-song.mp3",
     "album": "deep blue love i'm coming home to bed!",
     "artist": "Mitch Zachry",
@@ -37,79 +37,30 @@
   {
     "name": "The Core",
     "url": "https://media.heartflowerrecords.com/SFB/01-core.mp3",
-    "album": "SFB",
+    "album": "Solihull Fireball",
     "artist": "Finley Passmore",
     "genre": ["physical", "light", "sun"]
   },
   {
     "name": "Seeing Things",
     "url": "https://media.heartflowerrecords.com/SFB/02-seeing.mp3",
-    "album": "SFB",
+    "album": "Solihull Fireball",
     "artist": "Finley Passmore",
     "genre": ["physical", "light", "sun"]
   },
   {
     "name": "Fireball",
     "url": "https://media.heartflowerrecords.com/SFB/03-fireball.mp3",
-    "album": "SFB",
+    "album": "Solihull Fireball",
     "artist": "Finley Passmore",
     "genre": ["physical", "light", "sun"]
   },
   {
     "name": "Leaving",
     "url": "https://media.heartflowerrecords.com/SFB/04-leaving.mp3",
-    "album": "SFB",
+    "album": "Solihull Fireball",
     "artist": "Finley Passmore",
     "genre": ["physical", "light", "sun"]
-  },
-  {
-    "name": "Ocean Smiles",
-    "url": "https://media.heartflowerrecords.com/TB/01-ocean-smiles.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Golden Star",
-    "url": "https://media.heartflowerrecords.com/TB/02-golden-star.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Endless Orbits",
-    "url": "https://media.heartflowerrecords.com/TB/03-endless-orbits.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Lunar Snow",
-    "url": "https://media.heartflowerrecords.com/TB/04-lunar-snow.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Open Space",
-    "url": "https://media.heartflowerrecords.com/TB/05-open-space.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Objects Love",
-    "url": "https://media.heartflowerrecords.com/TB/06-objects-love.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
-  },
-  {
-    "name": "Understanding",
-    "url": "https://media.heartflowerrecords.com/TB/07-understanding.mp3",
-    "album": "TB",
-    "artist": "Space Foe",
-    "genre": ["Formless", "dense", "shadow"]
   },
   {
     "name": "Prelude to Unfurling",
